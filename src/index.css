@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .base-container {
+    @apply mx-auto mt-10 w-full max-w-[1200px];
+  }
+}
+
 @font-face {
   font-family: 'HSSanTokki20-Regular';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2')
@@ -32,4 +38,5 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  background-color: #f4f2ed;
 }
