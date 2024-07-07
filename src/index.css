@@ -8,6 +8,12 @@
   }
 }
 
+@layer base {
+  .font-outline-1 {
+    -webkit-text-stroke: 0.5px black;
+  }
+}
+
 @font-face {
   font-family: 'HSSanTokki20-Regular';
   src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2')
