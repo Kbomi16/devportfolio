@@ -1,5 +1,6 @@
 import greenBg from '../assets/imgs/greenBg.png.jpg'
 import Aboutme from '../components/Aboutme/Aboutme'
+import ArrowUp from '../components/ArrowUp'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import AOS from 'aos'
@@ -112,6 +113,9 @@ export default function HomePage() {
           omnis error voluptatem explicabo saepe ex adipisci dolor quasi aliquid
         </div>
       </section>
+      <div className="fixed bottom-4 right-4 float-end flex">
+        <ArrowUp />
+      </div>
       <Footer />
     </>
   )

@@ -72,7 +72,7 @@ export default function Aboutme() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="https://saber-lip-4c8.notion.site/KIM-BOMI-4b670b5efdcb4ab4be31664779248984?pvs=4">
+            <Link to="https://volcano-fisherman-e31.notion.site/KIM-BOMI-5c06bf169bf74a828aa979e685a669b8?pvs=4">
               NOTION
             </Link>
           </motion.div>
