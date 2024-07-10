@@ -5,12 +5,10 @@ import Footer from '../components/Footer'
 import Header from '../components/Header'
 import AOS from 'aos'
 import { useEffect } from 'react'
-import fumease from '../assets/imgs/projects/fumease.png'
-import gheupPay from '../assets/imgs/projects/gheupPay.png'
-import iKonnect from '../assets/imgs/projects/iKonnect.png'
 import Aboutme from '../components/Aboutme'
 import { useNavigate } from 'react-router-dom'
 import { PAGES } from '../constants/paths'
+import { projectData } from '../constants/projectData'
 
 export default function HomePage() {
   useEffect(() => {
@@ -77,24 +75,15 @@ export default function HomePage() {
               </p>
             </div>
             <div className="flex flex-col gap-6 md:grid md:grid-cols-3">
-              <Card
-                src={gheupPay}
-                title="급PAY"
-                description="급하게 일손이 필요한 자리에 더 많은 시급을 제공해서 아르바이트생을 구할 수 있는 서비스"
-                onClick={() => handleCardClick(1)}
-              />
-              <Card
-                src={iKonnect}
-                title="i-Konnect"
-                description="추억의 아이돌 조공 후원 서비스"
-                onClick={() => handleCardClick(2)}
-              />
-              <Card
-                src={fumease}
-                title="Fumease"
-                description="AI 기반 사용자 맞춤 향수 추천 쇼핑몰 웹사이트"
-                onClick={() => handleCardClick(3)}
-              />
+              {projectData.map((project) => (
+                <Card
+                  key={project.id}
+                  src={project.thumnail}
+                  title={project.name}
+                  description={project.description}
+                  onClick={() => handleCardClick(project.id)}
+                />
+              ))}
             </div>
           </section>
         </div>
