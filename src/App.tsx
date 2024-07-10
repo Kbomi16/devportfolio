@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
-import './App.css'
 import HomePage from './pages/HomePage'
 import { PAGES } from './constants/paths'
 
