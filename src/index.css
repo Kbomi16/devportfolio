@@ -4,7 +4,7 @@
 
 @layer utilities {
   .base-container {
-    @apply mx-auto mt-1 w-full max-w-[1200px] px-12 md:mt-10;
+    @apply mx-auto w-full max-w-[1200px] px-12;
   }
 }
 

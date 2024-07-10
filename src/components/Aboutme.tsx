@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
-import bomi from '../../assets/imgs/bomi.png'
+import bomi from '../assets/imgs/bomi.png'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 

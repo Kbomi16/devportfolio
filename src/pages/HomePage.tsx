@@ -1,7 +1,6 @@
 import greenBg from '../assets/imgs/greenBg.png.jpg'
-import Aboutme from '../components/Aboutme/Aboutme'
 import ArrowUp from '../components/ArrowUp'
-import Card from '../components/Card'
+import Card from '../components/projects/Card'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import AOS from 'aos'
@@ -9,6 +8,7 @@ import { useEffect } from 'react'
 import fumease from '../assets/imgs/projects/fumease.png'
 import gheupPay from '../assets/imgs/projects/gheupPay.png'
 import iKonnect from '../assets/imgs/projects/iKonnect.png'
+import Aboutme from '../components/Aboutme'
 
 export default function HomePage() {
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function HomePage() {
         <div className="base-container mb-10 bg-primary">
           {/* Aboutme */}
           <section>
-            <div className="flex">
+            <div className="flex md:py-8">
               <p className="font-outline-1 relative left-0 top-0 font-title text-[3.5rem] font-bold text-transparent">
                 Aboutme.
               </p>
@@ -60,7 +60,7 @@ export default function HomePage() {
           </section>
           {/* Projects */}
           <section>
-            <div className="flex pb-4">
+            <div className="flex pb-4 md:py-8">
               <p className="font-outline-1 relative left-0 top-0 font-title text-[3.5rem] font-bold text-transparent">
                 Projects.
               </p>
