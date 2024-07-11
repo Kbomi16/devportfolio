@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import HomePage from './pages/HomePage'
-import { PAGES } from './constants/paths'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import { useEffect, useState } from 'react'
 import Loading from './pages/LoadingPage'
+import { PATHS } from './constants/PATHS'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
@@ -25,9 +25,9 @@ function App() {
         <Router>
           <AnimatePresence mode="wait">
             <Routes>
-              <Route path={PAGES.home.link} element={<HomePage />} />
+              <Route path={PATHS.home.link} element={<HomePage />} />
               <Route
-                path={`${PAGES.project.link}/:id`}
+                path={`${PATHS.project.link}/:id`}
                 element={<ProjectDetailPage />}
               />
             </Routes>

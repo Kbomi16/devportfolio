@@ -3,11 +3,11 @@ import greenBg from '../assets/imgs/greenBg.png.jpg'
 import ArrowUp from '../components/ArrowUp'
 import Footer from '../components/Footer'
 import { useParams } from 'react-router-dom'
-import { projectData } from '../constants/projectData'
+import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
 
 export default function ProjectDetailPage() {
   const { id } = useParams()
-  const project = projectData.find((p) => p.id === Number(id))
+  const project = PROJECTS_DATA.find((p) => p.id === Number(id))
 
   if (!project) return null
 

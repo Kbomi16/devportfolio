@@ -1,20 +1,8 @@
 import { motion } from 'framer-motion'
 import Typewriter from 'typewriter-effect'
+import { PATH_VARIANTS_10 } from '../constants/PATH_VARIANTS'
 
 export default function LoadingPage() {
-  const pathVariants = {
-    hidden: {
-      pathLength: 0,
-    },
-    visible: {
-      pathLength: 1,
-      transition: {
-        duration: 10,
-        ease: 'easeInOut',
-      },
-    },
-  }
-
   return (
     <div className="m-auto flex h-full w-full flex-col items-center justify-center md:mt-20">
       <div>
@@ -30,7 +18,7 @@ export default function LoadingPage() {
             fill="none"
             stroke="#000000"
             strokeWidth="1"
-            variants={pathVariants}
+            variants={PATH_VARIANTS_10}
             initial="hidden"
             animate="visible"
           />

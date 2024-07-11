@@ -2,7 +2,7 @@ import gheupPayImg from '../assets/imgs/projects/gheupPay.png'
 import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
 
-export const projectData = [
+export const PROJECTS_DATA = [
   {
     id: 1,
     name: '급PAY',

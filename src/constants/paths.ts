@@ -1,4 +1,4 @@
-export const PAGES = {
+export const PATHS = {
   home: {
     link: '/',
   },
