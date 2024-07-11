@@ -31,4 +31,13 @@ export const projectData = [
     deploy: 'gheup-pay-project.vercel.app/',
     thumnail: fumeaseImg,
   },
+  {
+    id: 4,
+    name: 'devportfolio',
+    description: '포트폴리오',
+    github: 'https://github.com/902z/gheupPAY',
+    notion: '',
+    deploy: 'https://kimbomi-devportfolio.netlify.app/',
+    thumnail: fumeaseImg,
+  },
 ]
