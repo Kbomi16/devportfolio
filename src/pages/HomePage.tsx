@@ -1,9 +1,9 @@
 import greenBg from '../assets/imgs/greenBg.png.jpg'
-import ArrowUp from '../components/ArrowUp'
 import Card from '../components/projects/Card'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import AOS from 'aos'
+import 'aos/dist/aos.css'
 import { useEffect } from 'react'
 import Aboutme from '../components/Aboutme'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +13,7 @@ import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
 
 export default function HomePage() {
   useEffect(() => {
-    AOS.init({ duration: 1000 })
+    AOS.init({ duration: 800 })
   }, [])
 
   const navigate = useNavigate()
@@ -38,7 +38,12 @@ export default function HomePage() {
         <div className="base-container mb-10 bg-primary">
           {/* Aboutme */}
           <section>
-            <div className="flex md:py-8">
+            <div
+              className="flex py-4 md:py-8"
+              data-aos="fade-right"
+              data-aos-offset="300"
+              data-aos-easing="ease-in-sine"
+            >
               <p className="font-outline-1 relative left-0 top-0 font-title text-[3.5rem] font-bold text-transparent">
                 Aboutme.
               </p>
@@ -46,13 +51,22 @@ export default function HomePage() {
                 Aboutme.
               </p>
             </div>
-            <div className="mb-8 rounded-xl border-4 border-gray-20 bg-white py-4 shadow-md md:py-0 md:pt-4">
+            <div
+              className="mb-8 rounded-xl border-4 border-gray-20 bg-white py-4 shadow-md md:py-0 md:pt-4"
+              data-aos="fade-up"
+              data-aos-anchor-placement="bottom-bottom"
+            >
               <Aboutme />
             </div>
           </section>
           {/* Projects */}
           <section>
-            <div className="flex pb-4 md:py-8">
+            <div
+              className="flex py-4 pb-4 md:py-8"
+              data-aos="fade-right"
+              data-aos-offset="300"
+              data-aos-easing="ease-in-sine"
+            >
               <p className="font-outline-1 relative left-0 top-0 font-title text-[3.5rem] font-bold text-transparent">
                 Projects.
               </p>
@@ -72,9 +86,6 @@ export default function HomePage() {
               ))}
             </div>
           </section>
-        </div>
-        <div className="fixed bottom-4 right-4 float-end flex">
-          <ArrowUp />
         </div>
       </div>
       <Footer />

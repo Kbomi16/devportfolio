@@ -3,9 +3,16 @@ import { PATH_VARIANTS_3 } from '../constants/PATH_VARIANTS'
 import {
   TEXT_UNDERLINE_VARIANTS,
   TEXT_VARIANTS,
-} from '../constants/TEXT_VARIANTS copy'
+} from '../constants/TEXT_VARIANTS'
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+import { useEffect } from 'react'
 
 export default function Introduce() {
+  useEffect(() => {
+    AOS.init({ duration: 800 })
+  }, [])
+
   return (
     <div className="p-5 md:p-20">
       <svg
@@ -104,15 +111,17 @@ export default function Introduce() {
         </h2>
       </motion.div>
       <br />
-      <h3 className="font-bold">Introduce.</h3>
-      <p>
-        안녕하세요! 일상생활 속 사용자가 느낄 수 있는 불편을 해소하고자 하는
-        프론트엔드 신입 개발자 김보미입니다. 사용자 입자에서 느낀 불편함을 그냥
-        넘기지 않고 깊이 이해하는 습관을 통해 프로젝트 아이디어를 도출하고
-        있습니다. 웹 기술을 활용하여 직관적이고 미적인 사용자 경험을 만들어
-        내도록 노력하고 있습니다. 뛰어난 문제 해결 능력과 협업 능력을 갖추어
-        프로젝트를 만들고 있습니다.
-      </p>
+      <div data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+        <h3 className="font-bold">Introduce.</h3>
+        <p>
+          안녕하세요! 일상생활 속 사용자가 느낄 수 있는 불편을 해소하고자 하는
+          프론트엔드 신입 개발자 김보미입니다. 사용자 입자에서 느낀 불편함을
+          그냥 넘기지 않고 깊이 이해하는 습관을 통해 프로젝트 아이디어를
+          도출하고 있습니다. 웹 기술을 활용하여 직관적이고 미적인 사용자 경험을
+          만들어 내도록 노력하고 있습니다. 뛰어난 문제 해결 능력과 협업 능력을
+          갖추어 프로젝트를 만들고 있습니다.
+        </p>
+      </div>
     </div>
   )
 }
