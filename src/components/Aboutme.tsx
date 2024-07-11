@@ -65,14 +65,19 @@ export default function Aboutme() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="https://github.com/Kbomi16">GITHUB</Link>
+            <Link to="https://github.com/Kbomi16" target="_blank">
+              GITHUB
+            </Link>
           </motion.div>
           <motion.div
             className="w-60 cursor-pointer rounded-3xl bg-primary py-2 text-center font-bold shadow-lg hover:border-x-2 hover:border-green-10 md:py-3 md:text-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="https://volcano-fisherman-e31.notion.site/KIM-BOMI-5c06bf169bf74a828aa979e685a669b8?pvs=4">
+            <Link
+              to="https://volcano-fisherman-e31.notion.site/KIM-BOMI-5c06bf169bf74a828aa979e685a669b8?pvs=4"
+              target="_blank"
+            >
               NOTION
             </Link>
           </motion.div>
@@ -81,7 +86,9 @@ export default function Aboutme() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="https://bori-note.tistory.com/">BLOG</Link>
+            <Link to="https://bori-note.tistory.com/" target="_blank">
+              BLOG
+            </Link>
           </motion.div>
         </div>
       </div>

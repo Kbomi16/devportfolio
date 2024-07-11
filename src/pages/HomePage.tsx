@@ -35,7 +35,7 @@ export default function HomePage() {
           <Introduce />
         </div>
 
-        <div className="base-container mb-10 bg-primary">
+        <div className="base-container bg-primary pb-10">
           {/* Aboutme */}
           <section>
             <div
