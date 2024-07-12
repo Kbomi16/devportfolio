@@ -2,6 +2,7 @@ import gheupPayImg from '../assets/imgs/projects/gheupPay.png'
 import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
+import gheupPayFile from '../assets/files/gheupPay.pdf'
 
 export const PROJECTS_DATA = [
   {
@@ -17,6 +18,8 @@ export const PROJECTS_DATA = [
       'https://marbled-pony-2be.notion.site/902z-5662a254ddaa44e9a5446bb315848cc1?pvs=4',
     deploy: 'https://gheup-pay-project.vercel.app/',
     thumnail: gheupPayImg,
+    pdfFile: gheupPayFile,
+    pdfFileName: '급PAY',
   },
   {
     id: 2,

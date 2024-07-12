@@ -9,12 +9,17 @@ import notionImg from '../assets/icons/notion.png'
 import { motion } from 'framer-motion'
 import deploy from '../assets/icons/deploy.svg'
 import download from '../assets/icons/download.svg'
+import { saveAs } from 'file-saver'
 
 export default function ProjectDetailPage() {
   const { id } = useParams()
   const project = PROJECTS_DATA.find((p) => p.id === Number(id))
 
   if (!project) return null
+
+  const handleDownload = () => {
+    if (project.pdfFile) saveAs(project.pdfFileName)
+  }
 
   return (
     <>
@@ -76,6 +81,7 @@ export default function ProjectDetailPage() {
                     className="flex w-[8rem] items-center justify-center gap-1 rounded-full border bg-white py-1 shadow-md transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={handleDownload}
                   >
                     PDF <img src={download} alt="" className="h-6 w-6" />
                   </motion.button>
