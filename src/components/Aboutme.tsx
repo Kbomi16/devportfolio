@@ -15,62 +15,67 @@ export default function Aboutme() {
           }}
           slidesPerView={'auto'}
           loop={true}
-          autoplay={{ delay: 1000, disableOnInteraction: false }}
+          autoplay={{ delay: 1200, disableOnInteraction: false }}
           modules={[Autoplay]}
         >
           <SwiperSlide>
-            <p className="font-title text-[2.5rem] font-bold text-green-20">
+            <p className="font-title text-[2.5rem] font-bold text-white">
               HTML+CSS
             </p>
           </SwiperSlide>
           <SwiperSlide>
-            <p className="font-title text-[2.5rem] font-bold text-green-20">
+            <p className="font-title text-[2.5rem] font-bold text-white">
               JAVASCRIPT
             </p>
           </SwiperSlide>
           <SwiperSlide>
-            <p className="font-title text-[2.5rem] font-bold text-green-20">
+            <p className="font-title text-[2.5rem] font-bold text-white">
               TYPESCRIPT
             </p>
           </SwiperSlide>
           <SwiperSlide>
-            <p className="font-title text-[2.5rem] font-bold text-green-20">
+            <p className="font-title text-[2.5rem] font-bold text-white">
               REACT
             </p>
           </SwiperSlide>
           <SwiperSlide>
-            <p className="font-title text-[2.5rem] font-bold text-green-20">
+            <p className="font-title text-[2.5rem] font-bold text-white">
               NEXT.JS
             </p>
           </SwiperSlide>
           <SwiperSlide>
-            <p className="font-title text-[2.5rem] font-bold text-green-20">
+            <p className="font-title text-[2.5rem] font-bold text-white">
               GIT&GITHUB
             </p>
           </SwiperSlide>
           <SwiperSlide>
-            <p className="font-title text-[2.5rem] font-bold text-green-20">
+            <p className="font-title text-[2.5rem] font-bold text-white">
               NOTION
             </p>
           </SwiperSlide>
         </Swiper>
       </div>
-      <div className="flex flex-col justify-between px-8 md:flex-row md:justify-center md:gap-20">
-        <div>
-          <img src={bomi} alt="" />
+      <div className="flex flex-col justify-between gap-4 px-8 py-10 md:flex-row md:justify-center md:gap-20">
+        <div className="w-80">
+          <img
+            src={bomi}
+            alt=""
+            className="shadow-x-md rounded-full border-2 border-red-300 p-4 shadow-red-200"
+          />
         </div>
         <div className="flex flex-col items-center justify-center gap-4 md:gap-8">
           <motion.div
-            className="w-60 cursor-pointer rounded-3xl bg-primary py-2 text-center font-bold shadow-lg hover:border-x-2 hover:border-green-10 md:py-3 md:text-xl"
+            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg hover:border-x-2 md:py-3 md:text-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <Link to="https://github.com/Kbomi16" target="_blank">
               GITHUB
             </Link>
+            <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
           </motion.div>
           <motion.div
-            className="w-60 cursor-pointer rounded-3xl bg-primary py-2 text-center font-bold shadow-lg hover:border-x-2 hover:border-green-10 md:py-3 md:text-xl"
+            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg hover:border-x-2 md:py-3 md:text-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -80,15 +85,17 @@ export default function Aboutme() {
             >
               NOTION
             </Link>
+            <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
           </motion.div>
           <motion.div
-            className="w-60 cursor-pointer rounded-3xl bg-primary py-2 text-center font-bold shadow-lg hover:border-x-2 hover:border-green-10 md:py-3 md:text-xl"
+            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg hover:border-x-2 md:py-3 md:text-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <Link to="https://bori-note.tistory.com/" target="_blank">
               BLOG
             </Link>
+            <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
           </motion.div>
         </div>
       </div>

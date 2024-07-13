@@ -1,11 +1,11 @@
-import bg from '../assets/imgs/bg.png'
+import bgFooter from '../assets/imgs/bgFooter.png'
 import ArrowUp from './ArrowUp'
 
 export default function Footer() {
   return (
     <footer
-      className="mt-auto w-full bg-contain py-4 text-center text-sm font-bold"
-      style={{ backgroundImage: `url(${bg})` }}
+      className="mt-auto w-full bg-cover bg-center bg-no-repeat py-4 text-center text-sm text-white"
+      style={{ backgroundImage: `url(${bgFooter})` }}
     >
       <div className="fixed bottom-4 right-4 float-end flex">
         <ArrowUp />

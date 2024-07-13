@@ -18,7 +18,7 @@ export default function ArrowUp() {
       <img
         src={arrow}
         alt=""
-        className="h-12 w-12 rotate-180 cursor-pointer rounded-full border-2 border-black p-1"
+        className="h-12 w-12 rotate-180 cursor-pointer rounded-full border-2 border-white p-1"
       />
     </motion.div>
   )

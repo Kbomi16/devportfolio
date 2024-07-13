@@ -10,10 +10,10 @@
 
 @layer base {
   .font-outline-1 {
-    -webkit-text-stroke: 1px black;
+    -webkit-text-stroke: 1px white;
   }
   .font-outline-2 {
-    -webkit-text-stroke: 5px black;
+    -webkit-text-stroke: 5px white;
   }
 }
 
@@ -35,7 +35,6 @@
 * {
   box-sizing: border-box;
   font-family: 'SCDream4';
-  color: var(--gray700);
 }
 
 html {
@@ -47,5 +46,5 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: #f4f2ed;
+  background-color: #000;
 }

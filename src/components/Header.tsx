@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 const scrollStyle = {
-  base: 'bg-transparent text-black',
-  scroll: 'bg-black text-white',
+  base: 'bg-transparent',
+  scroll: 'bg-black',
 }
 
 export default function Header() {
@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 w-full py-1 transition-all duration-500 ${headerScrollValid} z-50`}
+      className={`fixed top-0 w-full py-1 text-white transition-all duration-500 ${headerScrollValid} z-50`}
     >
       <nav className="flex justify-between font-bold">
         <p>2024</p>

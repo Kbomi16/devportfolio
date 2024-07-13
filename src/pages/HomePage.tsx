@@ -1,4 +1,4 @@
-import greenBg from '../assets/imgs/greenBg.png.jpg'
+import bgBlack from '../assets/imgs/bgBlack.png'
 import Card from '../components/projects/Card'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
@@ -26,16 +26,16 @@ export default function HomePage() {
     <>
       <div
         style={{
-          backgroundImage: `url(${greenBg})`,
+          backgroundImage: `url(${bgBlack})`,
         }}
-        className="min-h-fit bg-cover bg-center bg-no-repeat pt-12"
+        className="min-h-fit bg-cover bg-center bg-no-repeat pt-12 text-white"
       >
         <Header />
-        <div className="base-container rounded-t-xl bg-primary p-4 opacity-85">
+        <div className="mt-10">
           <Introduce />
         </div>
 
-        <div className="base-container bg-primary pb-10">
+        <div className="base-container pb-10 md:my-20">
           {/* Aboutme */}
           <section>
             <div
@@ -47,12 +47,12 @@ export default function HomePage() {
               <p className="font-outline-1 relative left-0 top-0 font-title text-[3.5rem] font-bold text-transparent">
                 Aboutme.
               </p>
-              <p className="-z-5 relative -left-[15.3rem] top-1 font-title text-[3.5rem] font-bold text-green-20 text-opacity-30">
+              <p className="-z-5 relative -left-[15.3rem] top-1 font-title text-[3.5rem] font-bold text-red-200 text-opacity-40">
                 Aboutme.
               </p>
             </div>
             <div
-              className="mb-8 rounded-xl border-4 border-gray-20 bg-white py-4 shadow-md md:py-0 md:pt-4"
+              className="mb-8 rounded-xl border-2 border-gray-20 bg-black py-4 shadow-md md:py-0 md:pt-4"
               data-aos="fade-up"
               data-aos-anchor-placement="bottom-bottom"
             >
@@ -60,7 +60,7 @@ export default function HomePage() {
             </div>
           </section>
           {/* Projects */}
-          <section>
+          <section className="md:my-20">
             <div
               className="flex py-4 pb-4 md:py-8"
               data-aos="fade-right"
@@ -70,11 +70,11 @@ export default function HomePage() {
               <p className="font-outline-1 relative left-0 top-0 font-title text-[3.5rem] font-bold text-transparent">
                 Projects.
               </p>
-              <p className="-z-5 relative -left-[14rem] top-1 font-title text-[3.5rem] font-bold text-green-20 text-opacity-30">
+              <p className="-z-5 relative -left-[14rem] top-1 font-title text-[3.5rem] font-bold text-red-200 text-opacity-40">
                 Projects.
               </p>
             </div>
-            <div className="flex flex-col gap-6 md:grid md:grid-cols-3">
+            <div className="flex flex-col gap-10">
               {PROJECTS_DATA.map((project) => (
                 <Card
                   key={project.id}
