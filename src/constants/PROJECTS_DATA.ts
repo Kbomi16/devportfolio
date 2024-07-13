@@ -3,6 +3,7 @@ import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
 import gheupPayFile from '../assets/files/gheupPay.pdf'
+import iKonnectFile from '../assets/files/iKonnect.pdf'
 
 export const PROJECTS_DATA = [
   {
@@ -19,7 +20,6 @@ export const PROJECTS_DATA = [
     deploy: 'https://gheup-pay-project.vercel.app/',
     thumnail: gheupPayImg,
     pdfFile: gheupPayFile,
-    pdfFileName: '급PAY',
   },
   {
     id: 2,
@@ -33,6 +33,7 @@ export const PROJECTS_DATA = [
       'https://saber-lip-4c8.notion.site/15-i-Konnect-5afb70e2636e48c1a83f2c9790dacb6c?pvs=4',
     deploy: 'https://i-konnect.netlify.app',
     thumnail: iKonnectImg,
+    pdfFile: iKonnectFile,
   },
   {
     id: 3,
@@ -44,7 +45,6 @@ export const PROJECTS_DATA = [
     github: 'https://github.com/902z/gheupPAY',
     notion:
       'https://saber-lip-4c8.notion.site/Fumease-76d9a29fa5344fdca68c434ee19d2fc6?pvs=4',
-    deploy: '',
     thumnail: fumeaseImg,
   },
   {
