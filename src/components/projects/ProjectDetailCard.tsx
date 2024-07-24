@@ -10,7 +10,7 @@ type ProjectDetailCard = {
   id: number
   name: string
   description: string
-  function: string
+  function?: string
   stack: string
   contribution: string
   github: string
