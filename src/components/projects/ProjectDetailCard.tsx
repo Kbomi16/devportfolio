@@ -68,7 +68,7 @@ export default function ProjectDetailCard({ project }: ProjectDetailCardProps) {
             {project.deploy && (
               <Link to={project.deploy} target="_blank">
                 <motion.button
-                  className="flex w-[8rem] items-center justify-center gap-1 rounded-full border bg-white py-1 shadow-md transition-all"
+                  className="flex w-[8rem] items-center justify-center gap-1 rounded-full border bg-white py-1 text-black shadow-md transition-all"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -78,7 +78,7 @@ export default function ProjectDetailCard({ project }: ProjectDetailCardProps) {
             )}
             {project.pdfFile && (
               <motion.button
-                className="flex w-[8rem] items-center justify-center gap-1 rounded-full border bg-white py-1 shadow-md transition-all"
+                className="flex w-[8rem] items-center justify-center gap-1 rounded-full border bg-white py-1 text-black shadow-md transition-all"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleDownload}

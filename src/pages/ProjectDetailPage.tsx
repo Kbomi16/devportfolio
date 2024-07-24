@@ -1,5 +1,5 @@
 import Header from '../components/Header'
-import greenBg from '../assets/imgs/greenBg.png.jpg'
+import bgBlack from '../assets/imgs/bgBlack.png'
 import ArrowUp from '../components/ArrowUp'
 import Footer from '../components/Footer'
 import { useParams } from 'react-router-dom'
@@ -17,39 +17,42 @@ export default function ProjectDetailPage() {
     <>
       <div
         style={{
-          backgroundImage: `url(${greenBg})`,
+          backgroundImage: `url(${bgBlack})`,
         }}
-        className="min-h-fit bg-cover bg-center bg-no-repeat pt-12"
+        className="min-h-fit bg-cover bg-center bg-no-repeat pt-12 text-white"
       >
         <Header />
-        <div className="base-container bg-primary pb-10">
+        <div className="base-container pb-10 md:my-20">
           <ProjectDetailCard project={project} />
           <hr className="my-4 h-0.5 border bg-black md:my-6" />
-          <div>
-            <h2 className="relative inline-block font-title text-2xl">
-              💡주제
-            </h2>
-            <p>{project.description}</p>
-          </div>
-          <div>
-            <h2 className="relative inline-block font-title text-2xl">
-              ✨주요 기능
-            </h2>
-            <p>{project.description}</p>
-          </div>
-          <div>
-            <h2 className="relative inline-block font-title text-2xl">
-              🛠️기술 스택
-            </h2>
-            <p>{project.description}</p>
-          </div>
-          <div>
-            <h2 className="relative inline-block font-title text-2xl">
-              👧🏻기여도
-            </h2>
-            <p>{project.description}</p>
+          <div className="flex flex-col gap-8">
+            <div>
+              <h2 className="relative inline-block font-title text-2xl">
+                💡주제
+              </h2>
+              <p>{project.description}</p>
+            </div>
+            <div>
+              <h2 className="relative inline-block font-title text-2xl">
+                ✨주요 기능
+              </h2>
+              <p>{project.description}</p>
+            </div>
+            <div>
+              <h2 className="relative inline-block font-title text-2xl">
+                🛠️기술 스택
+              </h2>
+              <p>{project.description}</p>
+            </div>
+            <div>
+              <h2 className="relative inline-block font-title text-2xl">
+                👧🏻기여도
+              </h2>
+              <p>{project.description}</p>
+            </div>
           </div>
         </div>
+
         <div className="fixed bottom-4 right-4 float-end flex">
           <ArrowUp />
         </div>

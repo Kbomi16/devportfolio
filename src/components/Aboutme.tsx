@@ -65,7 +65,7 @@ export default function Aboutme() {
         </div>
         <div className="flex flex-col items-center justify-center gap-4 md:gap-8">
           <motion.div
-            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg hover:border-x-2 md:py-3 md:text-xl"
+            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -75,7 +75,7 @@ export default function Aboutme() {
             <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
           </motion.div>
           <motion.div
-            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg hover:border-x-2 md:py-3 md:text-xl"
+            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -88,7 +88,7 @@ export default function Aboutme() {
             <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
           </motion.div>
           <motion.div
-            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg hover:border-x-2 md:py-3 md:text-xl"
+            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
