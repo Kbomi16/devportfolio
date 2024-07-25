@@ -8,8 +8,8 @@ import { useEffect } from 'react'
 import Aboutme from '../components/Aboutme'
 import { useNavigate } from 'react-router-dom'
 import Introduce from '../components/Introduce'
-import { PATHS } from '../constants/PATHS'
 import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
+import { PATHS } from '../constants/PATHS'
 
 export default function HomePage() {
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function HomePage() {
               </p>
             </div>
             <div
-              className="mb-8 rounded-xl border-2 border-gray-20 bg-black py-4 shadow-md md:py-0 md:pt-4"
+              className="border-gray-20 mb-8 rounded-xl border-2 bg-black py-4 shadow-md md:py-0 md:pt-4"
               data-aos="fade-up"
               data-aos-anchor-placement="bottom-bottom"
             >

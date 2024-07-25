@@ -4,6 +4,9 @@ export const PATHS = {
   },
   project: {
     link: '/project',
+    id: {
+      link: '/project/:id',
+    },
   },
   notFound: {
     link: '*',
