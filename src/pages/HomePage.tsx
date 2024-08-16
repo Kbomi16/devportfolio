@@ -9,7 +9,6 @@ import Aboutme from '../components/Aboutme'
 import { useNavigate } from 'react-router-dom'
 import Introduce from '../components/Introduce'
 import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
-import { PATHS } from '../constants/PATHS'
 
 export default function HomePage() {
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function HomePage() {
   const navigate = useNavigate()
 
   const handleCardClick = (id: number) => {
-    navigate(`${PATHS.project.link}/${id}`)
+    navigate(`project/${id}`)
   }
 
   return (
