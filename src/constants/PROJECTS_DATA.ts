@@ -188,23 +188,46 @@ export const PROJECTS_DATA = [
     name: 'trip.zip',
     description: '체험 상품을 보고 간단하게 예약할 수 있는 서비스',
     period: '2024.07.25 ~ 2024.09.02',
-    function: ``,
+    function: `
+       1️⃣ (소셜) 로그인/회원가입
+2️⃣ 검색과 카테고리를 통한 체험 필터링
+3️⃣ 체험 예약하기 + 후기 작성하기
+4️⃣ 체험 등록 및 수정하기
+5️⃣ 내 체험 예약 현황 달력으로 한 눈에 보기
+6️⃣ 비밀번호, 닉네임, 프로필 이미지 수정하기
+    `,
     stack: `
     - Next.js Page Router
     - React + Typescript
     - pnpm
     - tailwind
     - axios
-    - eslint, prettierm husky
+    - eslint, prettier, husky
     - vercel
     - 제공된 API
     `,
     contribution: `
+    ✅ 프로젝트 전체적인 일정 관리 (노션, JIRA, Github)
+
+    ✅ (소셜) 회원가입/로그인 구현
     
+    ✅ input 공통 컴포넌트
+
+    ✅ 마이페이지
+    - 내 정보
+    - 내 정보 수정 (닉네임, 프로필, 비밀번호 변경)
+    - 내 예약 내역
+
+    ✅ axios 및 api 설정
+
+    ✅ 다크 모드 구현
+    
+
     `,
     github: 'https://github.com/joraeng-e/trip.zip',
-    notion: '',
-    deploy: '',
+    notion:
+      'https://magical-almanac-100.notion.site/8-6da9512d695c44b2a6dd1164441c033a?pvs=4',
+    deploy: 'https://trip-zip.vercel.app/',
     thumnail: gheupPayImg,
     pdfFile: gheupPayFile,
   },
