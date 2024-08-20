@@ -6,6 +6,9 @@
   .base-container {
     @apply mx-auto w-full max-w-[1200px] px-12;
   }
+  .no-opacity {
+    opacity: 1 !important;
+  }
 }
 
 @layer base {

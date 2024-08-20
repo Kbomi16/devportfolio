@@ -1,93 +1,52 @@
 import { motion } from 'framer-motion'
-import { PATH_VARIANTS_3 } from '../constants/PATH_VARIANTS'
 import {
   TEXT_UNDERLINE_VARIANTS,
   TEXT_VARIANTS,
 } from '../constants/TEXT_VARIANTS'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import UnderlineAnimation from './UnderlineAnimation'
+import Light from './Light'
 
 export default function Introduce() {
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null)
+
+  const handleMouseEnter = (index: number) => {
+    setHoverIndex(index)
+  }
+
+  const handleMouseLeave = () => {
+    setHoverIndex(null)
+  }
+
   useEffect(() => {
     AOS.init({ duration: 800 })
   }, [])
 
+  const projects = [
+    {
+      name: '질문 선택을 통한 메뉴 추천 앱',
+      pdfUrl: 'src/assets/files/todayMenu.pdf',
+      textColor: 'text-yellow-400',
+    },
+    {
+      name: '토이 프로젝트 팀원 매칭 웹사이트',
+      pdfUrl: 'src/assets/files/toytie.pdf',
+      textColor: 'text-amber-700',
+    },
+    {
+      name: 'AI를 활용한 향수 쇼핑 웹사이트',
+      pdfUrl: 'src/assets/files/fumease.pdf',
+      textColor: 'text-black',
+    },
+  ]
+
   return (
-    <div className="bg-white p-4 opacity-50">
+    <div className="max-w-1200 bg-white p-4 opacity-60">
       <div className="base-container p-5 text-black md:p-20">
-        <svg
-          width="100px"
-          height="100px"
-          viewBox="0 0 48 48"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <style>
-              {`
-            .a {
-              fill: none;
-              stroke: #000000;
-              stroke-linecap: round;
-              stroke-linejoin: round;
-            }
-          `}
-            </style>
-          </defs>
-          <motion.path
-            className="a"
-            d="M37.2133,17.7292A13.2133,13.2133,0,1,0,16.5058,28.5958a4.0061,4.0061,0,0,1,1.6648,3.315v4.7315H29.8294V31.907A4.0511,4.0511,0,0,1,31.532,28.57,13.1741,13.1741,0,0,0,37.2133,17.7292Z"
-            variants={PATH_VARIANTS_3}
-            initial="hidden"
-            animate="visible"
-          />
-          <motion.line
-            className="a"
-            x1="19.4437"
-            y1="38.9282"
-            x2="28.5563"
-            y2="38.9282"
-            variants={PATH_VARIANTS_3}
-            initial="hidden"
-            animate="visible"
-          />
-          <motion.line
-            className="a"
-            x1="19.3782"
-            y1="41.2141"
-            x2="28.4908"
-            y2="41.2141"
-            variants={PATH_VARIANTS_3}
-            initial="hidden"
-            animate="visible"
-          />
-          <motion.line
-            className="a"
-            x1="21.5213"
-            y1="43.5"
-            x2="26.4787"
-            y2="43.5"
-            variants={PATH_VARIANTS_3}
-            initial="hidden"
-            animate="visible"
-          />
-          <motion.polyline
-            className="a"
-            points="26.011 36.642 26.011 29.583 27.66 26.085"
-            variants={PATH_VARIANTS_3}
-            initial="hidden"
-            animate="visible"
-          />
-          <motion.polyline
-            className="a"
-            points="21.989 36.642 21.989 29.583 20.34 26.085"
-            variants={PATH_VARIANTS_3}
-            initial="hidden"
-            animate="visible"
-          />
-        </svg>
+        <Light />
         <motion.div initial="hidden" animate="visible" variants={TEXT_VARIANTS}>
           <h2 className="relative inline-block font-title text-2xl md:text-[2rem]">
             배움엔 끝이 없다. <br />
@@ -162,7 +121,7 @@ export default function Introduce() {
               </Link>
               에 적극 참여하고 있으며, 블로그를 운영하여{' '}
               <Link
-                to="https://github.com/Study-FE-Techbook/Modern-React-Deep-Dive"
+                to="https://bori-note.tistory.com"
                 target="_blank"
                 className="text-xl font-bold text-purple-400 transition-all duration-700 hover:text-2xl hover:underline"
               >
@@ -182,10 +141,35 @@ export default function Introduce() {
               고민하는 과정에서 더욱 창의적인 아이디어를 발전시킬 수 있었습니다.
               사용자의 불편함을 해소하기 위한 다양한 프로젝트를 수행했습니다.
               <br />
-              질문 선택을 통한 메뉴 추천 앱, 토이 프로젝트 팀원 매칭 웹사이트,
-              AI를 활용한 향수 쇼핑 웹사이트 등을 개발하며, 사용자 중심의 개발
-              방법과 문제해결 능력을 키웠습니다. 이러한 프로젝트 과정에서 여러
-              문제를 해결하며, 사용자 경험을 개선하는 데에 집중했습니다.
+              {projects.map((project, index) => (
+                <div key={index} className="relative inline-block">
+                  <p
+                    className={`cursor-pointer text-xl font-bold transition-all duration-700 hover:text-2xl ${project.textColor}`}
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <Link
+                      to={project.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {project.name},
+                    </Link>{' '}
+                  </p>
+                  {hoverIndex === index && (
+                    <div
+                      className={`${project.textColor} no-opacity absolute left-0 z-30 w-fit rounded bg-primary p-2 text-sm transition-all duration-700`}
+                      onMouseEnter={() => handleMouseEnter(index)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      텍스트 클릭 시 PDF를 볼 수 있어요.
+                    </div>
+                  )}
+                </div>
+              ))}
+              등을 개발하며, 사용자 중심의 개발 방법과 문제해결 능력을
+              키웠습니다. 이러한 프로젝트 과정에서 여러 문제를 해결하며, 사용자
+              경험을 개선하는 데에 집중했습니다.
             </p>
           </div>
         </div>

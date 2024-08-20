@@ -1,7 +1,7 @@
-import Header from '../components/Header'
+import Header from '../components/commons/Header'
 import bgBlack from '../assets/imgs/bgBlack.png'
-import ArrowUp from '../components/ArrowUp'
-import Footer from '../components/Footer'
+import ArrowUp from '../components/commons/ArrowUp'
+import Footer from '../components/commons/Footer'
 import { useParams } from 'react-router-dom'
 import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
 

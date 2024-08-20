@@ -55,7 +55,7 @@ export default function Aboutme() {
           </SwiperSlide>
         </Swiper>
       </div>
-      <div className="flex flex-col justify-between gap-4 px-8 py-10 md:flex-row md:justify-center md:gap-20">
+      <div className="flex flex-col items-center justify-between gap-4 px-8 py-10 md:flex-row md:justify-center md:gap-20">
         <div className="w-80">
           <img
             src={bomi}
@@ -64,39 +64,39 @@ export default function Aboutme() {
           />
         </div>
         <div className="flex flex-col items-center justify-center gap-4 md:gap-8">
-          <motion.div
-            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link to="https://github.com/Kbomi16" target="_blank">
+          <Link to="https://github.com/Kbomi16" target="_blank">
+            <motion.div
+              className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               GITHUB
-            </Link>
-            <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
-          </motion.div>
-          <motion.div
-            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+              <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
+            </motion.div>
+          </Link>
+          <Link
+            to="https://volcano-fisherman-e31.notion.site/KIM-BOMI-5c06bf169bf74a828aa979e685a669b8?pvs=4"
+            target="_blank"
           >
-            <Link
-              to="https://volcano-fisherman-e31.notion.site/KIM-BOMI-5c06bf169bf74a828aa979e685a669b8?pvs=4"
-              target="_blank"
+            <motion.div
+              className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               NOTION
-            </Link>
-            <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
-          </motion.div>
-          <motion.div
-            className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link to="https://bori-note.tistory.com/" target="_blank">
+              <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
+            </motion.div>
+          </Link>
+          <Link to="https://bori-note.tistory.com/" target="_blank">
+            <motion.div
+              className="relative w-60 cursor-pointer rounded-full border-b-8 border-red-200 bg-primary py-2 text-center font-bold text-black shadow-lg md:py-3 md:text-xl"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
               BLOG
-            </Link>
-            <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
-          </motion.div>
+              <span className="absolute inset-0 rounded-full border-2 border-red-300 shadow-md"></span>
+            </motion.div>
+          </Link>
         </div>
       </div>
     </div>

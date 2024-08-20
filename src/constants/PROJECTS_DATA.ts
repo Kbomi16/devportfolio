@@ -4,6 +4,7 @@ import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
 import gheupPayFile from '../assets/files/gheupPay.pdf'
 import iKonnectFile from '../assets/files/iKonnect.pdf'
+import fumease2 from '../assets/files/fumease2.pdf'
 
 export const PROJECTS_DATA = [
   {
@@ -149,7 +150,7 @@ export const PROJECTS_DATA = [
     notion:
       'https://saber-lip-4c8.notion.site/Fumease-76d9a29fa5344fdca68c434ee19d2fc6?pvs=4',
     thumnail: fumeaseImg,
-    pdfFile: '',
+    pdfFile: fumease2,
   },
   {
     id: 4,
@@ -175,7 +176,6 @@ export const PROJECTS_DATA = [
 
     ✅ useParams로 주소의 id 값 받아와 프로젝트 상세 페이지 구현
 
-    ✅ file-saver 라이브러리로 버튼 클릭 시 pdf 다운 구현
     `,
     github: 'https://github.com/Kbomi16/devportfolio',
     notion:

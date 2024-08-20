@@ -32,6 +32,7 @@ export default function Card({ src, title, description, onClick }: CardProps) {
           <h3 className="font-title text-xl font-bold md:text-2xl">{title}</h3>
           <p className="font-title">{description}</p>
         </div>
+        <div></div>
       </motion.div>
     </div>
   )
