@@ -7,6 +7,7 @@ import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
 
 import ProjectDetailCard from '../components/projects/ProjectDetailCard'
 import { convertToHtml } from '../utils/convertToHtml'
+import BackButton from '../components/commons/BackButton'
 
 export default function ProjectDetailPage() {
   const { id } = useParams()
@@ -66,6 +67,7 @@ export default function ProjectDetailPage() {
               <p dangerouslySetInnerHTML={{ __html: projectContribution }}></p>
             </div>
           </div>
+          <BackButton />
         </div>
 
         <div className="fixed bottom-4 right-4 float-end flex">

@@ -2,6 +2,7 @@ import gheupPayImg from '../assets/imgs/projects/gheupPay.png'
 import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
+import tripZipImg from '../assets/imgs/projects/trip.zip.png'
 import gheupPayFile from '../assets/files/gheupPay.pdf'
 import iKonnectFile from '../assets/files/iKonnect.pdf'
 import fumease2 from '../assets/files/fumease2.pdf'
@@ -12,7 +13,7 @@ export const PROJECTS_DATA = [
     name: '급PAY',
     description:
       '급하게 일손이 필요한 자리에 더 많은 시급을 제공해서 아르바이트생을 구할 수 있는 서비스',
-    period: '2024.06.20 ~ 2024.07.07',
+    period: '2024.06.20 ~ 2024.07.07 | 팀 프로젝트(5명)',
     function: `<strong>사장님</strong>
 1️⃣ 공고등록: 내 가게를 등록하고, 여러 개의 공고를 등록해보세요.
 2️⃣ 즉시채용: 일손이 급한 시기 더 높은 시급으로 빠르게 알바생을 모집하세요.
@@ -82,7 +83,7 @@ export const PROJECTS_DATA = [
     id: 2,
     name: 'i-Konnect',
     description: '추억의 아이돌 조공 후원 서비스',
-    period: '2024.04.27 ~ 2024.05.08',
+    period: '2024.04.27 ~ 2024.05.08 | 팀 프로젝트(5명)',
     function: `
     1️⃣ 크레딧으로 아이돌 후원하기
 2️⃣ 크레딧 충전하기
@@ -95,10 +96,21 @@ export const PROJECTS_DATA = [
     - yarn
     - tailwind
     - axios
-    - eslint, prettier husky
+    - eslint, prettier, husky
     - netlify
     - 제공된 API`,
-    contribution: ``,
+    contribution: `
+    ✅ 버튼 공통 컴포넌트
+
+    ✅ 조공 카드 컴포넌트 구현
+    - 진행 바로 표현한 남은 후원금 띄우기
+    - 마감일을 기준으로 남은 기한 띄우기
+
+    ✅ 조공 등록 폼 구현
+    - state로 폼 입력값 유효성을 통한 POST 요청
+    
+    ✅ 아이돌 검색 기능
+    `,
     github: 'https://github.com/BestSprinters/i-Konnect',
     notion:
       'https://saber-lip-4c8.notion.site/15-i-Konnect-5afb70e2636e48c1a83f2c9790dacb6c?pvs=4',
@@ -110,7 +122,7 @@ export const PROJECTS_DATA = [
     id: 3,
     name: 'fumease',
     description: '사용자 맞춤 향수 추천 쇼핑몰 웹사이트',
-    period: '2024.06.20 ~ 2024.07.07',
+    period: '2024.06.20 ~ 2024.07.07 | 팀 프로젝트(3명)',
     function: `
         1️⃣ 키워드 색을 선택해서 본인 취향에 맞는 향수를 추천해주는 AI
 2️⃣ 추천된 향수가 나오면 구매할 수 있는 향수 쇼핑 기능
@@ -156,7 +168,7 @@ export const PROJECTS_DATA = [
     id: 4,
     name: 'devportfolio',
     description: '포트폴리오',
-    period: '2024.06.20 ~ 2024.07.07',
+    period: '2024.06.20 ~ 2024.07.07 | 개인 프로젝트',
     stack: `
      - React + Vite
     - yarn
@@ -187,7 +199,7 @@ export const PROJECTS_DATA = [
     id: 5,
     name: 'trip.zip',
     description: '체험 상품을 보고 간단하게 예약할 수 있는 서비스',
-    period: '2024.07.25 ~ 2024.09.02',
+    period: '2024.07.25 ~ 2024.09.02 | 팀 프로젝트(5명)',
     function: `
        1️⃣ (소셜) 로그인/회원가입
 2️⃣ 검색과 카테고리를 통한 체험 필터링
@@ -228,7 +240,7 @@ export const PROJECTS_DATA = [
     notion:
       'https://magical-almanac-100.notion.site/8-6da9512d695c44b2a6dd1164441c033a?pvs=4',
     deploy: 'https://trip-zip.vercel.app/',
-    thumnail: gheupPayImg,
-    pdfFile: gheupPayFile,
+    thumnail: tripZipImg,
+    pdfFile: '',
   },
 ]

@@ -37,7 +37,7 @@ export default function Introduce() {
       textColor: 'text-amber-700',
     },
     {
-      name: 'AI를 활용한 향수 쇼핑 웹사이트',
+      name: ' AI를 활용한 향수 쇼핑 웹사이트',
       pdfUrl: 'src/assets/files/fumease.pdf',
       textColor: 'text-black',
     },
@@ -119,7 +119,7 @@ export default function Introduce() {
               >
                 스터디 활동
               </Link>
-              에 적극 참여하고 있으며, 블로그를 운영하여{' '}
+              에 적극 참여했고, 블로그를 운영하여{' '}
               <Link
                 to="https://bori-note.tistory.com"
                 target="_blank"

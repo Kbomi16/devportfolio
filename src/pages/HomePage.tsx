@@ -80,6 +80,7 @@ export default function HomePage() {
                   src={project.thumnail}
                   title={project.name}
                   description={project.description}
+                  stack={project.stack}
                   onClick={() => handleCardClick(project.id)}
                 />
               ))}
