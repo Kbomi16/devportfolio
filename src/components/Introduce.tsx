@@ -9,6 +9,9 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import UnderlineAnimation from './UnderlineAnimation'
 import Light from './Light'
+import todayMenu from '../assets/files/todayMenu.pdf'
+import toytie from '../assets/files/toytie.pdf'
+import fumease from '../assets/files/fumease.pdf'
 
 export default function Introduce() {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null)
@@ -28,17 +31,17 @@ export default function Introduce() {
   const projects = [
     {
       name: '질문 선택을 통한 메뉴 추천 앱',
-      pdfUrl: 'src/assets/files/todayMenu.pdf',
+      pdfUrl: todayMenu,
       textColor: 'text-yellow-400',
     },
     {
       name: '토이 프로젝트 팀원 매칭 웹사이트',
-      pdfUrl: 'src/assets/files/toytie.pdf',
+      pdfUrl: toytie,
       textColor: 'text-amber-700',
     },
     {
       name: ' AI를 활용한 향수 쇼핑 웹사이트',
-      pdfUrl: 'src/assets/files/fumease.pdf',
+      pdfUrl: fumease,
       textColor: 'text-black',
     },
   ]

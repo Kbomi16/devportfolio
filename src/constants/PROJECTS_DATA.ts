@@ -3,13 +3,65 @@ import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
 import tripZipImg from '../assets/imgs/projects/trip.zip.png'
+
 import gheupPayFile from '../assets/files/gheupPay.pdf'
 import iKonnectFile from '../assets/files/iKonnect.pdf'
-import fumease2 from '../assets/files/fumease2.pdf'
+import fumease2File from '../assets/files/fumease2.pdf'
+import tripZipFile from '../assets/files/tripZip.pdf'
 
 export const PROJECTS_DATA = [
   {
     id: 1,
+    name: 'trip.zip',
+    description: '체험 상품을 보고 간단하게 예약할 수 있는 서비스',
+    period: '2024.07.25 ~ 2024.09.02 | 팀 프로젝트(5명)',
+    function: `
+       1️⃣ (소셜) 로그인/회원가입
+2️⃣ 검색과 카테고리를 통한 체험 필터링
+3️⃣ 체험 예약하기 + 후기 작성하기
+4️⃣ 체험 등록 및 수정하기
+5️⃣ 내 체험 예약 현황 달력으로 한 눈에 보기
+6️⃣ 비밀번호, 닉네임, 프로필 이미지 수정하기
+    `,
+    stack: `
+    - Next.js Page Router
+    - React + Typescript
+    - pnpm
+    - tailwind
+    - axios
+    - eslint, prettier, husky
+    - vercel
+    - 제공된 API
+    `,
+    contribution: `
+    ✅ 프로젝트 전체적인 일정 관리 (노션, JIRA, Github)
+
+    ✅ Vercel CI 구축을 통해 PR preview 및 배포
+
+    ✅ (소셜) 회원가입/로그인 구현
+    
+    ✅ input 공통 컴포넌트
+
+    ✅ 마이페이지
+    - 내 정보
+    - 내 정보 수정 (닉네임, 프로필, 비밀번호 변경)
+    - 내 예약 내역
+
+    ✅ axios 및 api 설정
+
+    ✅ 다크 모드 구현
+    
+
+    `,
+    github: 'https://github.com/joraeng-e/trip.zip',
+    notion:
+      'https://magical-almanac-100.notion.site/8-6da9512d695c44b2a6dd1164441c033a?pvs=4',
+    deploy: 'https://trip-zip.vercel.app/',
+    thumnail: tripZipImg,
+    pdfFile: tripZipFile,
+  },
+  {
+    id: 2,
     name: '급PAY',
     description:
       '급하게 일손이 필요한 자리에 더 많은 시급을 제공해서 아르바이트생을 구할 수 있는 서비스',
@@ -80,7 +132,7 @@ export const PROJECTS_DATA = [
     pdfFile: gheupPayFile,
   },
   {
-    id: 2,
+    id: 3,
     name: 'i-Konnect',
     description: '추억의 아이돌 조공 후원 서비스',
     period: '2024.04.27 ~ 2024.05.08 | 팀 프로젝트(5명)',
@@ -119,7 +171,7 @@ export const PROJECTS_DATA = [
     pdfFile: iKonnectFile,
   },
   {
-    id: 3,
+    id: 4,
     name: 'fumease',
     description: '사용자 맞춤 향수 추천 쇼핑몰 웹사이트',
     period: '2024.06.20 ~ 2024.07.07 | 팀 프로젝트(3명)',
@@ -162,10 +214,10 @@ export const PROJECTS_DATA = [
     notion:
       'https://saber-lip-4c8.notion.site/Fumease-76d9a29fa5344fdca68c434ee19d2fc6?pvs=4',
     thumnail: fumeaseImg,
-    pdfFile: fumease2,
+    pdfFile: fumease2File,
   },
   {
-    id: 4,
+    id: 5,
     name: 'devportfolio',
     description: '포트폴리오',
     period: '2024.06.20 ~ 2024.07.07 | 개인 프로젝트',
@@ -194,53 +246,5 @@ export const PROJECTS_DATA = [
       'https://saber-lip-4c8.notion.site/devportfolio-4b6ed986c550482faeb93fc849417083?pvs=4',
     deploy: 'https://kimbomi-devportfolio.netlify.app/',
     thumnail: devportfolioImg,
-  },
-  {
-    id: 5,
-    name: 'trip.zip',
-    description: '체험 상품을 보고 간단하게 예약할 수 있는 서비스',
-    period: '2024.07.25 ~ 2024.09.02 | 팀 프로젝트(5명)',
-    function: `
-       1️⃣ (소셜) 로그인/회원가입
-2️⃣ 검색과 카테고리를 통한 체험 필터링
-3️⃣ 체험 예약하기 + 후기 작성하기
-4️⃣ 체험 등록 및 수정하기
-5️⃣ 내 체험 예약 현황 달력으로 한 눈에 보기
-6️⃣ 비밀번호, 닉네임, 프로필 이미지 수정하기
-    `,
-    stack: `
-    - Next.js Page Router
-    - React + Typescript
-    - pnpm
-    - tailwind
-    - axios
-    - eslint, prettier, husky
-    - vercel
-    - 제공된 API
-    `,
-    contribution: `
-    ✅ 프로젝트 전체적인 일정 관리 (노션, JIRA, Github)
-
-    ✅ (소셜) 회원가입/로그인 구현
-    
-    ✅ input 공통 컴포넌트
-
-    ✅ 마이페이지
-    - 내 정보
-    - 내 정보 수정 (닉네임, 프로필, 비밀번호 변경)
-    - 내 예약 내역
-
-    ✅ axios 및 api 설정
-
-    ✅ 다크 모드 구현
-    
-
-    `,
-    github: 'https://github.com/joraeng-e/trip.zip',
-    notion:
-      'https://magical-almanac-100.notion.site/8-6da9512d695c44b2a6dd1164441c033a?pvs=4',
-    deploy: 'https://trip-zip.vercel.app/',
-    thumnail: tripZipImg,
-    pdfFile: '',
   },
 ]
