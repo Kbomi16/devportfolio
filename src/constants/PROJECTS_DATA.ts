@@ -3,6 +3,8 @@ import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
 import tripZipImg from '../assets/imgs/projects/trip.zip.png'
+import toyTieImg from '../assets/imgs/projects/toyTie.png'
+import todyMenuImg from '../assets/imgs/projects/todyMenu.png'
 
 import gheupPayFile from '../assets/files/gheupPay.pdf'
 import iKonnectFile from '../assets/files/iKonnect.pdf'
@@ -246,5 +248,50 @@ export const PROJECTS_DATA = [
       'https://saber-lip-4c8.notion.site/devportfolio-4b6ed986c550482faeb93fc849417083?pvs=4',
     deploy: 'https://kimbomi-devportfolio.netlify.app/',
     thumnail: devportfolioImg,
+  },
+  {
+    id: 6,
+    name: 'ToyTie',
+    description: '토이 프로젝트 팀원 매칭 웹사이트',
+    period: '2023.03 ~ 2024.06 | 개인 프로젝트',
+    stack: `
+     - Vue
+    - firebase
+    `,
+    contribution: `
+    ✅ firebase를 연동해 로그인/회원가입 기능 구현
+
+    ✅ 프로젝트 등록 사용자는 자신의 프로젝트 정보를 등록하여 참여를 원하는 다른 사용자와 매칭
+
+    ✅ 프로필 등록 및 검색 사용자는 자신의 기술 스택, 프로젝트 경험 등을 기반으로 프로필을 작성하고, 다른 사용자의 프로필을 검색
+    `,
+    github: 'https://github.com/Kbomi16/Toytie',
+    thumnail: toyTieImg,
+  },
+  {
+    id: 7,
+    name: '오늘 뭐 먹지?',
+    description: '질문지를 선택하여 메뉴 추천을 해주는 애플리케이션',
+    period: '2022.09 ~ 2024.12 | 팀 프로젝트',
+    function: `
+        1️⃣ 선택지를 통해 사용자의 선호도를 파악하여 메뉴를 추천
+2️⃣ 추천된 향수가 나오면 구매할 수 있는 향수 쇼핑 기능
+3️⃣ 향수 정보 제공
+    `,
+    stack: `
+      - android studio
+     - Java
+    - firebase
+    `,
+    contribution: `
+    ✅ 메뉴 선택 버튼에 맞는 액티비티 설정
+    - 이전 액티비티에서 전달된 결과를 바탕으로 필드에 맞는 음식을 찾아 결과값 띄우기
+
+    ✅ firebase를 연동해 로그인/회원가입 기능 구현
+
+    ✅ firebase 메뉴 등록
+    `,
+    github: 'https://github.com/Jserim420/today_menu',
+    thumnail: todyMenuImg,
   },
 ]

@@ -8,6 +8,8 @@ import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
 import ProjectDetailCard from '../components/projects/ProjectDetailCard'
 import { convertToHtml } from '../utils/convertToHtml'
 import BackButton from '../components/commons/BackButton'
+import ProjectScreenCapture from '../components/projects/ProjectScreenCapture'
+import { projectImages } from '../utils/imageLoader'
 
 export default function ProjectDetailPage() {
   const { id } = useParams()
@@ -20,6 +22,8 @@ export default function ProjectDetailPage() {
     : ''
   const projectStack = convertToHtml(project.stack)
   const projectContribution = convertToHtml(project.contribution)
+
+  const projectScreenshots = projectImages[Number(id)] || []
 
   return (
     <>
@@ -66,6 +70,14 @@ export default function ProjectDetailPage() {
               </h2>
               <p dangerouslySetInnerHTML={{ __html: projectContribution }}></p>
             </div>
+            {projectScreenshots.length > 0 && (
+              <div className="my-8">
+                <h2 className="relative inline-block pb-4 font-title text-2xl">
+                  📸 동작 화면 캡쳐
+                </h2>
+                <ProjectScreenCapture images={projectScreenshots} />
+              </div>
+            )}
           </div>
           <BackButton />
         </div>

@@ -68,3 +68,8 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
 }
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #fda5a5 !important;
+}

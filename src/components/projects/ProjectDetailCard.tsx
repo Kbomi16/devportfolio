@@ -13,7 +13,7 @@ type ProjectDetailCard = {
   stack: string
   contribution: string
   github: string
-  notion: string
+  notion?: string
   deploy?: string
   thumnail: string
   pdfFile?: string
@@ -49,15 +49,17 @@ export default function ProjectDetailCard({ project }: ProjectDetailCardProps) {
                 whileTap={{ scale: 0.95 }}
               />
             </Link>
-            <Link to={project.notion} target="_blank">
-              <motion.img
-                src={notionImg}
-                alt=""
-                className="h-12 w-12 cursor-pointer rounded-xl border-[1.5px] border-black bg-white p-1 md:h-20 md:w-20"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              />
-            </Link>
+            {project.notion && (
+              <Link to={project.notion} target="_blank">
+                <motion.img
+                  src={notionImg}
+                  alt=""
+                  className="h-12 w-12 cursor-pointer rounded-xl border-[1.5px] border-black bg-white p-1 md:h-20 md:w-20"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                />
+              </Link>
+            )}
           </div>
           <div className="flex flex-col gap-2">
             {project.deploy && (
