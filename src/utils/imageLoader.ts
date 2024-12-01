@@ -52,7 +52,7 @@ export const projectImages: Record<number, string[]> = {
     fumeaseP11,
     fumeaseP12,
   ],
-  6: [
+  7: [
     toytieP1,
     toytieP2,
     toytieP3,
@@ -73,5 +73,5 @@ export const projectImages: Record<number, string[]> = {
     toytieP18,
     toytieP19,
   ],
-  7: [todayMenuP1, todayMenuP2, todayMenuP3, todayMenuP4, todayMenuP5],
+  8: [todayMenuP1, todayMenuP2, todayMenuP3, todayMenuP4, todayMenuP5],
 }

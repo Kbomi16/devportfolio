@@ -5,6 +5,7 @@ import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
 import tripZipImg from '../assets/imgs/projects/trip.zip.png'
 import toyTieImg from '../assets/imgs/projects/toyTie.png'
 import todyMenuImg from '../assets/imgs/projects/todyMenu.png'
+import growBitImg from '../assets/imgs/projects/growBit.png'
 
 import gheupPayFile from '../assets/files/gheupPay.pdf'
 import iKonnectFile from '../assets/files/iKonnect.pdf'
@@ -220,6 +221,32 @@ export const PROJECTS_DATA = [
   },
   {
     id: 5,
+    name: 'GrowBit',
+    description:
+      '습관 관리 앱: 사용자가 습관을 추가, 수정, 삭제하고, 목표 달성률을 실시간으로 시각화하여 효과적으로 습관을 관리할 수 있는 애플리케이션',
+    period: '2024.11 ~ (개발 진행 중) | 개인 프로젝트',
+    function: `
+        1️⃣ 사용자가 습관을 추가, 수정, 삭제할 수 있는 기능
+2️⃣ 목표 달성률 시각화
+3️⃣ 사용자간 목표를 공유하고 비교할 수 있는 기능
+    `,
+    stack: `
+        - Next.js App Router
+      - pnpm
+      - tailwind CSS
+     - eslint, prettier
+    - firebase
+    - Chart.js
+    `,
+    contribution: `
+     ✅ firebase를 연동해 로그인/회원가입 기능 구현
+    `,
+    github: 'https://github.com/Kbomi16/GrowBit',
+    deploy: 'grow-bit.vercel.app',
+    thumnail: growBitImg,
+  },
+  {
+    id: 6,
     name: 'devportfolio',
     description: '포트폴리오',
     period: '2024.06.20 ~ 2024.07.07 | 개인 프로젝트',
@@ -250,7 +277,7 @@ export const PROJECTS_DATA = [
     thumnail: devportfolioImg,
   },
   {
-    id: 6,
+    id: 7,
     name: 'ToyTie',
     description: '토이 프로젝트 팀원 매칭 웹사이트',
     period: '2023.03 ~ 2024.06 | 개인 프로젝트',
@@ -269,22 +296,21 @@ export const PROJECTS_DATA = [
     thumnail: toyTieImg,
   },
   {
-    id: 7,
+    id: 8,
     name: '오늘 뭐 먹지?',
     description: '질문지를 선택하여 메뉴 추천을 해주는 애플리케이션',
     period: '2022.09 ~ 2024.12 | 팀 프로젝트',
     function: `
         1️⃣ 선택지를 통해 사용자의 선호도를 파악하여 메뉴를 추천
-2️⃣ 추천된 향수가 나오면 구매할 수 있는 향수 쇼핑 기능
-3️⃣ 향수 정보 제공
+2️⃣ 최종 메뉴를 기준으로 주변 지도에 식당 표시
     `,
     stack: `
-      - android studio
+     - android studio
      - Java
     - firebase
     `,
     contribution: `
-    ✅ 메뉴 선택 버튼에 맞는 액티비티 설정
+   ✅ 메뉴 선택 버튼에 맞는 액티비티 설정
     - 이전 액티비티에서 전달된 결과를 바탕으로 필드에 맞는 음식을 찾아 결과값 띄우기
 
     ✅ firebase를 연동해 로그인/회원가입 기능 구현
