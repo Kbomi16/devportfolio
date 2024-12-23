@@ -226,9 +226,8 @@ export const PROJECTS_DATA = [
       '습관 관리 앱: 사용자가 습관을 추가, 수정, 삭제하고, 목표 달성률을 실시간으로 시각화하여 효과적으로 습관을 관리할 수 있는 애플리케이션',
     period: '2024.11 ~ (개발 진행 중) | 개인 프로젝트',
     function: `
-        1️⃣ 사용자가 습관을 추가, 수정, 삭제할 수 있는 기능
+        1️⃣ 사용자가 습관을 추가, 삭제할 수 있는 기능
 2️⃣ 목표 달성률 시각화
-3️⃣ 사용자간 목표를 공유하고 비교할 수 있는 기능
     `,
     stack: `
         - Next.js App Router
@@ -237,9 +236,16 @@ export const PROJECTS_DATA = [
      - eslint, prettier
     - firebase
     - Chart.js
+    - react-calendar
+    - react-datepicker
     `,
     contribution: `
      ✅ firebase를 연동해 로그인/회원가입 기능 구현
+     ✅ 루틴 관리
+- 루틴 추가/삭제: 사용자는 새로운 루틴을 추가, 삭제 기능
+- Firestore 연동: 루틴 데이터는 Firestore에 저장되어 실시간으로 동기화
+✅ 루틴 달성률 시각화
+- Chart.js: 루틴 달성률을 그래프 형태(도넛 차트)로 시각화해 사용자가 얼마나 목표를 달성했는지 쉽게 확인 가능
     `,
     github: 'https://github.com/Kbomi16/GrowBit',
     deploy: 'grow-bit.vercel.app',
