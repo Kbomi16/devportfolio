@@ -248,7 +248,7 @@ export const PROJECTS_DATA = [
 - Chart.js: 루틴 달성률을 그래프 형태(도넛 차트)로 시각화해 사용자가 얼마나 목표를 달성했는지 쉽게 확인 가능
     `,
     github: 'https://github.com/Kbomi16/GrowBit',
-    deploy: 'grow-bit.vercel.app',
+    deploy: 'https://grow-bit.vercel.app/',
     thumnail: growBitImg,
   },
   {
