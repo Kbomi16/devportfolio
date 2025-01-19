@@ -18,7 +18,9 @@ export default function UnderlineAnimation({
       variants={TEXT_VARIANTS}
       className="relative"
     >
-      <h3 className="py-4 font-title text-2xl">{children}</h3>
+      <h3 className="text-3d py-4 font-title text-2xl md:text-4xl">
+        {children}
+      </h3>
       <motion.svg
         width="100%"
         height="5px"

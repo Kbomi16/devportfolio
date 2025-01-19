@@ -9,6 +9,11 @@
   .no-opacity {
     opacity: 1 !important;
   }
+  .text-3d {
+    text-shadow:
+      2px 2px 0 rgba(0, 0, 0, 0.1),
+      4px 4px 0 rgba(0, 0, 0, 0.2);
+  }
 }
 
 @layer base {

@@ -37,7 +37,7 @@ export default function Header() {
       className={`fixed top-0 w-full py-1 text-white transition-all duration-500 ${headerScrollValid} z-50`}
     >
       <nav className="flex justify-between font-bold">
-        <p>2024</p>
+        <p>2025</p>
         <p onClick={goToTop} className="cursor-pointer">
           PORTFOLIO
         </p>

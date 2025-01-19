@@ -11,7 +11,7 @@ export default function Footer() {
         <ArrowUp />
       </div>
       <div>Contact me: kimbomi2172@naver.com</div>
-      <div>Copyright © 2024 KIM BOMI.</div>
+      <div>Copyright ©2025 KIM BOMI.</div>
     </footer>
   )
 }
