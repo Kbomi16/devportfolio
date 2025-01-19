@@ -16,9 +16,11 @@ import fumease from '../assets/files/fumease.pdf'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Mousewheel } from 'swiper/modules'
 import 'swiper/css'
+import ScrollIndicator from './ScrollIndicator'
 
 export default function Introduce() {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null)
+  const [showScrollIndicator, setShowScrollIndicator] = useState<boolean>(true)
 
   const firstContentRef = useRef<HTMLDivElement | null>(null)
   const lastContentRef = useRef<HTMLDivElement | null>(null)
@@ -54,6 +56,7 @@ export default function Introduce() {
   ]
 
   const handleSlideChange = (swiper: any) => {
+    setShowScrollIndicator(!swiper.isEnd) // 마지막 슬라이드가 아닐 때 스크롤 유도 표시
     if (swiper.isEnd) {
       lastContentRef.current?.scrollIntoView({ behavior: 'smooth' })
     } else if (swiper.isBeginning) {
@@ -97,6 +100,7 @@ export default function Introduce() {
       <br />
       <br />
       <br />
+
       <div className="z-10 flex flex-col gap-8">
         <Swiper
           direction="vertical"
@@ -105,7 +109,7 @@ export default function Introduce() {
           slidesPerView={1}
           autoHeight={true}
           className="h-[calc(100vh-30rem)] overflow-y-auto"
-          onSlideChange={handleSlideChange} // Slide change event
+          onSlideChange={handleSlideChange}
         >
           <SwiperSlide>
             <div ref={firstContentRef}>
@@ -220,6 +224,7 @@ export default function Introduce() {
           </SwiperSlide>
         </Swiper>
       </div>
+      {showScrollIndicator && <ScrollIndicator />}
     </div>
   )
 }
