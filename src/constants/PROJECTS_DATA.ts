@@ -1,7 +1,7 @@
 import gheupPayImg from '../assets/imgs/projects/gheupPay.png'
 import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
-import devportfolioImg from '../assets/imgs/projects/devportfolio.png'
+import fittyImg from '../assets/imgs/projects/fitty.png'
 import tripZipImg from '../assets/imgs/projects/trip.zip.png'
 import toyTieImg from '../assets/imgs/projects/toyTie.png'
 import todyMenuImg from '../assets/imgs/projects/todyMenu.png'
@@ -278,34 +278,40 @@ export const PROJECTS_DATA = [
   },
   {
     id: 6,
-    name: 'devportfolio',
-    description: '포트폴리오',
-    period: '2024.06.20 ~ 2024.07.07 | 개인 프로젝트',
+    name: 'Fitty',
+    description:
+      '헬스장을 등록하고, 헬스장에 도착하면 인증을 완료할 수 있는 피트니스 관리 애플리케이션',
+    period: '2025.02 ~ (개발 진행 중) | 개인 프로젝트',
+    function: `
+    테스트 계정: test@test.com | aaaaaaa!1
+    
+(Expo 웹 링크에서는 WebView가 지원되지 않으므로, Expo Go 앱에서 QR 코드를 스캔하여 이용해주세요.)
+
+       1️⃣ 헬스장 인증
+- 카카오 맵 API를 통해 현재 사용자 위치를 기반으로 근처 헬스장을 검색할 수 있습니다.
+- 헬스장 등록: 사용자는 자신의 헬스장을 등록할 수 있습니다.
+- 반경 50m 내 인증: 사용자가 설정한 헬스장 반경 내에 들어가면 인증을 완료할 수 있습니다.
+    `,
     stack: `
-     - React + Vite
-    - yarn
-    - tailwind
+    - React Native
+    - pnpm
+    - Expo
     - eslint, prettier
+    - Kakao Map
     `,
     contribution: `
-    ✅ 스크롤 위치에 따른 헤더 배경색 변환
+    ✅ firebase를 연동해 로그인/회원가입 기능 구현
 
-    ✅ 화살표 클릭 시 상단으로 이동
+    ✅ 카카오맵 API & WebView를 사용해 근처 헬스장 검색 및 지도표시
 
-    ✅ 카드 클릭 시 해당 프로젝트의 id에 따라 링크 이동
+    ✅ Expo 위치 서비스로 현재 사용자 위치 가져오기
 
-    ✅ 초기 로딩 화면 구현
-    - Typewriter 라이브러리로 타이핑 효과 및 밑줄 적용
-    - svg로 선이 그려지는 효과 구현
-
-    ✅ useParams로 주소의 id 값 받아와 프로젝트 상세 페이지 구현
-
+    ✅ QR 코드 배포
     `,
-    github: 'https://github.com/Kbomi16/devportfolio',
-    notion:
-      'https://saber-lip-4c8.notion.site/devportfolio-4b6ed986c550482faeb93fc849417083?pvs=4',
-    deploy: 'https://kimbomi-devportfolio.netlify.app/',
-    thumnail: devportfolioImg,
+    github: 'https://github.com/Kbomi16/Fitty',
+    deploy:
+      'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%99%84%EB%A3%8C%20%EB%82%A0%EC%A7%9C%20%EC%BA%98%EB%A6%B0%EB%8D%94%20%EC%83%9D%EC%84%B1%20(%238)%0A%0A*%20%E2%99%BB%EF%B8%8F%20refactor%3A%20%EC%9A%B4%EB%8F%99%20%EC%99%84%EB%A3%8C%20%EC%9D%B8%EC%A6%9D%0D%0A%0D%0A*%20%F0%9F%9A%9A%20chore%3A%20types%20%ED%8F%B4%EB%8D%94%20%EB%B3%80%EA%B2%BD%0D%0A%0D%0A*%20%E2%99%BB%EF%B8%8F%20refacotr%3A%20auth%20context%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%83%9D%EC%84%B1%0D%0A%0D%0A*%20%E2%9C%A8%20feat%3A&updateRuntimeVersion=1.0.0&createdAt=2025-02-16T11%3A08%3A22.131Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=911ec878-ab06-4aad-8ba5-a45a1cd480a8',
+    thumnail: fittyImg,
   },
   {
     id: 7,
