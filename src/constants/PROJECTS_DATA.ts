@@ -284,7 +284,8 @@ export const PROJECTS_DATA = [
     period: '2025.02 ~ (개발 진행 중) | 개인 프로젝트',
     function: `
     테스트 계정: test@test.com | aaaaaaa!1
-    
+
+(확실한 인증 테스트를 위해 회원가입 후 위치 등록 후 사용해보세요.)    
 (Expo 웹 링크에서는 WebView가 지원되지 않으므로, Expo Go 앱에서 QR 코드를 스캔하여 이용해주세요.)
 
        1️⃣ 헬스장 인증
@@ -310,7 +311,7 @@ export const PROJECTS_DATA = [
     `,
     github: 'https://github.com/Kbomi16/Fitty',
     deploy:
-      'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%99%84%EB%A3%8C%20%EB%82%A0%EC%A7%9C%20%EC%BA%98%EB%A6%B0%EB%8D%94%20%EC%83%9D%EC%84%B1%20(%238)%0A%0A*%20%E2%99%BB%EF%B8%8F%20refactor%3A%20%EC%9A%B4%EB%8F%99%20%EC%99%84%EB%A3%8C%20%EC%9D%B8%EC%A6%9D%0D%0A%0D%0A*%20%F0%9F%9A%9A%20chore%3A%20types%20%ED%8F%B4%EB%8D%94%20%EB%B3%80%EA%B2%BD%0D%0A%0D%0A*%20%E2%99%BB%EF%B8%8F%20refacotr%3A%20auth%20context%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%83%9D%EC%84%B1%0D%0A%0D%0A*%20%E2%9C%A8%20feat%3A&updateRuntimeVersion=1.0.0&createdAt=2025-02-16T11%3A08%3A22.131Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=911ec878-ab06-4aad-8ba5-a45a1cd480a8',
+      'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%99%84%EB%A3%8C%20%EB%82%A0%EC%A7%9C%20%EC%BA%98%EB%A6%B0%EB%8D%94%20%EC%83%9D%EC%84%B1%20(%238)%0A%0A*%20%E2%99%BB%EF%B8%8F%20refactor%3A%20%EC%9A%B4%EB%8F%99%20%EC%99%84%EB%A3%8C%20%EC%9D%B8%EC%A6%9D%0D%0A%0D%0A*%20%F0%9F%9A%9A%20chore%3A%20types%20%ED%8F%B4%EB%8D%94%20%EB%B3%80%EA%B2%BD%0D%0A%0D%0A*%20%E2%99%BB%EF%B8%8F%20refacotr%3A%20auth%20context%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%83%9D%EC%84%B1%0D%0A%0D%0A*%20%E2%9C%A8%20feat%3A&updateRuntimeVersion=1.0.0&createdAt=2025-02-16T12%3A15%3A12.588Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=dbe20ae2-e069-4b2c-a215-cc8f81aa7393',
     thumnail: fittyImg,
   },
   {
