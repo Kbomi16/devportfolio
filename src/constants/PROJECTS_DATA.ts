@@ -311,7 +311,7 @@ export const PROJECTS_DATA = [
     `,
     github: 'https://github.com/Kbomi16/Fitty',
     deploy:
-      'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%99%84%EB%A3%8C%20%EB%82%A0%EC%A7%9C%20%EC%BA%98%EB%A6%B0%EB%8D%94%20%EC%83%9D%EC%84%B1%20(%238)%0A%0A*%20%E2%99%BB%EF%B8%8F%20refactor%3A%20%EC%9A%B4%EB%8F%99%20%EC%99%84%EB%A3%8C%20%EC%9D%B8%EC%A6%9D%0D%0A%0D%0A*%20%F0%9F%9A%9A%20chore%3A%20types%20%ED%8F%B4%EB%8D%94%20%EB%B3%80%EA%B2%BD%0D%0A%0D%0A*%20%E2%99%BB%EF%B8%8F%20refacotr%3A%20auth%20context%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%83%9D%EC%84%B1%0D%0A%0D%0A*%20%E2%9C%A8%20feat%3A&updateRuntimeVersion=1.0.0&createdAt=2025-02-16T12%3A15%3A12.588Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=dbe20ae2-e069-4b2c-a215-cc8f81aa7393',
+      'https://expo.dev/preview/update?message=%E2%99%BB%EF%B8%8F%20refactor%3A%20%EC%BA%98%EB%A6%B0%EB%8D%94%20%EC%88%98%EC%A0%95&updateRuntimeVersion=1.0.0&createdAt=2025-02-17T04%3A25%3A14.791Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=1654bc4c-9139-4da2-89eb-07c53c12f745',
     thumnail: fittyImg,
   },
   {
