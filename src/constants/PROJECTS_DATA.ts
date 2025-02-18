@@ -311,7 +311,7 @@ export const PROJECTS_DATA = [
     `,
     github: 'https://github.com/Kbomi16/Fitty',
     deploy:
-      'https://expo.dev/preview/update?message=%E2%99%BB%EF%B8%8F%20refactor%3A%20%EC%BA%98%EB%A6%B0%EB%8D%94%20%EC%88%98%EC%A0%95&updateRuntimeVersion=1.0.0&createdAt=2025-02-17T04%3A25%3A14.791Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=1654bc4c-9139-4da2-89eb-07c53c12f745',
+      'https://expo.dev/preview/update?message=%E2%99%BB%EF%B8%8F%20refactor%3A%20%EC%99%84%EB%A3%8C%EB%82%A0%EC%A7%9C%20%EC%BA%98%EB%A6%B0%EB%8D%94%20%ED%91%9C%EC%8B%9C&updateRuntimeVersion=1.0.0&createdAt=2025-02-18T05%3A09%3A26.633Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=1182bce2-8182-4413-9c3d-b5672668bb6d',
     thumnail: fittyImg,
   },
   {
