@@ -311,7 +311,7 @@ export const PROJECTS_DATA = [
     `,
     github: 'https://github.com/Kbomi16/Fitty',
     deploy:
-      'https://expo.dev/preview/update?message=%F0%9F%8D%B1%20chore%3A%20%EB%A1%9C%EA%B3%A0%20%EB%B3%80%EA%B2%BD&updateRuntimeVersion=1.0.0&createdAt=2025-02-24T04%3A59%3A24.245Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=d74903e2-fea4-41c5-ac94-7048b0efe7a0',
+      'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%95%8C%EB%A6%BC%20%EA%B5%AC%ED%98%84%20(%2311)%0A%0A*%20%F0%9F%92%84%20style%3A%20input%20border%20%ED%81%AC%EA%B8%B0%20%EC%88%98%EC%A0%95%0A%0A*%20%E2%9C%A8%20feat%3A%20%EC%95%8C%EB%A6%BC%20%EA%B5%AC%ED%98%84%0A%0A*%20%E2%9C%85%20test%3A%20%EC%95%8C%EB%A6%BC%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EA%B0%84%20%EC%A1%B0%EC%A0%95&updateRuntimeVersion=1.0.0&createdAt=2025-02-25T15%3A32%3A15.490Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=350366de-2711-453d-9ff6-311f05f6ef9f',
     thumnail: fittyImg,
   },
   {
