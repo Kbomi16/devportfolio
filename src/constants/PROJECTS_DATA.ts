@@ -238,7 +238,7 @@ export const PROJECTS_DATA = [
     name: 'GrowBit',
     description:
       '습관 관리 앱: 사용자가 습관을 추가, 수정, 삭제하고, 목표 달성률을 실시간으로 시각화하여 효과적으로 습관을 관리할 수 있는 애플리케이션',
-    period: '2024.11 ~ (개발 진행 중) | 개인 프로젝트',
+    period: '2024.11 ~ 2025.01 | 개인 프로젝트',
     function: `
     테스트 계정: test@test.com | aaaaaaa!1
 
@@ -292,6 +292,13 @@ export const PROJECTS_DATA = [
 - 카카오 맵 API를 통해 현재 사용자 위치를 기반으로 근처 헬스장을 검색할 수 있습니다.
 - 헬스장 등록: 사용자는 자신의 헬스장을 등록할 수 있습니다.
 - 반경 50m 내 인증: 사용자가 설정한 헬스장 반경 내에 들어가면 인증을 완료할 수 있습니다.
+
+2️⃣ 운동 루틴 기록 및 추천
+- 사용자는 각 운동의 세트, 반복 횟수 등을 추천받고, 목표를 달성할 수 있습니다.
+
+3️⃣ 알림 시스템
+- Expo-notifications를 사용하여 하루 3번 푸시 알림을 전달합니다.
+
     `,
     stack: `
     - React Native
@@ -304,14 +311,24 @@ export const PROJECTS_DATA = [
     ✅ firebase를 연동해 로그인/회원가입 기능 구현
 
     ✅ 카카오맵 API & WebView를 사용해 근처 헬스장 검색 및 지도표시
+-  Expo 위치 서비스로 현재 사용자 위치 가져오기
+- latitude와 longitude를 전달받아 해당 위치에 마커를 표시
 
-    ✅ Expo 위치 서비스로 현재 사용자 위치 가져오기
+✅ 운동 루틴 기록 및 추천
+- react-native-calendars 라이브러리를 사용하여 사용자의 완료된 운동 날짜를 받아와 해당 날짜를 캘린더에 표시
+- Firebase에서 운동 데이터를 가져와 오늘 날짜를 기준으로 운동 랜덤 추천(짝수 날짜: 상체, 유산소 | 홀수 날짜: 하체, 유산소)
+- FlatList를 사용하여 운동 정보를 수평으로 나열하고, 각 운동의 세부사항(세트, 횟수 등)을 표시
+
+    ✅ Expo-notifications를 사용해 하루 3회 알림 기능 구현
+
+    ✅ 다크 모드
+    - useColorScheme을 통해 다크 모드를 자동으로 감지하여 UI 스타일을 변경
 
     ✅ QR 코드 배포
     `,
     github: 'https://github.com/Kbomi16/Fitty',
     deploy:
-      'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%95%8C%EB%A6%BC%20%EA%B5%AC%ED%98%84%20(%2311)%0A%0A*%20%F0%9F%92%84%20style%3A%20input%20border%20%ED%81%AC%EA%B8%B0%20%EC%88%98%EC%A0%95%0A%0A*%20%E2%9C%A8%20feat%3A%20%EC%95%8C%EB%A6%BC%20%EA%B5%AC%ED%98%84%0A%0A*%20%E2%9C%85%20test%3A%20%EC%95%8C%EB%A6%BC%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%8B%9C%EA%B0%84%20%EC%A1%B0%EC%A0%95&updateRuntimeVersion=1.0.0&createdAt=2025-02-25T15%3A32%3A15.490Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=350366de-2711-453d-9ff6-311f05f6ef9f',
+      'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%8C%8D%EB%B0%A9%ED%96%A5%20%EC%B9%9C%EA%B5%AC%20%EC%B6%94%EA%B0%80%20(%2312)%0A%0A*%20%F0%9F%92%84%20style%3A%20%EC%B9%9C%EA%B5%AC%20%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%20%EC%83%9D%EC%84%B1%0A%0A*%20%E2%9C%A8%20feat%3A%20%EC%B9%9C%EA%B5%AC%20%EA%B2%80%EC%83%89%20%ED%9B%84%20%EC%B6%94%EA%B0%80%20%EA%B5%AC%ED%98%84%0A%0A*%20%E2%9C%A8%20feat%3A%20%EC%8C%8D%EB%B0%A9%ED%96%A5%20%EC%B9%9C%EA%B5%AC%20%EC%B6%94%EA%B0%80%20%EA%B5%AC%ED%98%84%0A%0A*%20%F0%9F%92%84%20style%3A%20%EC%B9%9C%EA%B5%AC%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%20UI%20%EC%88%98%EC%A0%95&updateRuntimeVersion=1.0.0&createdAt=2025-03-07T07%3A03%3A30.715Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=ecd7a8b9-ae9f-4c45-a2f5-acd4c33a4c29',
     thumnail: fittyImg,
   },
   {
