@@ -3,8 +3,6 @@ import iKonnectImg from '../assets/imgs/projects/iKonnect.png'
 import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import fittyImg from '../assets/imgs/projects/fitty.png'
 import tripZipImg from '../assets/imgs/projects/trip.zip.png'
-import toyTieImg from '../assets/imgs/projects/toyTie.png'
-import todyMenuImg from '../assets/imgs/projects/todyMenu.png'
 import growBitImg from '../assets/imgs/projects/growBit.png'
 
 import gheupPayFile from '../assets/files/gheupPay.pdf'
@@ -30,7 +28,8 @@ export const PROJECTS_DATA = [
     `,
     stack: `
     - Next.js Page Router
-    - React + Typescript
+    - React
+    - Typescript
     - pnpm
     - tailwind
     - axios
@@ -91,7 +90,8 @@ export const PROJECTS_DATA = [
 3️⃣ 즉시 지원: 빠르고 간편한 지원절차로 원하는 일자리에 즉시 지원할 수 있습니다.`,
     stack: `
     - Next.js App Router
-    - React + Typescript
+    - React.
+    - Typescript
     - yarn
     - tailwind
     - axios
@@ -197,7 +197,9 @@ export const PROJECTS_DATA = [
 3️⃣ 향수 정보 제공
     `,
     stack: `
-    - React, React Bootstrap, moduleCSS
+    - React
+    - React Bootstrap
+    - moduleCSS
 - MySQL
 - NodeJS
 - Express
@@ -267,7 +269,7 @@ export const PROJECTS_DATA = [
 
 ✅ PWA 지원 + 알림
 
-- 사용자는 앱을 홈 화면에 추가하여 네이티브 앱처럼 사용할 수 있습니다.
+- 사용자는 앱을 홈 화면에 추가하여 네이티브 앱처럼 사용 가능
 - 'next-pwa' 패키지 설정 및 'service worker' 등록
 - 'manifest.json' 파일 작성으로 앱 이름, 아이콘 설정
 - Firebase Cloud Messaging(FCM)을 사용하여 사용자가 설정한 루틴 알림을 놓치지 않도록 푸시 알림 발송
@@ -281,7 +283,7 @@ export const PROJECTS_DATA = [
     name: 'Fitty',
     description:
       '헬스장을 등록하고, 헬스장에 도착하면 인증을 완료할 수 있는 피트니스 관리 애플리케이션',
-    period: '2025.02 ~ (개발 진행 중) | 개인 프로젝트',
+    period: '2025.02 ~ 2025.03 | 개인 프로젝트',
     function: `
     테스트 계정: test@test.com | aaaaaaa!1
 
@@ -330,49 +332,5 @@ export const PROJECTS_DATA = [
     deploy:
       'https://expo.dev/preview/update?message=%E2%9C%A8%20feat%3A%20%EC%8C%8D%EB%B0%A9%ED%96%A5%20%EC%B9%9C%EA%B5%AC%20%EC%B6%94%EA%B0%80%20(%2312)%0A%0A*%20%F0%9F%92%84%20style%3A%20%EC%B9%9C%EA%B5%AC%20%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8%20%EC%83%9D%EC%84%B1%0A%0A*%20%E2%9C%A8%20feat%3A%20%EC%B9%9C%EA%B5%AC%20%EA%B2%80%EC%83%89%20%ED%9B%84%20%EC%B6%94%EA%B0%80%20%EA%B5%AC%ED%98%84%0A%0A*%20%E2%9C%A8%20feat%3A%20%EC%8C%8D%EB%B0%A9%ED%96%A5%20%EC%B9%9C%EA%B5%AC%20%EC%B6%94%EA%B0%80%20%EA%B5%AC%ED%98%84%0A%0A*%20%F0%9F%92%84%20style%3A%20%EC%B9%9C%EA%B5%AC%20%EB%A6%AC%EC%8A%A4%ED%8A%B8%20UI%20%EC%88%98%EC%A0%95&updateRuntimeVersion=1.0.0&createdAt=2025-03-07T07%3A03%3A30.715Z&slug=exp&projectId=e425239e-3be5-45d8-8997-bd3611f46083&group=ecd7a8b9-ae9f-4c45-a2f5-acd4c33a4c29',
     thumnail: fittyImg,
-  },
-  {
-    id: 7,
-    name: 'ToyTie',
-    description: '토이 프로젝트 팀원 매칭 웹사이트',
-    period: '2023.03 ~ 2024.06 | 개인 프로젝트',
-    stack: `
-     - Vue
-    - firebase
-    `,
-    contribution: `
-    ✅ firebase를 연동해 로그인/회원가입 기능 구현
-
-    ✅ 프로젝트 등록 사용자는 자신의 프로젝트 정보를 등록하여 참여를 원하는 다른 사용자와 매칭
-
-    ✅ 프로필 등록 및 검색 사용자는 자신의 기술 스택, 프로젝트 경험 등을 기반으로 프로필을 작성하고, 다른 사용자의 프로필을 검색
-    `,
-    github: 'https://github.com/Kbomi16/Toytie',
-    thumnail: toyTieImg,
-  },
-  {
-    id: 8,
-    name: '오늘 뭐 먹지?',
-    description: '질문지를 선택하여 메뉴 추천을 해주는 애플리케이션',
-    period: '2022.09 ~ 2024.12 | 팀 프로젝트',
-    function: `
-        1️⃣ 선택지를 통해 사용자의 선호도를 파악하여 메뉴를 추천
-2️⃣ 최종 메뉴를 기준으로 주변 지도에 식당 표시
-    `,
-    stack: `
-     - android studio
-     - Java
-    - firebase
-    `,
-    contribution: `
-   ✅ 메뉴 선택 버튼에 맞는 액티비티 설정
-    - 이전 액티비티에서 전달된 결과를 바탕으로 필드에 맞는 음식을 찾아 결과값 띄우기
-
-    ✅ firebase를 연동해 로그인/회원가입 기능 구현
-
-    ✅ firebase 메뉴 등록
-    `,
-    github: 'https://github.com/Jserim420/today_menu',
-    thumnail: todyMenuImg,
   },
 ]
