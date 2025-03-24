@@ -75,7 +75,7 @@ export default function Aboutme() {
             </motion.div>
           </Link>
           <Link
-            to="https://volcano-fisherman-e31.notion.site/KIM-BOMI-5c06bf169bf74a828aa979e685a669b8?pvs=4"
+            to="https://volcano-fisherman-e31.notion.site/Front-End-Developer-Resume-5c06bf169bf74a828aa979e685a669b8?pvs=4"
             target="_blank"
           >
             <motion.div

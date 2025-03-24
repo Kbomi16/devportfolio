@@ -4,6 +4,7 @@ import fumeaseImg from '../assets/imgs/projects/fumease.png'
 import fittyImg from '../assets/imgs/projects/fitty.png'
 import tripZipImg from '../assets/imgs/projects/trip.zip.png'
 import growBitImg from '../assets/imgs/projects/growBit.png'
+import pickMateImg from '../assets/imgs/projects/pickMate.png'
 
 import gheupPayFile from '../assets/files/gheupPay.pdf'
 import iKonnectFile from '../assets/files/iKonnect.pdf'
@@ -12,12 +13,69 @@ import tripZipFile from '../assets/files/tripZip.pdf'
 
 export const PROJECTS_DATA = [
   {
+    id: 0,
+    name: 'PickMate',
+    description: '토이 프로젝트 팀원 매칭 플랫폼',
+    period: '2025.03 ~ 개발 진행 중 | 팀 프로젝트(2명)',
+    function: `
+    테스트 계정: test@test.com | aaaaaaa!1
+
+    1️⃣ 프로젝트/스터디 게시글 등록, 수정, 삭제
+2️⃣ 프로젝트/스터디 신청하기 + 신청 후 상태 확인 (대기/수락/거절)
+3️⃣ 검색 및 카테고리별 프로젝트/스터디 게시글 필터링
+4️⃣ 마이페이지에서 내가 작성한 글 & 신청한 글 한눈에 보기
+5️⃣ 신청자 관리 (수락/거절) + 오픈채팅 링크 전달
+    `,
+    stack: `
+    - Next.js Page Router
+    - React
+    - Typescript
+    - pnpm
+    - tailwind
+    - axios
+    - eslint, prettier
+    - vercel
+    - Java
+    - MySQL
+    - postman
+    `,
+    contribution: `
+   ✅ 백엔드 협업을 위한 공통 타입 정의
+- API 요청/응답의 일관성을 위해 백엔드와 협의하여 필수 타입을 정의하고, 프론트엔드 전반에서 타입 안정성 확보
+
+✅ Vercel CI 구축
+- Vercel CI를 활용해 PR마다 자동으로 Preview URL을 생성하여 리뷰를 효율화하고, Merge 시 자동으로 배포
+
+✅ Next.js SSR 적용으로 초기 데이터 로딩 최적화
+- 페이지의 특성에 맞게 SSR을 적용하여 서버에서 데이터를 선 로딩하고, build 분석을 통해 로딩 속도가 느린 페이지에는 SSG를 적용해 성능 개선
+
+✅ 전역 상태 관리 (zustand)로 로그인/유저정보 관리
+- zustand를 활용해 로그인 상태와 유저 정보 전역 관리
+- 인증이 필요한 페이지 접근 시 비로그인 사용자를 자동으로 로그인 페이지로 리다이렉트 처리
+
+✅ 폼 관리 및 검증 (react-hook-form + zod)
+- react-hook-form과 zod를 조합하여 유효성 검사 체계화
+- required 오류 발생 시 사용자 입력값을 실시간으로 useEffect로 상태에 주입해 UX 향상
+
+✅ 프로젝트 / 스터디 CRUD 구현
+- 작성자 여부를 [isAuthor]로 판별해 수정/삭제 가능 여부를 분기 처리하고, 게시글 등록, 수정, 삭제의 전체 프로세스를 구현
+
+✅ 마이페이지 신청자 관리 기능 구현
+- 마이페이지에서 신청자 목록을 확인하고 [대기/수락/거절] 라벨을 설정할 수 있도록 UI 및 상태 관리 구현
+    `,
+    github: 'https://github.com/Buddy-Mate/FE_PickMate',
+    notion:
+      'https://jumpy-kite-a95.notion.site/Buddy-mate-Toy-project-1b3899d1ac3c800782d6df8d3953c511?pvs=4',
+    deploy: 'https://fe-pick-mate.vercel.app/',
+    thumnail: pickMateImg,
+  },
+  {
     id: 1,
     name: 'trip.zip',
     description: '체험 상품을 보고 간단하게 예약할 수 있는 서비스',
     period: '2024.07.25 ~ 2024.09.02 | 팀 프로젝트(5명)',
     function: `
-    테스트 계정: test22@test.com | test22@test.com
+    테스트 계정: test22@test.com | aaaaaaa!1
 
        1️⃣ (소셜) 로그인/회원가입
 2️⃣ 검색과 카테고리를 통한 체험 필터링
@@ -268,7 +326,6 @@ export const PROJECTS_DATA = [
 - Chart.js: 루틴 달성률을 그래프 형태(도넛 차트)로 시각화해 사용자가 얼마나 목표를 달성했는지 쉽게 확인 가능
 
 ✅ PWA 지원 + 알림
-
 - 사용자는 앱을 홈 화면에 추가하여 네이티브 앱처럼 사용 가능
 - 'next-pwa' 패키지 설정 및 'service worker' 등록
 - 'manifest.json' 파일 작성으로 앱 이름, 아이콘 설정
