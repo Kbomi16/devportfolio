@@ -18,7 +18,7 @@ export const PROJECTS_DATA = [
     description: '토이 프로젝트 팀원 매칭 플랫폼',
     period: '2025.03 ~ 개발 진행 중 | 팀 프로젝트(2명)',
     function: `
-    테스트 계정: test@test.com | aaaaaaa!1
+    테스트 계정: test@test.com | aaaaaaa1!
 
     1️⃣ 프로젝트/스터디 게시글 등록, 수정, 삭제
 2️⃣ 프로젝트/스터디 신청하기 + 신청 후 상태 확인 (대기/수락/거절)
