@@ -4,7 +4,7 @@ import ArrowUp from '../components/commons/ArrowUp'
 import Footer from '../components/commons/Footer'
 import { useParams } from 'react-router-dom'
 import { PROJECTS_DATA } from '../constants/PROJECTS_DATA'
-
+import { motion } from 'framer-motion'
 import ProjectDetailCard from '../components/projects/ProjectDetailCard'
 import { convertToHtml } from '../utils/convertToHtml'
 import BackButton from '../components/commons/BackButton'
@@ -27,14 +27,17 @@ export default function ProjectDetailPage() {
 
   return (
     <>
-      <div
+      <Header />
+      <motion.div
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
         style={{
           backgroundImage: `url(${bgBlack})`,
         }}
         className="min-h-screen bg-cover bg-fixed bg-center bg-no-repeat text-white"
       >
-        <Header />
-        <div className="base-container pb-10 md:my-20">
+        <div className="base-container py-10 md:my-20">
           <ProjectDetailCard project={project} />
           <hr className="my-4 h-0.5 border bg-black md:my-6" />
           <div className="flex flex-col gap-8">
@@ -85,7 +88,7 @@ export default function ProjectDetailPage() {
         <div className="fixed bottom-4 right-4 float-end flex">
           <ArrowUp />
         </div>
-      </div>
+      </motion.div>
       <Footer />
     </>
   )

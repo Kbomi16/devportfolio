@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const scrollStyle = {
   base: 'bg-transparent',
@@ -10,6 +10,9 @@ export default function Header() {
   const [scrollPosition, setScrollPosition] = useState(0)
   const [scrollPercent, setScrollPercent] = useState(0)
   const navigate = useNavigate()
+
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,26 +77,28 @@ export default function Header() {
       </nav>
 
       {/* Section Buttons */}
-      <div className="flex justify-center gap-6 border-t border-white/10 bg-white/5 px-4 py-2 text-sm font-medium">
-        <button
-          onClick={goToTop}
-          className="px-2 py-1 transition-colors hover:text-red-300"
-        >
-          Introduce
-        </button>
-        <button
-          onClick={() => scrollToSection('aboutme')}
-          className="px-2 py-1 transition-colors hover:text-red-300"
-        >
-          About Me
-        </button>
-        <button
-          onClick={() => scrollToSection('projects')}
-          className="px-2 py-1 transition-colors hover:text-red-300"
-        >
-          Projects
-        </button>
-      </div>
+      {isHome && (
+        <div className="flex justify-center gap-6 border-t border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold">
+          <button
+            onClick={goToTop}
+            className="px-2 py-1 transition-colors hover:text-red-300"
+          >
+            Introduce
+          </button>
+          <button
+            onClick={() => scrollToSection('aboutme')}
+            className="px-2 py-1 transition-colors hover:text-red-300"
+          >
+            About Me
+          </button>
+          <button
+            onClick={() => scrollToSection('projects')}
+            className="px-2 py-1 transition-colors hover:text-red-300"
+          >
+            Projects
+          </button>
+        </div>
+      )}
     </header>
   )
 }

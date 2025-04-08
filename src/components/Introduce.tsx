@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import deatailImg1 from '../assets/imgs/bomiFavicon.png'
 import deatailImg2 from '../assets/imgs/deatailImg2.png'
 import deatailImg3 from '../assets/imgs/deatailImg3.png'
@@ -86,49 +87,67 @@ export default function Introduce() {
         ))}
       </div>
 
-      <div className="flex flex-col gap-6 rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-6 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_10px_30px_rgba(255,255,255,0.05)] backdrop-blur-xl transition duration-300 md:flex-row">
-        <div className="flex h-full w-full items-center justify-center md:w-1/2">
-          {selected.detailImage && (
-            <img
-              src={selected.detailImage}
-              alt={`${selected.title} 이미지`}
-              className="max-h-64 max-w-full cursor-pointer rounded-xl object-contain"
-              onClick={() => setIsModalOpen(true)}
-            />
-          )}
-        </div>
-
-        <div className="w-full md:w-1/2">
-          <div className="flex flex-col items-stretch justify-between">
-            <div className="mb-4 flex items-center gap-2 text-2xl font-bold">
-              <span>{selected.emoji}</span>
-              <h3>{selected.title}</h3>
-            </div>
-            <ul className="list-disc space-y-2 pl-5 text-white/90">
-              {selected.detailList.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={selected.title}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.3 }}
+          className="flex flex-col gap-6 rounded-2xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-6 text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_10px_30px_rgba(255,255,255,0.05)] backdrop-blur-xl transition duration-300 md:flex-row"
+        >
+          <div className="flex h-full w-full items-center justify-center md:w-1/2">
+            {selected.detailImage && (
+              <img
+                src={selected.detailImage}
+                alt={`${selected.title} 이미지`}
+                className="max-h-64 max-w-full cursor-pointer rounded-xl object-contain"
+                onClick={() => setIsModalOpen(true)}
+              />
+            )}
           </div>
 
-          <p className="mt-24 text-sm text-white/60">
-            📍이미지 클릭 시 크게 볼 수 있어요.
-          </p>
-        </div>
-      </div>
-      {isModalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
-          onClick={() => setIsModalOpen(false)}
-        >
-          <img
-            src={selected.detailImage}
-            alt="확대 이미지"
-            className="max-h-[90%] max-w-[90%] rounded-lg shadow-lg"
-            onClick={(e) => e.stopPropagation()}
-          />
-        </div>
-      )}
+          <div className="w-full md:w-1/2">
+            <div className="flex flex-col items-stretch justify-between">
+              <div className="mb-4 flex items-center gap-2 text-2xl font-bold">
+                <span>{selected.emoji}</span>
+                <h3>{selected.title}</h3>
+              </div>
+              <ul className="list-disc space-y-2 pl-5 text-white/90">
+                {selected.detailList.map((item, idx) => (
+                  <li key={idx}>{item}</li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="mt-24 text-sm text-white/60">
+              📍이미지 클릭 시 크게 볼 수 있어요.
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
+      <AnimatePresence>
+        {isModalOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-70"
+            onClick={() => setIsModalOpen(false)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.img
+              src={selected.detailImage}
+              alt="확대 이미지"
+              className="max-h-[90%] max-w-[90%] rounded-lg shadow-lg"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.3 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
