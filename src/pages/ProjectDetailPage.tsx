@@ -31,7 +31,7 @@ export default function ProjectDetailPage() {
         style={{
           backgroundImage: `url(${bgBlack})`,
         }}
-        className="min-h-fit bg-cover bg-center bg-no-repeat pt-12 text-white"
+        className="min-h-screen bg-cover bg-fixed bg-center bg-no-repeat text-white"
       >
         <Header />
         <div className="base-container pb-10 md:my-20">

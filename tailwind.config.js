@@ -9,6 +9,9 @@ module.exports = {
       },
       colors: {
         primary: '#F4F2ED',
+        blackPrimary: '#21212a',
+        cardDark: '#2a2a35',
+        cardActive: '#333344',
       },
     },
   },

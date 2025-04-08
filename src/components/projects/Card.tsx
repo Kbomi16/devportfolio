@@ -26,8 +26,8 @@ export default function Card({
   return (
     <div data-aos="fade-up" data-aos-anchor-placement="bottom-bottom">
       <motion.div
-        className="flex h-fit w-full cursor-pointer flex-col rounded-xl border-2 bg-black p-4 shadow-lg md:flex-row md:gap-8"
-        whileHover={{ scale: 1.05 }}
+        className="flex h-fit w-full cursor-pointer flex-col rounded-xl border border-white/20 bg-gradient-to-br from-white/10 to-white/5 p-4 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl transition-all md:flex-row md:gap-8"
+        whileHover={{ scale: 1.02, rotate: 0.5 }}
         whileTap={{ scale: 0.95 }}
         onClick={onClick}
       >

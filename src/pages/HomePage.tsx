@@ -27,16 +27,15 @@ export default function HomePage() {
         style={{
           backgroundImage: `url(${bgBlack})`,
         }}
-        className="min-h-fit bg-cover bg-center bg-no-repeat pt-12 text-white"
+        className="min-h-screen bg-cover bg-fixed bg-center bg-no-repeat text-white"
       >
         <Header />
-        <div className="mt-10">
-          <Introduce />
-        </div>
 
-        <div className="base-container pb-10 md:my-20">
+        <div className="base-container py-10 md:my-20">
+          <Introduce />
+
           {/* Aboutme */}
-          <section>
+          <section className="md:my-20">
             <div
               className="flex py-4 md:py-8"
               data-aos="fade-right"
@@ -51,13 +50,14 @@ export default function HomePage() {
               </p>
             </div>
             <div
-              className="border-gray-20 mb-8 rounded-xl border-2 bg-black py-4 shadow-md md:py-0 md:pt-4"
+              className="flex flex-col gap-10 rounded-2xl border border-white/10 bg-white/10 p-6 shadow-[0_8px_30px_rgba(255,255,255,0.1)] backdrop-blur-lg transition-all duration-300 md:p-8"
               data-aos="fade-up"
               data-aos-anchor-placement="bottom-bottom"
             >
               <Aboutme />
             </div>
           </section>
+
           {/* Projects */}
           <section className="md:my-20">
             <div
@@ -73,7 +73,7 @@ export default function HomePage() {
                 Projects.
               </p>
             </div>
-            <div className="flex flex-col gap-10">
+            <div className="flex flex-col gap-10 rounded-2xl">
               {PROJECTS_DATA.map((project) => (
                 <Card
                   key={project.id}
