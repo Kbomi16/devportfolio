@@ -32,10 +32,12 @@ export default function HomePage() {
         <Header />
 
         <div className="base-container py-10 md:my-20">
-          <Introduce />
+          <section>
+            <Introduce />
+          </section>
 
           {/* Aboutme */}
-          <section className="md:my-20">
+          <section id="aboutme" className="md:my-20">
             <div
               className="flex py-4 md:py-8"
               data-aos="fade-right"
@@ -59,7 +61,7 @@ export default function HomePage() {
           </section>
 
           {/* Projects */}
-          <section className="md:my-20">
+          <section id="projects" className="md:my-20">
             <div
               className="flex py-4 pb-4 md:py-8"
               data-aos="fade-right"
