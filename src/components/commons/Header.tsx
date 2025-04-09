@@ -57,9 +57,9 @@ export default function Header() {
       className={`fixed top-0 w-full text-white transition-all duration-500 ${headerScrollValid} z-50 backdrop-blur-sm`}
     >
       {/* Progress Bar */}
-      <div className="h-1 bg-white/20">
+      <div className="h-2 bg-white/20">
         <div
-          className="h-full bg-white transition-all duration-100"
+          className="h-full bg-white transition-all duration-300"
           style={{ width: `${scrollPercent}%` }}
         />
       </div>
