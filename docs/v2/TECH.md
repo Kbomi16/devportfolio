@@ -40,29 +40,32 @@ Lenis scroll → progress(0~1) → zustand store
   ├─ Canvas: useFrame에서 store를 직접 읽음 (리렌더 없음)
   │    ├─ CameraRig: 키프레임 테이블 보간 + damping
   │    ├─ Character: 위치·회전 보간 + 클립 크로스페이드
+  │    ├─ Ground: 클리어컬러·포그 색 lerp (검정 ↔ 화이트 지면 반전)
   │    └─ Portal 관련 유니폼
-  └─ Overlay: 포털 패널·워드마크는 CSS 변수(--p)로 바인딩,
+  └─ Overlay: 포털 패널·워드마크·지면 배경색은 CSS 변수(--p)로 바인딩,
               텍스트 리빌은 IntersectionObserver (1회성)
 ```
 
-- **키프레임 테이블**: 챕터별 `{ at: progress, cam: {pos, lookAt}, char: {pos, rot, clip} }` 배열 하나가 단일 진실. PLAN.md의 챕터 표와 1:1 대응.
+- **키프레임 테이블**: 챕터별 `{ at: progress, cam: {pos, lookAt}, char: {pos, rot, clip}, ground: 0|1 }` 배열 하나가 단일 진실. PLAN.md의 챕터 표와 1:1 대응. `ground`는 0(검정)~1(화이트) 보간값.
+- **지면 반전 동기화**: 캔버스 클리어컬러·포그와 HTML `background-color`가 같은 `ground` 값을 읽는다. nav 등 고정 UI는 `mix-blend-mode: difference`라 별도 처리 불필요.
 - **damping**: 카메라·캐릭터는 목표값으로 `MathUtils.damp` (스크롤 튐 흡수). 포털 패널·워드마크는 즉시 바인딩 (문은 손에 붙은 느낌이어야 함).
-- **챕터 상태머신**: `portal | arrival | work | roster | journal | close`. 클립 전환·인터랙션 활성화가 이 상태를 따름.
+- **챕터 상태머신**: `portal | reveal | work | roster | journal | close`. 클립 전환·인터랙션 활성화가 이 상태를 따름.
 
 ### 2.3 캐릭터 애니메이션 상태머신
 
 ```
-Run ──(arrival 진입)──▶ Idle ──(work 진입)──▶ Walk ⇄ Idle (전시물 앞 정지)
-                                                    │
+Run ──(reveal 진입)──▶ Pose ──(work 진입)──▶ Walk ⇄ Idle (전시물 앞 정지)
+                                                   │
 Idle ◀──(jump 종료)── Jump ◀──(close에서 클릭)── Idle(정면)
 ```
 
-- 전환은 전부 `crossFadeTo(0.3s)`. 스크롤 역방향이면 상태도 역방향으로.
+- 클립 5개: `Run / Pose / Walk / Idle / Jump`. 전환은 전부 `crossFadeTo(0.3s)`. 스크롤 역방향이면 상태도 역방향으로.
+- `Pose`는 CH2 리빌의 정지 스탠스 — 루프 대신 첫 프레임 홀드 + 미세 breathing 블렌드.
 - Walk 구간의 발 미끄러짐 방지: 이동 속도를 클립 보폭에 맞춰 progress 매핑 계수 조정.
 
 ### 2.4 라우팅 전환
 
-- CH3 전시물 클릭 → 카메라 푸시인(0.6s, 이 순간만 스크롤 잠금) → 화이트 오버레이 페이드 → `navigate('/work/tcc')`.
+- CH3 전시물 클릭 → 카메라 푸시인(0.6s, 이 순간만 스크롤 잠금) → 블랙 오버레이 페이드 → `navigate('/work/tcc')`.
 - `/work/*` → 홈 복귀: 저장해둔 progress로 Lenis `scrollTo(immediate)` 후 페이드인.
 - `/work/*` 페이지는 Canvas를 마운트하지 않음 (2D 전용, 가벼움).
 
@@ -81,7 +84,7 @@ src/
 ├─ overlay/             # HTML 레이어
 │  ├─ Nav.tsx
 │  ├─ Portal.tsx        # 패널 2장 + 워드마크 + 코너 메타
-│  └─ chapters/         # Arrival · Work · Roster · Journal · Close 타이포
+│  └─ chapters/         # Reveal(영문 네임) · Work · Roster · Journal · Close 타이포
 ├─ pages/work/          # 케이스 스터디 3장 + 슬리브 덱 컴포넌트
 ├─ lib/                 # lenis 훅 · progress store · reduced-motion 헬퍼
 ├─ content/             # 프로젝트 데이터 (letter/portfolio.md에서 이식)
