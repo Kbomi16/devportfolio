@@ -1,0 +1,141 @@
+:root {
+  /* 다크 지면 (CH1 포털 · CH6 클로즈) */
+  --dark-ground: #0a0a0b;
+  --dark-ink: #f2f0eb;
+
+  /* 라이트 지면 (CH2 리빌 ~ CH5 기록) */
+  --light-ground: #f4f2ed;
+  --light-ink: #0a0a0b;
+
+  --ink-2: #8a8a87;
+  --muted: #6e6e6c;
+  --hairline-on-dark: rgba(242, 240, 235, 0.14);
+  --hairline-on-light: rgba(10, 10, 11, 0.16);
+
+  /* 런타임 바인딩 값 (useLenis가 매 프레임 갱신) */
+  --p: 0;
+  --ground: var(--dark-ground);
+  --ink: var(--dark-ink);
+  --hairline: var(--hairline-on-dark);
+
+  --font-display: 'Syne', sans-serif;
+  --font-ui: 'Sora', sans-serif;
+  --font-kr: 'SUIT Variable', sans-serif;
+
+  --nav-h: 58px;
+  --pad: clamp(24px, 3.5vw, 40px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: none;
+}
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-kr);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--ground);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ---------- 공용 타이포 유틸 ---------- */
+
+.label {
+  font-family: var(--font-ui);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1px currentColor;
+}
+
+.hairline-top {
+  border-top: 1px solid var(--hairline);
+}
+
+/* 고스트 필 버튼 */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: border-color 0.25s ease;
+}
+.pill:hover {
+  border-color: var(--ink);
+}
+
+/* ---------- 1회성 리빌 ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0s);
+}
+
+/* reduced-motion: 리빌 즉시 완료, 스크롤 시네마 정지 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
