@@ -15,7 +15,7 @@ function webglAvailable(): boolean {
  * 화면에 고정된 시네마 캔버스.
  * WebGL 불가·reduced-motion이면 렌더하지 않는다 — 오버레이는 HTML이라 그대로 읽힌다.
  */
-export function CinemaCanvas({ children }: { children: ReactNode }) {
+export default function CinemaCanvas({ children }: { children: ReactNode }) {
   const [supported] = useState(() => webglAvailable() && !prefersReducedMotion())
   if (!supported) return null
 

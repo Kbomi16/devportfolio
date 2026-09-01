@@ -2,7 +2,7 @@
  * CH1 포털 히어로 — 패널 2장·워드마크·코너 메타·중앙 도트.
  * 전부 CSS 변수 --p(스크롤 진행도)에 calc()로 바인딩 — 역스크롤 시 문이 다시 닫힌다.
  */
-export function Portal() {
+export default function Portal() {
   return (
     <div className="portal" aria-hidden>
       <div className="portal-panel is-left" />

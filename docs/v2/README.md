@@ -18,6 +18,7 @@ superdesign "다크 레이블 포털 히어로" 드래프트를 골격으로, �
 | [TECH.md](./TECH.md) | 기술 골격 — 스택, 아키텍처, 폴더 구조, 성능 가드레일 |
 | [ASSET-PIPELINE.md](./ASSET-PIPELINE.md) | 3D 캐릭터 에셋 파이프라인 — Tripo/Meshy → Mixamo → GLB 최적화 |
 | [ROADMAP.md](./ROADMAP.md) | 구현 페이즈와 MVP 정의 |
+| [IMPLEMENTATION.md](./IMPLEMENTATION.md) | 구현 플랜 — 태스크·계약. 작성 기준은 레포 `.cursor/rules/fe-style.mdc` (FE-STYLE v2 적용본) |
 
 ## 핵심 레퍼런스
 
@@ -35,7 +36,7 @@ superdesign "다크 레이블 포털 히어로" 드래프트를 골격으로, �
 | 3D 주인공 | 나를 이미지화한 3D 캐릭터 (hip-vinyl-v2 스타일, 달려오는 등장) |
 | 컬러 | 순수 흑백 + 지면 반전 리듬 (검정 포털 → 화이트 본문 → 검정 클로즈) |
 | 히어로 이후 리빌 | 화이트 무대에서 캐릭터 포즈(왼쪽) + `KIM BOMI` 영문 네임 타이포(오른쪽) — 본문 시작의 표지 |
-| 스택 | Vite + React + TypeScript 유지 |
+| 스택 | bun + Vite + React + TypeScript 유지 |
 | 라우팅 | 원페이지 + `/work/[slug]` 케이스 스터디 3장 |
 | 아키텍처 | A안 — 풀페이지 고정 캔버스 + 스크롤 진행도 기반 시네마 (전 구간) |
 | 3D 모델 소스 | Tripo AI / Meshy (image-to-3D) + Mixamo (리깅·애니메이션) |

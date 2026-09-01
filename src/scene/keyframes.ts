@@ -8,7 +8,7 @@
 
 export type Clip = 'Run' | 'Pose' | 'Walk' | 'Idle' | 'Jump'
 
-export interface Sample {
+export type Sample = {
   camPos: [number, number, number]
   camLook: [number, number, number]
   charPos: [number, number, number]
@@ -18,9 +18,7 @@ export interface Sample {
   ground: number
 }
 
-interface Keyframe extends Sample {
-  at: number
-}
+type Keyframe = Sample & { at: number }
 
 const PI = Math.PI
 
@@ -63,7 +61,7 @@ const lerp3 = (
 ): [number, number, number] => [lerp(a[0], b[0], t), lerp(a[1], b[1], t), lerp(a[2], b[2], t)]
 
 /** 진행도 p의 시네마 상태를 키프레임 선형 보간으로 계산 (순수 함수 — 역스크롤 완전 대응) */
-export function sample(p: number): Sample {
+export const sample = (p: number): Sample => {
   const clamped = Math.min(1, Math.max(0, p))
   let i = 0
   while (i < KF.length - 2 && clamped > KF[i + 1].at) i++

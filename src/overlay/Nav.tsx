@@ -8,16 +8,20 @@ const LINKS: { label: string; p: number }[] = [
   { label: '연락', p: 0.95 },
 ]
 
+const handleMarkClick = () => scrollToProgress(0)
+
+const handleLinkClick = (p: number) => scrollToProgress(p)
+
 /** difference 블렌드 고정 내비 — 지면 반전(검↔흰)에 자동 대응 */
-export function Nav() {
+export default function Nav() {
   return (
     <nav className="nav">
-      <button className="nav-mark" onClick={() => scrollToProgress(0)}>
+      <button className="nav-mark" onClick={handleMarkClick}>
         BOMI<span className="nav-dot">.</span>
       </button>
       <div className="nav-links">
         {LINKS.map((l) => (
-          <button key={l.label} className="label nav-link" onClick={() => scrollToProgress(l.p)}>
+          <button key={l.label} className="label nav-link" onClick={() => handleLinkClick(l.p)}>
             {l.label}
           </button>
         ))}

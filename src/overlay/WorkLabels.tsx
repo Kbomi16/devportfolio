@@ -6,9 +6,11 @@ import { useReveal } from './useReveal'
 const TOPS = ['31%', '41%', '51%'] as const
 
 /** CH3 — 전시물 옆 타이포. 링크는 3D 클릭과 같은 전환 플로우를 탄다 (키보드 접근 대응). */
-export function WorkLabels() {
+export default function WorkLabels() {
   const ref = useReveal<HTMLDivElement>()
   const setPendingSlug = useProgress((s) => s.setPendingSlug)
+
+  const handleOpenCase = (slug: string) => setPendingSlug(slug)
 
   return (
     <div ref={ref}>
@@ -34,7 +36,7 @@ export function WorkLabels() {
           <button
             className="pill reveal"
             style={{ ['--reveal-delay' as never]: '0.3s' }}
-            onClick={() => setPendingSlug(work.slug)}
+            onClick={() => handleOpenCase(work.slug)}
           >
             케이스 보기 →
           </button>

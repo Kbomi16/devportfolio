@@ -7,7 +7,7 @@ import { chapterAt } from '../lib/motion'
 
 const look = new Vector3()
 
-export function CameraRig() {
+export default function CameraRig() {
   const lookTarget = useRef(new Vector3(0, 1.3, -10))
   const mouse = useRef({ x: 0, y: 0 })
   const pushT = useRef(0) // 전시물 푸시인 블렌드 0~1

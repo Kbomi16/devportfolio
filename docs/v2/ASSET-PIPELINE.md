@@ -44,12 +44,12 @@
 ## 4. 최적화 — gltf-transform (에이전트 담당)
 
 ```bash
-npx @gltf-transform/cli optimize bomi-clips.glb public/models/bomi.glb \
+bunx @gltf-transform/cli optimize bomi-clips.glb public/models/bomi.glb \
   --compress draco --texture-compress webp --texture-size 1024
 ```
 
 - 목표: **< 3MB**. 초과 시 텍스처 512px → simplify 순서로 감축.
-- 검수: `npx @gltf-transform/cli inspect` 로 클립 5개·본·용량 확인 후 r3f `useAnimations` 연결 테스트.
+- 검수: `bunx @gltf-transform/cli inspect` 로 클립 5개·본·용량 확인 후 r3f `useAnimations` 연결 테스트.
 
 ## 5. 폴백 사다리 (품질이 안 나올 때)
 

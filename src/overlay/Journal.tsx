@@ -7,7 +7,7 @@ const POSTS = [
 ]
 
 /** CH5 — 기록 */
-export function Journal() {
+export default function Journal() {
   const ref = useReveal<HTMLElement>()
 
   return (

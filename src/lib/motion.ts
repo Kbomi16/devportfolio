@@ -9,7 +9,7 @@ export const CH = {
   journalEnd: 0.86,
 } as const
 
-export function chapterAt(p: number): Chapter {
+export const chapterAt = (p: number): Chapter => {
   if (p < CH.portalEnd) return 'portal'
   if (p < CH.revealEnd) return 'reveal'
   if (p < CH.workEnd) return 'work'
@@ -26,9 +26,6 @@ export const range = (p: number, a: number, b: number): number =>
 
 export const lerp = (a: number, b: number, t: number): number => a + (b - a) * t
 
-export function prefersReducedMotion(): boolean {
-  return (
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches
-  )
-}
+export const prefersReducedMotion = (): boolean =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches

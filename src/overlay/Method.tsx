@@ -16,7 +16,7 @@ const DATES = [
 ]
 
 /** CH4 — 일하는 방식 스테이트먼트 + 로스터 + 데이츠 (호흡 구간, HTML만) */
-export function Method() {
+export default function Method() {
   const ref = useReveal<HTMLElement>()
 
   return (

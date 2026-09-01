@@ -4,7 +4,7 @@ const RESUME_URL =
   'https://volcano-fisherman-e31.notion.site/31a3307fa7e6803cb79de92068674178'
 
 /** CH6 — 다시 검정, 컨택트 + 크롭 워드마크 */
-export function Close() {
+export default function Close() {
   const ref = useReveal<HTMLElement>()
 
   return (

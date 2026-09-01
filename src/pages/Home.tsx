@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { CinemaCanvas } from '../scene/CinemaCanvas'
-import { Stage } from '../scene/Stage'
-import { CameraRig } from '../scene/CameraRig'
-import { Character } from '../scene/Character'
-import { Exhibits } from '../scene/exhibits/Exhibits'
-import { Nav } from '../overlay/Nav'
-import { Portal } from '../overlay/Portal'
-import { Reveal } from '../overlay/Reveal'
-import { WorkLabels } from '../overlay/WorkLabels'
-import { Method } from '../overlay/Method'
-import { Journal } from '../overlay/Journal'
-import { Close } from '../overlay/Close'
+import CinemaCanvas from '../scene/CinemaCanvas'
+import Stage from '../scene/Stage'
+import CameraRig from '../scene/CameraRig'
+import Character from '../scene/Character'
+import Exhibits from '../scene/exhibits/Exhibits'
+import Nav from '../overlay/Nav'
+import Portal from '../overlay/Portal'
+import Reveal from '../overlay/Reveal'
+import WorkLabels from '../overlay/WorkLabels'
+import Method from '../overlay/Method'
+import Journal from '../overlay/Journal'
+import Close from '../overlay/Close'
 import { useLenis, getLenis, scrollToProgress } from '../lib/useLenis'
 import { useProgress } from '../lib/progress'
 
 export default function Home() {
+  const [leaving, setLeaving] = useState(false)
+
   useLenis()
   const navigate = useNavigate()
   const pendingSlug = useProgress((s) => s.pendingSlug)
-  const [leaving, setLeaving] = useState(false)
 
   // 케이스 전환: 스크롤 잠금 → 카메라 푸시인(CameraRig) + 블랙 페이드 → 라우팅
   useEffect(() => {

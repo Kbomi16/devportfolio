@@ -1,0 +1,53 @@
+---
+description: FE-STYLE을 Vite + R3F 포트폴리오 v2 브랜치에 맞춘 작성·검수 기준
+alwaysApply: true
+---
+
+# FE-STYLE — devportfolio v2
+
+워크스페이스 FE-STYLE(Next.js/Tailwind/shadcn)을 이 브랜치 스택에 맞춰 적용한다. RSC·`app/_components`·shadcn·React Query는 도입하지 않는다.
+
+스택: **bun + Vite + React 19 + TypeScript + R3F + Lenis + zustand**. 폴더·토큰은 `docs/v2/`를 따른다.
+
+## MUST
+
+- 메인 컴포넌트: `export default function Name()`
+- 분리된 하위 React 컴포넌트: `function Name()`
+- 그 외 전부 화살표 함수: 훅, 핸들러, `sample`/`chapterAt`/`prefersReducedMotion`, Route가 아닌 유틸, 콜백
+- 타입은 `type`만. `interface` 금지
+- 컴포넌트 파일 PascalCase, `lib/`·`content/`·유틸 camelCase
+- 페이지 조립은 `src/pages/`, 씬은 `src/scene/`, HTML 오버레이는 `src/overlay/`, 공용 로직은 `src/lib/`
+- 핸들러는 `handleClick`처럼 `handle` 접두사
+- 렌더 본문 안에서 새 컴포넌트를 선언하지 않는다
+- `any` 금지. 외부 입력은 좁히기 우선
+- boolean 모드 prop(`isCompact` 등)을 쌓지 말고 variant·합성으로 나눈다
+- 스타일은 `src/styles/global.css`의 PLAN.md 토큰만. Tailwind/shadcn/임의 hex 추가 금지
+- 스크롤 시네마(Lenis, R3F `useFrame`, CSS, 키프레임 보간, IO 리빌)는 PLAN.md 범위로 이미 승인됨. **GSAP, framer-motion, Theatre 등 새 애니메이션 라이브러리는 사용자 동의 없이 추가하지 않는다**
+- React Query를 새로 넣지 않는다. 데이터는 `content/` + zustand
+
+## 클라이언트 선언 순서
+
+그룹이 바뀔 때마다 빈 줄 하나. 같은 그룹 안은 빈 줄 없음. mutation/handler가 생기면 쌍마다 빈 줄 하나.
+
+```text
+1. useState
+2. useRef
+3. 커스텀 훅 (useLenis, useProgress 구독, useNavigate, useReveal …)
+4. (조회가 생기면) 조회 — 이 프로젝트는 보통 없음
+5. handle* (바로 위 로직과 쌍)
+6. effect
+7. 조기 반환과 JSX
+```
+
+R3F 컴포넌트는 `useFrame`을 훅 구역 다음에 둔다. 씬은 `useProgress.getState().p`로 읽고 구독으로 리렌더하지 않는다.
+
+## 승인 차단
+
+- 메인/하위 React 컴포넌트 외의 `function` 선언
+- `interface` 사용
+- bun 이외의 패키지 매니저
+- PLAN 밖 액센트 컬러·세리프·Pretendard
+- 사용자 동의 없는 애니메이션 라이브러리
+- 키보드로 쓸 수 없는 주요 HTML 인터랙션(내비, 케이스 링크, 컨택트)
+
+이미 있는 `interface`/`export function` 유틸은 그 파일을 수정할 때 `type`·화살표로 맞춘다. 범위 밖 일괄 리팩터는 하지 않는다.

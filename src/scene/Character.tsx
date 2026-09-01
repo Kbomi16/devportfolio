@@ -14,7 +14,9 @@ import { chapterAt } from '../lib/motion'
 const CLIPS: Clip[] = ['Run', 'Pose', 'Walk', 'Idle', 'Jump']
 const JUMP_MS = 700
 
-export function Character() {
+const isClose = () => chapterAt(useProgress.getState().p) === 'close'
+
+export default function Character() {
   const root = useRef<Group>(null!)
   const body = useRef<Group>(null!)
   const head = useRef<Group>(null!)
@@ -24,9 +26,20 @@ export function Character() {
   const legR = useRef<Group>(null!)
   const weights = useRef<Record<Clip, number>>({ Run: 1, Pose: 0, Walk: 0, Idle: 0, Jump: 0 })
 
+  const handleClick = () => {
+    if (isClose()) useProgress.getState().triggerJump()
+  }
+
+  const handlePointerOver = () => {
+    if (isClose()) document.body.style.cursor = 'pointer'
+  }
+
+  const handlePointerOut = () => {
+    document.body.style.cursor = ''
+  }
+
   useFrame((state, dt) => {
-    const { p, jumpAt, triggerJump } = useProgress.getState()
-    void triggerJump
+    const { p, jumpAt } = useProgress.getState()
     const s = sample(p)
     const t = state.clock.elapsedTime
     const w = weights.current
@@ -72,21 +85,13 @@ export function Character() {
     head.current.rotation.z = w.Pose * -0.08
   })
 
-  const isClose = () => chapterAt(useProgress.getState().p) === 'close'
-
   return (
     <group
       ref={root}
       position={[0, 0, -40]}
-      onClick={() => {
-        if (isClose()) useProgress.getState().triggerJump()
-      }}
-      onPointerOver={() => {
-        if (isClose()) document.body.style.cursor = 'pointer'
-      }}
-      onPointerOut={() => {
-        document.body.style.cursor = ''
-      }}
+      onClick={handleClick}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
     >
       {/* 몸통 */}
       <group ref={body} position={[0, 1.08, 0]}>

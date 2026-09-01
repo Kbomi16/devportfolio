@@ -5,17 +5,24 @@ import { EXHIBITS } from '../keyframes'
 import { useProgress } from '../../lib/progress'
 
 /** 전시물 공통: 호버 부상 + 클릭 → 케이스 전환 트리거 */
-function Exhibit({
-  slug,
-  x,
-  children,
-}: {
-  slug: string
-  x: number
-  children: ReactNode
-}) {
-  const group = useRef<Group>(null!)
+function Exhibit({ slug, x, children }: { slug: string; x: number; children: ReactNode }) {
   const [hovered, setHovered] = useState(false)
+
+  const group = useRef<Group>(null!)
+
+  const handleClick = () => {
+    useProgress.getState().setPendingSlug(slug)
+  }
+
+  const handlePointerOver = () => {
+    setHovered(true)
+    document.body.style.cursor = 'pointer'
+  }
+
+  const handlePointerOut = () => {
+    setHovered(false)
+    document.body.style.cursor = ''
+  }
 
   useFrame((_, dt) => {
     const g = group.current
@@ -26,15 +33,9 @@ function Exhibit({
     <group position={[x, 0, -3]}>
       <group
         ref={group}
-        onClick={() => useProgress.getState().setPendingSlug(slug)}
-        onPointerOver={() => {
-          setHovered(true)
-          document.body.style.cursor = 'pointer'
-        }}
-        onPointerOut={() => {
-          setHovered(false)
-          document.body.style.cursor = ''
-        }}
+        onClick={handleClick}
+        onPointerOver={handlePointerOver}
+        onPointerOut={handlePointerOut}
       >
         {children}
       </group>
@@ -43,7 +44,7 @@ function Exhibit({
 }
 
 /** 화이트 무대 위 검은 전시물 3종 (전부 프로시저럴 — 모델링 불필요) */
-export function Exhibits() {
+export default function Exhibits() {
   const [tcc, sites, alleo] = EXHIBITS
 
   return (

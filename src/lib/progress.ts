@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 
-interface ProgressState {
+type ProgressState = {
   /** 전체 스크롤 진행도 0~1 */
   p: number
   /** CH3 전시물 클릭 → 케이스 페이지 전환 중인 slug (푸시인·페이드 트리거) */

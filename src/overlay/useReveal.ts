@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react'
  * 컨테이너 내부의 `.reveal` 요소들을 1회성으로 등장시킨다.
  * 등장 후 다시 사라지지 않는다 (PLAN §7 모션 규칙).
  */
-export function useReveal<T extends HTMLElement>() {
+export const useReveal = <T extends HTMLElement>() => {
   const ref = useRef<T>(null)
 
   useEffect(() => {

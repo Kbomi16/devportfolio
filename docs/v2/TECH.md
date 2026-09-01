@@ -6,6 +6,7 @@
 
 | 레이어 | 선택 | 이유 |
 |--------|------|------|
+| 패키지 매니저 | **bun** | 설치·실행·스크립트 전부 bun. npm/yarn/pnpm 금지 |
 | 빌드·프레임워크 | **Vite + React 19 + TypeScript** | v1 레포 구조 유지, 원페이지 WebGL에 최적 |
 | 라우팅 | **react-router v7** | `/` + `/work/[slug]` 3장 |
 | 3D | **three + @react-three/fiber + @react-three/drei** | 선언적 씬 구성, useAnimations·useGLTF |

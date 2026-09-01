@@ -12,15 +12,15 @@ const LIGHT_INK = '#0a0a0b'
 const bg = new Color()
 
 /** 라이트·포그·바닥 + 지면 반전. 캔버스 배경과 HTML CSS 변수를 같은 ground 값으로 동기화한다. */
-export function Stage() {
-  const scene = useThree((st) => st.scene)
+export default function Stage() {
   const keyRef = useRef<DirectionalLight>(null)
   const ambientRef = useRef<{ intensity: number } | null>(null)
   const lastInverted = useRef(false)
 
-  if (!scene.fog) scene.fog = new Fog(DARK.clone(), 14, 70)
+  const scene = useThree((st) => st.scene)
 
   useFrame(() => {
+    if (!scene.fog) scene.fog = new Fog(DARK.clone(), 14, 70)
     const { p } = useProgress.getState()
     const s = sample(p)
     const g = s.ground

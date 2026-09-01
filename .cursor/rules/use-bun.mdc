@@ -1,0 +1,29 @@
+---
+description: 이 프로젝트는 bun으로만 설치·실행·스크립트를 돌린다
+alwaysApply: true
+---
+
+# Package manager: bun
+
+이 레포의 패키지 매니저는 **bun**이다. npm, yarn, pnpm, npx를 쓰지 않는다.
+
+```bash
+# ✅
+bun install
+bun add <pkg>
+bun add -d <pkg>
+bun remove <pkg>
+bun run dev
+bun run build
+bun run preview
+bunx <cli>
+
+# ❌
+npm install / npm run …
+yarn …
+pnpm …
+npx …
+```
+
+- lockfile은 `bun.lock`만 커밋한다. `package-lock.json`, `yarn.lock`, `pnpm-lock.yaml`은 만들지 말고, 있으면 삭제한다.
+- 일회성 CLI는 `npx` 대신 `bunx`를 쓴다.

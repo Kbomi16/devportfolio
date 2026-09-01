@@ -1,4 +1,4 @@
-export interface WorkItem {
+export type WorkItem = {
   slug: 'tcc' | 'sites' | 'alleo'
   /** 갤러리 라벨 (홈 CH3) */
   label: string
