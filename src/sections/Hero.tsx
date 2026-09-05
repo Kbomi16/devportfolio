@@ -62,7 +62,7 @@ export default function Hero() {
         .to('.hero-panel.is-right', { xPercent: 110, duration: 0.14 }, 0)
         .to('.hero-bo', { xPercent: -52, duration: 0.14 }, 0)
         .to('.hero-mi', { xPercent: 52, duration: 0.14 }, 0)
-        .to('.hero-mark', { scale: 1.16, autoAlpha: 0, duration: 0.14 }, 0)
+        .to('.hero-mark', { scale: 1.16, duration: 0.14 }, 0)
         .to('.hero-dot.is-left', { x: '-46vw', y: '-42vh', duration: 0.14 }, 0)
         .to('.hero-dot.is-right', { x: '46vw', y: '42vh', duration: 0.14 }, 0)
         .to('.hero-chrome', { opacity: 0, duration: 0.07 }, 0.04)
@@ -82,6 +82,8 @@ export default function Hero() {
         // 영상 마지막 프레임 → 랜딩 이미지 크로스페이드 (같은 피규어·같은 검은 무대)
         .fromTo('.hero-landing', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.66)
         .fromTo('.hero-landing-zoom', { scale: 1.14 }, { scale: 1.02, duration: 0.26 }, 0.66)
+        // 문 워드마크는 랜딩보다 z가 높아, 랜딩이 뜰 때 같이 꺼야 겹치지 않는다
+        .to('.hero-bo, .hero-mi', { autoAlpha: 0, duration: 0.1 }, 0.66)
         // 이미지 위 타이포 리빌
         .fromTo(
           '.hero-copy-item',
