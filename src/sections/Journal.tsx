@@ -1,4 +1,9 @@
 import { useRef } from 'react'
+import Display from '../components/common/Display'
+import Hairline from '../components/common/Hairline'
+import Label from '../components/common/Label'
+import { cn } from '../lib/cn'
+import { ground } from '../lib/ground'
 import { useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 import { revealOnce } from '../lib/reveal'
@@ -16,30 +21,51 @@ export default function Journal() {
   useGSAP(
     (context) => {
       if (prefersReducedMotion()) return
-      revealOnce((context.selector?.('.rv') ?? []) as HTMLElement[])
+      revealOnce((context.selector?.('[data-rv]') ?? []) as HTMLElement[])
     },
     { scope: sectionRef },
   )
 
   return (
-    <section ref={sectionRef} className="journal-section ground-light" id="journal">
-      <span className="label rv">JOURNAL · 100+</span>
-      <h2 className="display journal-head rv">
+    <section
+      ref={sectionRef}
+      className={cn(
+        ground.light,
+        'flex flex-col gap-5 px-[var(--pad)] pt-[6vh] pb-[22vh] [&>*]:mx-auto [&>*]:w-full [&>*]:max-w-[900px]',
+      )}
+      id="journal"
+    >
+      <Label data-rv className="text-muted">
+        JOURNAL · 100+
+      </Label>
+      <Display
+        data-rv
+        as="h2"
+        className="font-kr text-[clamp(32px,4.4vw,64px)] leading-[1.15] font-extrabold tracking-[-0.02em]"
+      >
         적어두면,
         <br />
         다음이 짧아집니다.
-      </h2>
-      <p className="journal-copy rv">
+      </Display>
+      <p data-rv className="max-w-[44ch] text-ink-2">
         실무에서 막힌 지점을 100편 넘게 적어 왔습니다. 미래의 저와 팀원을 위한 메모장을
         공개해 둔 것에 가깝습니다.
       </p>
-      <ul className="journal-list">
+      <ul className="mt-3 list-none">
         {POSTS.map((post) => (
-          <li key={post.title} className="rv">
-            <a className="journal-link hairline-top" href={post.url} target="_blank" rel="noreferrer">
-              <span>{post.title}</span>
-              <span className="label">READ →</span>
-            </a>
+          <li key={post.title} data-rv>
+            <Hairline
+              as="a"
+              className="group flex items-center justify-between gap-4 py-[18px] font-semibold"
+              href={post.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="group-hover:underline group-hover:underline-offset-[5px]">
+                {post.title}
+              </span>
+              <Label className="text-muted">READ →</Label>
+            </Hairline>
           </li>
         ))}
       </ul>

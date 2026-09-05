@@ -31,7 +31,7 @@ export default function Method() {
   useGSAP(
     (context) => {
       if (prefersReducedMotion()) return
-      revealOnce((context.selector?.('.rv') ?? []) as HTMLElement[])
+      revealOnce((context.selector?.('[data-rv]') ?? []) as HTMLElement[])
     },
     { scope: sectionRef },
   )
@@ -46,14 +46,18 @@ export default function Method() {
       id="roster"
     >
       <div className="relative max-md:flex max-md:flex-col">
-        <Label className="rv">일하는 방식</Label>
+        <Label data-rv>일하는 방식</Label>
         <Display
-          className="rv absolute top-0 right-0 text-[clamp(90px,11vw,180px)] opacity-60 max-md:static max-md:order-first"
+          data-rv
+          className="absolute top-0 right-0 text-[clamp(90px,11vw,180px)] opacity-60 max-md:static max-md:order-first"
           as={OutlineText}
         >
           01
         </Display>
-        <p className="rv mt-[18px] max-w-[22ch] text-[clamp(24px,3.6vw,52px)] leading-[1.25] font-bold tracking-[-0.01em]">
+        <p
+          data-rv
+          className="mt-[18px] max-w-[22ch] text-[clamp(24px,3.6vw,52px)] leading-[1.25] font-bold tracking-[-0.01em]"
+        >
           잘 모르는 걸 만나면 일단 적고,
           <br />
           <OutlineText>다시 꺼낼 수 있는 형태</OutlineText>로 남깁니다.
@@ -65,7 +69,8 @@ export default function Method() {
           <Hairline
             as="li"
             key={row.tag}
-            className="rv grid grid-cols-[110px_1fr_auto] items-baseline gap-[18px] py-5 max-md:grid-cols-[72px_1fr_auto]"
+            data-rv
+            className="grid grid-cols-[110px_1fr_auto] items-baseline gap-[18px] py-5 max-md:grid-cols-[72px_1fr_auto]"
           >
             <Label className="text-muted">{row.tag}</Label>
             <Display className="font-kr text-[clamp(20px,2.4vw,34px)] font-bold tracking-[-0.01em]">
@@ -79,7 +84,8 @@ export default function Method() {
       <div>
         <Label
           as={Hairline}
-          className="rv grid grid-cols-[180px_1.4fr_1fr] gap-[18px] py-4 text-muted max-md:hidden"
+          data-rv
+          className="grid grid-cols-[180px_1.4fr_1fr] gap-[18px] py-4 text-muted max-md:hidden"
         >
           <span>WHEN</span>
           <span>TITLE</span>
@@ -88,7 +94,8 @@ export default function Method() {
         {DATES.map((row) => (
           <Hairline
             key={row.when}
-            className="rv grid grid-cols-[180px_1.4fr_1fr] gap-[18px] py-4 max-md:grid-cols-1 max-md:gap-1"
+            data-rv
+            className="grid grid-cols-[180px_1.4fr_1fr] gap-[18px] py-4 max-md:grid-cols-1 max-md:gap-1"
           >
             <span className="font-ui text-[13px] text-ink-2">{row.when}</span>
             <Display className="font-kr text-[clamp(16px,1.6vw,22px)] font-bold tracking-[-0.01em]">

@@ -9,6 +9,7 @@ import Close from '../sections/Close'
 import { ScrollTrigger } from '../lib/gsapSetup'
 import { useLenis, getLenis } from '../lib/useLenis'
 import { usePointer } from '../lib/usePointer'
+import { cn } from '../lib/cn'
 
 export default function Home() {
   const [leaving, setLeaving] = useState(false)
@@ -47,7 +48,13 @@ export default function Home() {
         <Journal />
         <Close />
       </main>
-      <div className={`route-fade${leaving ? ' is-on' : ''}`} aria-hidden />
+      <div
+        className={cn(
+          'pointer-events-none fixed inset-0 z-40 bg-dark-ground opacity-0 transition-opacity delay-100 duration-500 ease-linear',
+          leaving && 'pointer-events-auto opacity-100',
+        )}
+        aria-hidden
+      />
     </>
   )
 }

@@ -58,14 +58,14 @@ export default function Hero() {
       })
 
       // 문 열림 (0 – 0.14) — 역스크롤 시 다시 닫힌다
-      tl.to('.hero-panel.is-left', { xPercent: -110, duration: 0.14 }, 0)
-        .to('.hero-panel.is-right', { xPercent: 110, duration: 0.14 }, 0)
-        .to('.hero-bo', { xPercent: -52, duration: 0.14 }, 0)
-        .to('.hero-mi', { xPercent: 52, duration: 0.14 }, 0)
-        .to('.hero-mark', { scale: 1.16, duration: 0.14 }, 0)
-        .to('.hero-dot.is-left', { x: '-46vw', y: '-42vh', duration: 0.14 }, 0)
-        .to('.hero-dot.is-right', { x: '46vw', y: '42vh', duration: 0.14 }, 0)
-        .to('.hero-chrome', { opacity: 0, duration: 0.07 }, 0.04)
+      tl.to('[data-hero-panel="left"]', { xPercent: -110, duration: 0.14 }, 0)
+        .to('[data-hero-panel="right"]', { xPercent: 110, duration: 0.14 }, 0)
+        .to('[data-hero-bo]', { xPercent: -52, duration: 0.14 }, 0)
+        .to('[data-hero-mi]', { xPercent: 52, duration: 0.14 }, 0)
+        .to('[data-hero-mark]', { scale: 1.16, duration: 0.14 }, 0)
+        .to('[data-hero-dot="left"]', { x: '-46vw', y: '-42vh', duration: 0.14 }, 0)
+        .to('[data-hero-dot="right"]', { x: '46vw', y: '42vh', duration: 0.14 }, 0)
+        .to('[data-hero-chrome]', { opacity: 0, duration: 0.07 }, 0.04)
         // 필름 스크럽 (0.10 – 0.66) — 스크롤이 곧 재생 헤드
         .to(
           scrubState,
@@ -80,18 +80,18 @@ export default function Hero() {
           0.1,
         )
         // 영상 마지막 프레임 → 랜딩 이미지 크로스페이드 (같은 피규어·같은 검은 무대)
-        .fromTo('.hero-landing', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.66)
-        .fromTo('.hero-landing-zoom', { scale: 1.14 }, { scale: 1.02, duration: 0.26 }, 0.66)
+        .fromTo('[data-hero-landing]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.66)
+        .fromTo('[data-hero-landing-zoom]', { scale: 1.14 }, { scale: 1.02, duration: 0.26 }, 0.66)
         // 문 워드마크는 랜딩보다 z가 높아, 랜딩이 뜰 때 같이 꺼야 겹치지 않는다
-        .to('.hero-bo, .hero-mi', { autoAlpha: 0, duration: 0.1 }, 0.66)
+        .to('[data-hero-bo], [data-hero-mi]', { autoAlpha: 0, duration: 0.1 }, 0.66)
         // 이미지 위 타이포 리빌
         .fromTo(
-          '.hero-copy-item',
+          '[data-hero-copy]',
           { y: 56, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.09, stagger: 0.025 },
           0.76,
         )
-        .fromTo('.hero-float', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08, stagger: 0.03 }, 0.82)
+        .fromTo('[data-hero-float]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08, stagger: 0.03 }, 0.82)
         // 홀드 — 마우스 패럴랙스 무대
         .to({}, { duration: 0.1 }, 0.9)
     },
@@ -120,14 +120,18 @@ export default function Hero() {
 
       {/* 풀블리드 랜딩 — 레이어별 깊이가 다른 마우스 패럴랙스 */}
       <div
+        data-hero-landing
         className={cn(
-          'hero-landing absolute inset-0 z-[2]',
+          'absolute inset-0 z-[2]',
           landed
             ? 'visible opacity-100 transition-opacity duration-[900ms] ease-linear'
             : 'invisible opacity-0',
         )}
       >
-        <div className="hero-landing-zoom absolute inset-0 overflow-hidden will-change-transform">
+        <div
+          data-hero-landing-zoom
+          className="absolute inset-0 overflow-hidden will-change-transform"
+        >
           <img
             className="size-full object-cover will-change-transform select-none [-webkit-user-drag:none] [transform:translate3d(calc(var(--mx)*-16px),calc(var(--my)*-10px),0)_scale(1.06)] motion-reduce:will-change-auto motion-reduce:[transform:scale(1.02)]"
             src={IMAGE_SRC}
@@ -144,39 +148,53 @@ export default function Hero() {
         </div>
 
         <div className="absolute top-1/2 right-[var(--pad)] z-[3] flex -translate-y-1/2 flex-col items-end gap-2.5 text-right text-dark-ink will-change-transform [transform:translate3d(calc(var(--mx)*26px),calc(var(--my)*14px),0)] max-md:top-auto max-md:right-auto max-md:bottom-[calc(var(--pad)+44px)] max-md:left-[var(--pad)] max-md:items-start max-md:translate-none max-md:text-left motion-reduce:will-change-auto motion-reduce:[transform:none]">
-          <Label className="hero-copy-item text-dark-ink/60">FRONTEND</Label>
+          <Label data-hero-copy className="text-dark-ink/60">
+            FRONTEND
+          </Label>
           <div className="will-change-transform [transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*8px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]">
             <Display
               as="h1"
-              className="hero-name hero-copy-item text-[clamp(56px,9vw,150px)] leading-[0.94] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]"
+              data-hero-copy
+              className="text-[clamp(56px,9vw,150px)] leading-[0.94] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]"
             >
               KIM BOMI
               <OutlineText>.</OutlineText>
             </Display>
           </div>
-          <p className="hero-copy-item text-[clamp(17px,1.8vw,24px)] font-bold tracking-[-0.01em]">
+          <p
+            data-hero-copy
+            className="text-[clamp(17px,1.8vw,24px)] font-bold tracking-[-0.01em]"
+          >
             프론트엔드 개발자 김보미
           </p>
-          <p className="hero-copy-item max-w-[36ch] font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72">
+          <p
+            data-hero-copy
+            className="max-w-[36ch] font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72"
+          >
             Building interfaces that respond like they&rsquo;re alive.
           </p>
-          <Label className="hero-copy-item mt-2 text-ink-2">DEVELOPER · SEOUL · 2026</Label>
+          <Label data-hero-copy className="mt-2 text-ink-2">
+            DEVELOPER · SEOUL · 2026
+          </Label>
         </div>
 
         <Label
-          className="hero-float is-tl absolute top-[calc(var(--nav-h)+18px)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*38px),calc(var(--my)*22px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          data-hero-float
+          className="absolute top-[calc(var(--nav-h)+18px)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*38px),calc(var(--my)*22px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
           aria-hidden
         >
           FIG. 01 — VINYL
         </Label>
         <Label
-          className="hero-float is-bl absolute bottom-[var(--pad)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*30px),calc(var(--my)*-18px),0)] max-md:hidden motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          data-hero-float
+          className="absolute bottom-[var(--pad)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*30px),calc(var(--my)*-18px),0)] max-md:hidden motion-reduce:will-change-auto motion-reduce:[transform:none]"
           aria-hidden
         >
           ↓ SCROLL
         </Label>
         <Label
-          className="hero-float is-br absolute right-[var(--pad)] bottom-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*-34px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          data-hero-float
+          className="absolute right-[var(--pad)] bottom-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*-34px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
           aria-hidden
         >
           ONE CONTINUOUS SHOT
@@ -185,19 +203,38 @@ export default function Hero() {
 
       {/* 검은 문 (최상단 레이어) */}
       {mode !== 'auto' && (
-        <div className="hero-door pointer-events-none absolute inset-0 z-[4] text-dark-ink" aria-hidden>
-          <div className="hero-panel is-left absolute inset-y-0 left-0 w-[50.5vw] border-r border-hairline-on-dark bg-dark-ground will-change-transform" />
-          <div className="hero-panel is-right absolute inset-y-0 right-0 w-[50.5vw] border-l border-hairline-on-dark bg-dark-ground will-change-transform" />
+        <div className="pointer-events-none absolute inset-0 z-[4] text-dark-ink" aria-hidden>
+          <div
+            data-hero-panel="left"
+            className="absolute inset-y-0 left-0 w-[50.5vw] border-r border-hairline-on-dark bg-dark-ground will-change-transform"
+          />
+          <div
+            data-hero-panel="right"
+            className="absolute inset-y-0 right-0 w-[50.5vw] border-l border-hairline-on-dark bg-dark-ground will-change-transform"
+          />
 
-          <span className="hero-dot is-left absolute top-1/2 left-[calc(50%-16px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform" />
-          <span className="hero-dot is-right absolute top-1/2 left-[calc(50%+12px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform" />
+          <span
+            data-hero-dot="left"
+            className="absolute top-1/2 left-[calc(50%-16px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform"
+          />
+          <span
+            data-hero-dot="right"
+            className="absolute top-1/2 left-[calc(50%+12px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform"
+          />
 
-          <Display className="hero-mark absolute inset-0 flex items-center justify-center text-[clamp(64px,13vw,190px)] tracking-[0.01em] will-change-transform">
-            <span className="hero-bo inline-block will-change-transform">BO</span>
-            <span className="hero-mi inline-block will-change-transform">MI.</span>
+          <Display
+            data-hero-mark
+            className="absolute inset-0 flex items-center justify-center text-[clamp(64px,13vw,190px)] tracking-[0.01em] will-change-transform"
+          >
+            <span data-hero-bo className="inline-block will-change-transform">
+              BO
+            </span>
+            <span data-hero-mi className="inline-block will-change-transform">
+              MI.
+            </span>
           </Display>
 
-          <div className="hero-chrome">
+          <div data-hero-chrome>
             <Label className="absolute top-[calc(var(--nav-h)+14px)] left-[var(--pad)] text-ink-2">
               KIM BOMI · FRONTEND
             </Label>
