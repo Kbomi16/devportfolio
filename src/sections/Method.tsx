@@ -1,4 +1,10 @@
 import { useRef } from 'react'
+import Display from '../components/common/Display'
+import Hairline from '../components/common/Hairline'
+import Label from '../components/common/Label'
+import OutlineText from '../components/common/OutlineText'
+import { cn } from '../lib/cn'
+import { ground } from '../lib/ground'
 import { useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 import { revealOnce } from '../lib/reveal'
@@ -31,39 +37,65 @@ export default function Method() {
   )
 
   return (
-    <section ref={sectionRef} className="method-section ground-light" id="roster">
-      <div className="method-statement">
-        <span className="label rv">일하는 방식</span>
-        <span className="display method-index outline-text rv">01</span>
-        <p className="method-copy rv">
+    <section
+      ref={sectionRef}
+      className={cn(
+        ground.light,
+        'flex flex-col gap-[9vh] px-[var(--pad)] py-[18vh] [&>*]:mx-auto [&>*]:w-full [&>*]:max-w-[1200px]',
+      )}
+      id="roster"
+    >
+      <div className="relative max-md:flex max-md:flex-col">
+        <Label className="rv">일하는 방식</Label>
+        <Display
+          className="rv absolute top-0 right-0 text-[clamp(90px,11vw,180px)] opacity-60 max-md:static max-md:order-first"
+          as={OutlineText}
+        >
+          01
+        </Display>
+        <p className="rv mt-[18px] max-w-[22ch] text-[clamp(24px,3.6vw,52px)] leading-[1.25] font-bold tracking-[-0.01em]">
           잘 모르는 걸 만나면 일단 적고,
           <br />
-          <span className="outline-text">다시 꺼낼 수 있는 형태</span>로 남깁니다.
+          <OutlineText>다시 꺼낼 수 있는 형태</OutlineText>로 남깁니다.
         </p>
       </div>
 
-      <ul className="roster">
+      <ul className="list-none">
         {ROSTER.map((row) => (
-          <li key={row.tag} className="roster-row hairline-top rv">
-            <span className="label">{row.tag}</span>
-            <span className="display roster-name">{row.name}</span>
-            <span className="label roster-count">{row.count}</span>
-          </li>
+          <Hairline
+            as="li"
+            key={row.tag}
+            className="rv grid grid-cols-[110px_1fr_auto] items-baseline gap-[18px] py-5 max-md:grid-cols-[72px_1fr_auto]"
+          >
+            <Label className="text-muted">{row.tag}</Label>
+            <Display className="font-kr text-[clamp(20px,2.4vw,34px)] font-bold tracking-[-0.01em]">
+              {row.name}
+            </Display>
+            <Label className="text-muted">{row.count}</Label>
+          </Hairline>
         ))}
       </ul>
 
-      <div className="dates">
-        <div className="dates-head label hairline-top rv">
+      <div>
+        <Label
+          as={Hairline}
+          className="rv grid grid-cols-[180px_1.4fr_1fr] gap-[18px] py-4 text-muted max-md:hidden"
+        >
           <span>WHEN</span>
           <span>TITLE</span>
           <span>ROLE</span>
-        </div>
+        </Label>
         {DATES.map((row) => (
-          <div key={row.when} className="dates-row hairline-top rv">
-            <span className="dates-when">{row.when}</span>
-            <span className="display dates-title">{row.title}</span>
-            <span className="dates-role">{row.role}</span>
-          </div>
+          <Hairline
+            key={row.when}
+            className="rv grid grid-cols-[180px_1.4fr_1fr] gap-[18px] py-4 max-md:grid-cols-1 max-md:gap-1"
+          >
+            <span className="font-ui text-[13px] text-ink-2">{row.when}</span>
+            <Display className="font-kr text-[clamp(16px,1.6vw,22px)] font-bold tracking-[-0.01em]">
+              {row.title}
+            </Display>
+            <span className="font-ui text-[13px] text-ink-2">{row.role}</span>
+          </Hairline>
         ))}
       </div>
     </section>

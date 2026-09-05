@@ -1,4 +1,9 @@
 import { useRef, useState } from 'react'
+import Display from '../components/common/Display'
+import Label from '../components/common/Label'
+import OutlineText from '../components/common/OutlineText'
+import { cn } from '../lib/cn'
+import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 
@@ -94,12 +99,12 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className={`hero ground-dark${mode === 'auto' ? ' is-auto' : ''}${landed ? ' is-landed' : ''}`}
+      className={cn(ground.dark, 'relative h-screen overflow-hidden bg-black')}
       id="about"
     >
       <video
         ref={videoRef}
-        className="hero-video"
+        className="absolute inset-0 size-full object-cover"
         src={VIDEO_SRC}
         poster={IMAGE_SRC}
         muted
@@ -112,63 +117,103 @@ export default function Hero() {
       />
 
       {/* 풀블리드 랜딩 — 레이어별 깊이가 다른 마우스 패럴랙스 */}
-      <div className="hero-landing">
-        <div className="hero-landing-zoom">
+      <div
+        className={cn(
+          'hero-landing absolute inset-0 z-[2]',
+          landed
+            ? 'visible opacity-100 transition-opacity duration-[900ms] ease-linear'
+            : 'invisible opacity-0',
+        )}
+      >
+        <div className="hero-landing-zoom absolute inset-0 overflow-hidden will-change-transform">
           <img
-            className="hero-photo"
+            className="size-full object-cover will-change-transform select-none [-webkit-user-drag:none] [transform:translate3d(calc(var(--mx)*-16px),calc(var(--my)*-10px),0)_scale(1.06)] motion-reduce:will-change-auto motion-reduce:[transform:scale(1.02)]"
             src={IMAGE_SRC}
             alt="웅크린 자세로 정면을 응시하는 3D 바이닐 피규어 — 포트폴리오 표지"
           />
-          <div className="hero-vignette" aria-hidden />
-          <div className="hero-sheen" aria-hidden />
+          <div
+            className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_45%,transparent_55%,rgba(0,0,0,0.55)_100%)]"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(560px_420px_at_calc(50%+var(--mx)*30%)_calc(40%+var(--my)*24%),rgba(242,240,235,0.14),transparent_60%)] mix-blend-soft-light motion-reduce:hidden"
+            aria-hidden
+          />
         </div>
 
-        <div className="hero-copy">
-          <span className="label hero-copy-item">FRONTEND</span>
-          <div className="hero-name-depth">
-            <h1 className="display hero-name hero-copy-item">
-              KIM BOMI<span className="outline-text">.</span>
-            </h1>
+        <div className="absolute top-1/2 right-[var(--pad)] z-[3] flex -translate-y-1/2 flex-col items-end gap-2.5 text-right text-dark-ink will-change-transform [transform:translate3d(calc(var(--mx)*26px),calc(var(--my)*14px),0)] max-md:top-auto max-md:right-auto max-md:bottom-[calc(var(--pad)+44px)] max-md:left-[var(--pad)] max-md:items-start max-md:translate-none max-md:text-left motion-reduce:will-change-auto motion-reduce:[transform:none]">
+          <Label className="hero-copy-item text-dark-ink/60">FRONTEND</Label>
+          <div className="will-change-transform [transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*8px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]">
+            <Display
+              as="h1"
+              className="hero-name hero-copy-item text-[clamp(56px,9vw,150px)] leading-[0.94] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]"
+            >
+              KIM BOMI
+              <OutlineText>.</OutlineText>
+            </Display>
           </div>
-          <p className="hero-kr hero-copy-item">프론트엔드 개발자 김보미</p>
-          <p className="hero-en hero-copy-item">
+          <p className="hero-copy-item text-[clamp(17px,1.8vw,24px)] font-bold tracking-[-0.01em]">
+            프론트엔드 개발자 김보미
+          </p>
+          <p className="hero-copy-item max-w-[36ch] font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72">
             Building interfaces that respond like they&rsquo;re alive.
           </p>
-          <span className="label hero-meta-line hero-copy-item">DEVELOPER · SEOUL · 2026</span>
+          <Label className="hero-copy-item mt-2 text-ink-2">DEVELOPER · SEOUL · 2026</Label>
         </div>
 
-        <span className="label hero-float is-tl" aria-hidden>
+        <Label
+          className="hero-float is-tl absolute top-[calc(var(--nav-h)+18px)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*38px),calc(var(--my)*22px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          aria-hidden
+        >
           FIG. 01 — VINYL
-        </span>
-        <span className="label hero-float is-bl" aria-hidden>
+        </Label>
+        <Label
+          className="hero-float is-bl absolute bottom-[var(--pad)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*30px),calc(var(--my)*-18px),0)] max-md:hidden motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          aria-hidden
+        >
           ↓ SCROLL
-        </span>
-        <span className="label hero-float is-br" aria-hidden>
+        </Label>
+        <Label
+          className="hero-float is-br absolute right-[var(--pad)] bottom-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*-34px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          aria-hidden
+        >
           ONE CONTINUOUS SHOT
-        </span>
+        </Label>
       </div>
 
       {/* 검은 문 (최상단 레이어) */}
-      <div className="hero-door" aria-hidden>
-        <div className="hero-panel is-left" />
-        <div className="hero-panel is-right" />
+      {mode !== 'auto' && (
+        <div className="hero-door pointer-events-none absolute inset-0 z-[4] text-dark-ink" aria-hidden>
+          <div className="hero-panel is-left absolute inset-y-0 left-0 w-[50.5vw] border-r border-hairline-on-dark bg-dark-ground will-change-transform" />
+          <div className="hero-panel is-right absolute inset-y-0 right-0 w-[50.5vw] border-l border-hairline-on-dark bg-dark-ground will-change-transform" />
 
-        <span className="hero-dot is-left" />
-        <span className="hero-dot is-right" />
+          <span className="hero-dot is-left absolute top-1/2 left-[calc(50%-16px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform" />
+          <span className="hero-dot is-right absolute top-1/2 left-[calc(50%+12px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform" />
 
-        <div className="display hero-mark">
-          <span className="hero-bo">BO</span>
-          <span className="hero-mi">MI.</span>
+          <Display className="hero-mark absolute inset-0 flex items-center justify-center text-[clamp(64px,13vw,190px)] tracking-[0.01em] will-change-transform">
+            <span className="hero-bo inline-block will-change-transform">BO</span>
+            <span className="hero-mi inline-block will-change-transform">MI.</span>
+          </Display>
+
+          <div className="hero-chrome">
+            <Label className="absolute top-[calc(var(--nav-h)+14px)] left-[var(--pad)] text-ink-2">
+              KIM BOMI · FRONTEND
+            </Label>
+            <Label className="absolute top-[calc(var(--nav-h)+14px)] right-[var(--pad)] text-ink-2">
+              2026
+            </Label>
+            <Label className="absolute bottom-[var(--pad)] left-[var(--pad)] text-ink-2">
+              KROFFLE
+            </Label>
+            <Label className="absolute right-[var(--pad)] bottom-[var(--pad)] text-ink-2">
+              SEOUL
+            </Label>
+            <Label className="absolute bottom-[var(--pad)] left-1/2 -translate-x-1/2 animate-hint-bob text-ink-2 motion-reduce:animate-none">
+              Scroll
+            </Label>
+          </div>
         </div>
-
-        <div className="hero-chrome">
-          <span className="label hero-corner is-tl">KIM BOMI · FRONTEND</span>
-          <span className="label hero-corner is-tr">2026</span>
-          <span className="label hero-corner is-bl">KROFFLE</span>
-          <span className="label hero-corner is-br">SEOUL</span>
-          <span className="label hero-hint">Scroll</span>
-        </div>
-      </div>
+      )}
     </section>
   )
 }

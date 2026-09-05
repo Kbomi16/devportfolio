@@ -1,8 +1,12 @@
 import { useRef } from 'react'
 import { motion } from 'motion/react'
+import Display from '../components/common/Display'
+import Label from '../components/common/Label'
+import { WORKS } from '../content/works'
+import { cn } from '../lib/cn'
+import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
-import { WORKS } from '../content/works'
 
 type GalleryProps = {
   onOpenWork: (slug: string) => void
@@ -42,36 +46,52 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
   )
 
   return (
-    <section ref={sectionRef} className="gallery ground-light" id="work">
-      <header className="gallery-head">
-        <span className="label">CATALOGUE</span>
-        <h2 className="gallery-title">규칙이 이어지는 방식.</h2>
+    <section
+      ref={sectionRef}
+      className={cn(
+        ground.light,
+        'relative flex h-screen flex-col justify-center overflow-hidden motion-reduce:h-auto motion-reduce:overflow-x-auto motion-reduce:py-[14vh]',
+      )}
+      id="work"
+    >
+      <header className="absolute top-[calc(var(--nav-h)+22px)] left-[var(--pad)] flex flex-col gap-2 motion-reduce:static motion-reduce:px-[var(--pad)] motion-reduce:pb-6">
+        <Label className="text-muted">CATALOGUE</Label>
+        <h2 className="font-kr text-[clamp(22px,2.6vw,36px)] font-extrabold tracking-[-0.02em]">
+          규칙이 이어지는 방식.
+        </h2>
       </header>
 
-      <div ref={trackRef} className="gallery-track">
+      <div
+        ref={trackRef}
+        className="flex w-max items-center gap-[clamp(20px,3vw,48px)] px-[max(var(--pad),8vw)] will-change-transform"
+      >
         {WORKS.map((work, i) => (
           <motion.article
             key={work.slug}
-            className="gallery-panel"
+            className="w-[min(76vw,780px)] shrink-0 rounded-xl bg-dark-ground text-dark-ink max-md:w-[84vw]"
             whileHover={{ y: -14, rotate: -0.5 }}
             whileTap={{ scale: 0.985 }}
             transition={{ type: 'spring', stiffness: 260, damping: 22 }}
           >
             <button
               type="button"
-              className="gallery-panel-btn"
+              className="group flex h-[min(62vh,560px)] w-full flex-col justify-between gap-7 p-[clamp(24px,3vw,44px)] text-left"
               onClick={() => onOpenWork(work.slug)}
               aria-label={`${work.title} 케이스 스터디 열기`}
             >
-              <div className="gallery-panel-top">
-                <span className="label gallery-index">{`0${i + 1}`}</span>
-                <span className="label gallery-period">{work.period}</span>
+              <div className="flex justify-between text-ink-2">
+                <Label className="text-[20px] text-transparent [-webkit-text-stroke:1px_var(--dark-ink)]">
+                  {`0${i + 1}`}
+                </Label>
+                <Label>{work.period}</Label>
               </div>
-              <span className="display gallery-name">{work.label}</span>
-              <div className="gallery-panel-bottom">
-                <p className="gallery-line">{work.oneLiner}</p>
-                <span className="label gallery-meta">{work.homeLine}</span>
-                <span className="label gallery-cta">OPEN CASE →</span>
+              <Display className="text-[clamp(56px,8vw,128px)]">{work.label}</Display>
+              <div className="flex flex-col gap-3">
+                <p className="max-w-[44ch] text-[15px] leading-[1.6] text-dark-ink">{work.oneLiner}</p>
+                <Label className="text-ink-2">{work.homeLine}</Label>
+                <Label className="mt-2 text-dark-ink group-hover:underline group-hover:underline-offset-4">
+                  OPEN CASE →
+                </Label>
               </div>
             </button>
           </motion.article>

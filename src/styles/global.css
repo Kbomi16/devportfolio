@@ -1,3 +1,5 @@
+@import 'tailwindcss';
+
 :root {
   /* 다크 지면 (CH1 포털 · CH6 클로즈) */
   --dark-ground: #0a0a0b;
@@ -27,10 +29,32 @@
   --pad: clamp(24px, 3.5vw, 40px);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+@theme inline {
+  --color-dark-ground: var(--dark-ground);
+  --color-dark-ink: var(--dark-ink);
+  --color-light-ground: var(--light-ground);
+  --color-light-ink: var(--light-ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-hairline-on-dark: var(--hairline-on-dark);
+  --color-hairline-on-light: var(--hairline-on-light);
+  --color-ground: var(--ground);
+  --color-ink: var(--ink);
+  --color-hairline: var(--hairline);
+  --font-display: var(--font-display);
+  --font-ui: var(--font-ui);
+  --font-kr: var(--font-kr);
+  --animate-hint-bob: hint-bob 2.2s ease-in-out infinite;
+}
+
+@keyframes hint-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 6px;
+  }
 }
 
 html {
@@ -71,50 +95,6 @@ button {
 :focus-visible {
   outline: 1px solid var(--ink);
   outline-offset: 3px;
-}
-
-/* ---------- 공용 타이포 유틸 ---------- */
-
-.label {
-  font-family: var(--font-ui);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.display {
-  font-family: var(--font-display);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
-
-.outline-text {
-  color: transparent;
-  -webkit-text-stroke: 1px currentColor;
-}
-
-.hairline-top {
-  border-top: 1px solid var(--hairline);
-}
-
-/* 고스트 필 버튼 */
-.pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 18px;
-  border: 1px solid var(--hairline);
-  border-radius: 999px;
-  font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transition: border-color 0.25s ease;
-}
-.pill:hover {
-  border-color: var(--ink);
 }
 
 /* 1회성 리빌(.rv)은 GSAP gsap.from이 담당 — 기본 상태는 항상 보임(no-JS·reduced-motion 안전) */
