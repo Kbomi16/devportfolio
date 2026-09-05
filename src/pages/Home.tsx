@@ -1,69 +1,54 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import CinemaCanvas from '../scene/CinemaCanvas'
-import Stage from '../scene/Stage'
-import CameraRig from '../scene/CameraRig'
-import Character from '../scene/Character'
-import Exhibits from '../scene/exhibits/Exhibits'
-import Nav from '../overlay/Nav'
-import Portal from '../overlay/Portal'
-import Reveal from '../overlay/Reveal'
-import WorkLabels from '../overlay/WorkLabels'
-import Method from '../overlay/Method'
-import Journal from '../overlay/Journal'
-import Close from '../overlay/Close'
-import { useLenis, getLenis, scrollToProgress } from '../lib/useLenis'
-import { useProgress } from '../lib/progress'
+import Nav from '../components/Nav'
+import Film from '../sections/Film'
+import Landing from '../sections/Landing'
+import Gallery from '../sections/Gallery'
+import Method from '../sections/Method'
+import Journal from '../sections/Journal'
+import Close from '../sections/Close'
+import { ScrollTrigger } from '../lib/gsapSetup'
+import { useLenis, getLenis } from '../lib/useLenis'
+import { usePointer } from '../lib/usePointer'
 
 export default function Home() {
   const [leaving, setLeaving] = useState(false)
 
   useLenis()
+  usePointer()
   const navigate = useNavigate()
-  const pendingSlug = useProgress((s) => s.pendingSlug)
 
-  // 케이스 전환: 스크롤 잠금 → 카메라 푸시인(CameraRig) + 블랙 페이드 → 라우팅
-  useEffect(() => {
-    if (!pendingSlug) return
+  // 갤러리 클릭: 스크롤 잠금 → 블랙 페이드 → 라우팅 (복귀용 위치 저장)
+  const handleOpenWork = (slug: string) => {
+    if (leaving) return
     setLeaving(true)
+    sessionStorage.setItem('home-scroll', String(Math.round(window.scrollY)))
     getLenis()?.stop()
-    sessionStorage.setItem('home-progress', String(useProgress.getState().p))
-    const id = setTimeout(() => {
-      navigate(`/work/${pendingSlug}`)
-      useProgress.getState().setPendingSlug(null)
-    }, 750)
-    return () => clearTimeout(id)
-  }, [pendingSlug, navigate])
+    setTimeout(() => navigate(`/work/${slug}`), 650)
+  }
 
-  // 케이스 페이지에서 복귀 시 CH3 위치 복원
+  // 케이스 페이지에서 복귀 시 갤러리 위치 복원
   useEffect(() => {
-    const saved = sessionStorage.getItem('home-progress')
-    if (saved !== null) {
-      sessionStorage.removeItem('home-progress')
-      requestAnimationFrame(() => scrollToProgress(Number(saved), true))
-    }
+    const saved = sessionStorage.getItem('home-scroll')
+    if (saved === null) return
+    sessionStorage.removeItem('home-scroll')
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh()
+      window.scrollTo({ top: Number(saved), behavior: 'instant' })
+    })
   }, [])
 
   return (
     <>
-      <CinemaCanvas>
-        <Stage />
-        <CameraRig />
-        <Character />
-        <Exhibits />
-      </CinemaCanvas>
-
-      <main className="track">
-        <Reveal />
-        <WorkLabels />
+      <Nav />
+      <main>
+        <Film />
+        <Landing />
+        <Gallery onOpenWork={handleOpenWork} />
         <Method />
         <Journal />
         <Close />
       </main>
-
-      <Portal />
-      <Nav />
-
       <div className={`route-fade${leaving ? ' is-on' : ''}`} aria-hidden />
     </>
   )

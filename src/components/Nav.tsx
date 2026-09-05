@@ -1,16 +1,16 @@
-import { scrollToProgress } from '../lib/useLenis'
+import { scrollToId } from '../lib/useLenis'
 
-const LINKS: { label: string; p: number }[] = [
-  { label: '소개', p: 0.2 },
-  { label: '작업', p: 0.33 },
-  { label: '명단', p: 0.62 },
-  { label: '기록', p: 0.78 },
-  { label: '연락', p: 0.95 },
+const LINKS: { label: string; id: string }[] = [
+  { label: '소개', id: 'about' },
+  { label: '작업', id: 'work' },
+  { label: '명단', id: 'roster' },
+  { label: '기록', id: 'journal' },
+  { label: '연락', id: 'contact' },
 ]
 
-const handleMarkClick = () => scrollToProgress(0)
+const handleMarkClick = () => scrollToId('top')
 
-const handleLinkClick = (p: number) => scrollToProgress(p)
+const handleLinkClick = (id: string) => scrollToId(id)
 
 /** difference 블렌드 고정 내비 — 지면 반전(검↔흰)에 자동 대응 */
 export default function Nav() {
@@ -21,7 +21,7 @@ export default function Nav() {
       </button>
       <div className="nav-links">
         {LINKS.map((l) => (
-          <button key={l.label} className="label nav-link" onClick={() => handleLinkClick(l.p)}>
+          <button key={l.id} className="label nav-link" onClick={() => handleLinkClick(l.id)}>
             {l.label}
           </button>
         ))}
