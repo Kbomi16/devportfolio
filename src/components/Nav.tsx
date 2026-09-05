@@ -1,4 +1,4 @@
-import { scrollToId } from '../lib/useLenis'
+import { scrollToId, scrollToTop } from '../lib/useLenis'
 
 const LINKS: { label: string; id: string }[] = [
   { label: '소개', id: 'about' },
@@ -8,7 +8,7 @@ const LINKS: { label: string; id: string }[] = [
   { label: '연락', id: 'contact' },
 ]
 
-const handleMarkClick = () => scrollToId('top')
+const handleMarkClick = () => scrollToTop()
 
 const handleLinkClick = (id: string) => scrollToId(id)
 

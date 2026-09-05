@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Nav from '../components/Nav'
-import Film from '../sections/Film'
-import Landing from '../sections/Landing'
+import Hero from '../sections/Hero'
 import Gallery from '../sections/Gallery'
 import Method from '../sections/Method'
 import Journal from '../sections/Journal'
@@ -42,8 +41,7 @@ export default function Home() {
     <>
       <Nav />
       <main>
-        <Film />
-        <Landing />
+        <Hero />
         <Gallery onOpenWork={handleOpenWork} />
         <Method />
         <Journal />

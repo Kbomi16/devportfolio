@@ -14,6 +14,12 @@ export const scrollToId = (id: string): void => {
   else document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
 }
 
+/** 페이지 최상단으로 */
+export const scrollToTop = (): void => {
+  if (instance) instance.scrollTo(0)
+  else window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
 /** Home 루트에서 1회 호출 — Lenis 기동 + ScrollTrigger 동기화 */
 export const useLenis = (): void => {
   useEffect(() => {

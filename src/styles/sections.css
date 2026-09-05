@@ -57,16 +57,16 @@
   border-color: #fff;
 }
 
-/* ================= CH1 FILM — 문 + 스크럽 영상 ================= */
+/* ================= HERO (CH1+CH2) — 문 → 필름 → 풀블리드 랜딩 (단일 핀) ================= */
 
-.film {
+.hero {
   position: relative;
   height: 100vh;
   overflow: hidden;
   background: #000;
 }
 
-.film-video {
+.hero-video {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -74,24 +74,139 @@
   object-fit: cover;
 }
 
-.film-white {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  background: var(--light-ground);
-  opacity: 0;
-  pointer-events: none;
-}
+/* ---- 랜딩 레이어 (영상 위 크로스페이드, 풀블리드) ---- */
 
-.film-door {
+.hero-landing {
   position: absolute;
   inset: 0;
   z-index: 2;
+  opacity: 0;
+  visibility: hidden;
+}
+/* 폴백(auto): 영상 종료 후 노출 */
+.hero.is-landed .hero-landing {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.9s ease;
+}
+
+.hero-landing-zoom {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  will-change: transform;
+}
+
+/* 깊이 1 — 사진: 마우스 역방향, 여유 스케일로 가장자리 숨김 */
+.hero-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate3d(calc(var(--mx) * -16px), calc(var(--my) * -10px), 0) scale(1.06);
+  will-change: transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* 깊이 2 — 하이라이트: 마우스 추적 radial */
+.hero-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    560px 420px at calc(50% + var(--mx) * 30%) calc(40% + var(--my) * 24%),
+    rgba(242, 240, 235, 0.14),
+    transparent 60%
+  );
+  mix-blend-mode: soft-light;
+}
+
+/* 깊이 3 — 타이포 블록: 마우스 순방향 */
+.hero-copy {
+  position: absolute;
+  right: var(--pad);
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 10px;
+  color: var(--dark-ink);
+  transform: translate3d(calc(var(--mx) * 26px), calc(var(--my) * 14px), 0);
+  will-change: transform;
+}
+.hero-copy > .label {
+  color: rgba(242, 240, 235, 0.6);
+}
+
+/* 깊이 4 — 네임만 한 겹 더 (누적 깊이) */
+.hero-name-depth {
+  transform: translate3d(calc(var(--mx) * 14px), calc(var(--my) * 8px), 0);
+  will-change: transform;
+}
+.hero-name {
+  font-size: clamp(56px, 9vw, 150px);
+  line-height: 0.94;
+  text-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+}
+.hero-kr {
+  font-weight: 700;
+  font-size: clamp(17px, 1.8vw, 24px);
+  letter-spacing: -0.01em;
+}
+.hero-en {
+  font-family: var(--font-ui);
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: rgba(242, 240, 235, 0.72);
+  max-width: 36ch;
+}
+.hero-meta-line {
+  color: var(--ink-2);
+  margin-top: 8px;
+}
+
+/* 깊이 5 — 플로팅 라벨: 가장 크게 움직임 (주변 요소) */
+.hero-float {
+  position: absolute;
+  z-index: 3;
+  color: rgba(242, 240, 235, 0.55);
+  will-change: transform;
+}
+.hero-float.is-tl {
+  left: var(--pad);
+  top: calc(var(--nav-h) + 18px);
+  transform: translate3d(calc(var(--mx) * 38px), calc(var(--my) * 22px), 0);
+}
+.hero-float.is-bl {
+  left: var(--pad);
+  bottom: var(--pad);
+  transform: translate3d(calc(var(--mx) * 30px), calc(var(--my) * -18px), 0);
+}
+.hero-float.is-br {
+  right: var(--pad);
+  bottom: var(--pad);
+  transform: translate3d(calc(var(--mx) * -34px), calc(var(--my) * -20px), 0);
+}
+
+/* ---- 문 레이어 (최상단) ---- */
+
+.hero-door {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
   pointer-events: none;
   color: var(--dark-ink);
 }
 
-.film-panel {
+.hero-panel {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -99,16 +214,16 @@
   background: var(--dark-ground);
   will-change: transform;
 }
-.film-panel.is-left {
+.hero-panel.is-left {
   left: 0;
   border-right: 1px solid var(--hairline-on-dark);
 }
-.film-panel.is-right {
+.hero-panel.is-right {
   right: 0;
   border-left: 1px solid var(--hairline-on-dark);
 }
 
-.film-dot {
+.hero-dot {
   position: absolute;
   top: 50%;
   width: 4px;
@@ -118,14 +233,14 @@
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
   will-change: transform;
 }
-.film-dot.is-left {
+.hero-dot.is-left {
   left: calc(50% - 16px);
 }
-.film-dot.is-right {
+.hero-dot.is-right {
   left: calc(50% + 12px);
 }
 
-.film-mark {
+.hero-mark {
   position: absolute;
   inset: 0;
   display: flex;
@@ -135,22 +250,22 @@
   letter-spacing: 0.01em;
   will-change: transform;
 }
-.film-bo,
-.film-mi {
+.hero-bo,
+.hero-mi {
   display: inline-block;
   will-change: transform;
 }
 
-.film-corner {
+.hero-corner {
   position: absolute;
   color: var(--ink-2);
 }
-.film-corner.is-tl { top: calc(var(--nav-h) + 14px); left: var(--pad); }
-.film-corner.is-tr { top: calc(var(--nav-h) + 14px); right: var(--pad); }
-.film-corner.is-bl { bottom: var(--pad); left: var(--pad); }
-.film-corner.is-br { bottom: var(--pad); right: var(--pad); }
+.hero-corner.is-tl { top: calc(var(--nav-h) + 14px); left: var(--pad); }
+.hero-corner.is-tr { top: calc(var(--nav-h) + 14px); right: var(--pad); }
+.hero-corner.is-bl { bottom: var(--pad); left: var(--pad); }
+.hero-corner.is-br { bottom: var(--pad); right: var(--pad); }
 
-.film-hint {
+.hero-hint {
   position: absolute;
   bottom: var(--pad);
   left: 50%;
@@ -163,135 +278,11 @@
   50% { translate: 0 6px; }
 }
 
-/* 폴백(auto): 문 열린 완성 상태 + 일반 재생 */
-.film.is-auto .film-panel,
-.film.is-auto .film-mark,
-.film.is-auto .film-dot {
+/* 폴백(auto): 문 열린 완성 상태 */
+.hero.is-auto .hero-panel,
+.hero.is-auto .hero-mark,
+.hero.is-auto .hero-dot {
   display: none;
-}
-
-/* ================= CH2 LANDING — 패럴랙스 표지 ================= */
-
-.landing {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.landing-frame {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: clamp(24px, 5vw, 80px);
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: calc(var(--nav-h) + 24px) var(--pad) 96px;
-}
-
-/* 5레이어 깊이 — --mx/--my(usePointer lerp) 바인딩 */
-.landing-stage {
-  position: relative;
-  flex-shrink: 0;
-  perspective: 1100px;
-  transform-style: preserve-3d;
-  transform: rotateY(calc(var(--mx) * 9deg)) rotateX(calc(var(--my) * -6deg));
-  will-change: transform;
-}
-
-/* 깊이 −80px: 뒤 볼륨 (블러 실루엣) */
-.landing-depth {
-  position: absolute;
-  inset: 6% 8% 8%;
-  border-radius: 40% 40% 18% 18%;
-  background: rgba(10, 10, 11, 0.08);
-  filter: blur(28px);
-  transform: translate3d(calc(var(--mx) * 26px), calc(var(--my) * 16px), -80px);
-}
-
-/* 깊이 −50px: 그림자 (역방향 크게) */
-.landing-shadow {
-  position: absolute;
-  left: 10%;
-  right: 6%;
-  bottom: -4%;
-  height: 12%;
-  border-radius: 50%;
-  background: rgba(10, 10, 11, 0.24);
-  filter: blur(22px);
-  transform: translate3d(calc(var(--mx) * -40px), calc(var(--my) * 18px), -50px);
-}
-
-/* 깊이 +36px: 카드 (필름의 한 컷) */
-.landing-card {
-  position: relative;
-  border-radius: 10px;
-  overflow: hidden;
-  transform: translate3d(calc(var(--mx) * 10px), calc(var(--my) * -8px), 36px);
-  will-change: transform;
-}
-.landing-card img {
-  display: block;
-  height: min(66vh, 620px);
-  width: auto;
-  user-select: none;
-  -webkit-user-drag: none;
-}
-
-/* 카드 표면: 하이라이트 — 마우스 추적 radial */
-.landing-sheen {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(
-    420px 280px at calc(50% + var(--mx) * 28%) calc(32% + var(--my) * 18%),
-    rgba(242, 240, 235, 0.22),
-    transparent 62%
-  );
-  mix-blend-mode: soft-light;
-}
-
-/* 별도 평면: 타이포 (역방향 미세) */
-.landing-copy {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-  gap: 10px;
-  transform: translate3d(calc(var(--mx) * -14px), calc(var(--my) * -9px), 0);
-  will-change: transform;
-}
-.landing-copy > .label {
-  color: var(--muted);
-}
-.landing-name {
-  font-size: clamp(52px, 8vw, 132px);
-  line-height: 0.94;
-}
-.landing-kr {
-  font-weight: 700;
-  font-size: clamp(17px, 1.8vw, 24px);
-  letter-spacing: -0.01em;
-}
-.landing-en {
-  font-family: var(--font-ui);
-  font-size: clamp(13px, 1.2vw, 16px);
-  color: var(--ink-2);
-  max-width: 34ch;
-}
-.landing-meta {
-  color: var(--muted);
-  margin-top: 8px;
-}
-
-.landing-hint {
-  position: absolute;
-  bottom: 5vh;
-  left: var(--pad);
-  padding-top: 12px;
-  color: var(--muted);
 }
 
 /* ================= CH3 GALLERY — 가로 스크롤 ================= */
@@ -579,18 +570,17 @@
   .nav-links {
     display: none;
   }
-  .landing-frame {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    padding-top: calc(var(--nav-h) + 16px);
-  }
-  .landing-card img {
-    height: min(44vh, 400px);
-  }
-  .landing-copy {
+  .hero-copy {
+    right: auto;
+    left: var(--pad);
+    top: auto;
+    translate: none;
+    bottom: calc(var(--pad) + 44px);
     align-items: flex-start;
     text-align: left;
+  }
+  .hero-float.is-bl {
+    display: none;
   }
   .gallery-panel {
     width: 84vw;
@@ -614,18 +604,20 @@
 /* ================= reduced-motion: 핀·스크럽·패럴랙스 정지 ================= */
 
 @media (prefers-reduced-motion: reduce) {
-  .film-hint {
+  .hero-hint {
     animation: none;
   }
-  .landing-stage,
-  .landing-depth,
-  .landing-shadow,
-  .landing-card,
-  .landing-copy {
+  .hero-photo,
+  .hero-copy,
+  .hero-name-depth,
+  .hero-float {
     transform: none;
     will-change: auto;
   }
-  .landing-sheen {
+  .hero-photo {
+    transform: scale(1.02);
+  }
+  .hero-sheen {
     display: none;
   }
   /* 갤러리: 핀 없이 네이티브 가로 스크롤 */
