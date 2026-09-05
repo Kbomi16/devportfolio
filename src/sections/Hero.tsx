@@ -50,7 +50,7 @@ export default function Hero() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=450%',
+          end: '+=1000%',
           pin: true,
           scrub: 0.4,
           anticipatePin: 1,
@@ -62,7 +62,7 @@ export default function Hero() {
         .to('.hero-panel.is-right', { xPercent: 110, duration: 0.14 }, 0)
         .to('.hero-bo', { xPercent: -52, duration: 0.14 }, 0)
         .to('.hero-mi', { xPercent: 52, duration: 0.14 }, 0)
-        .to('.hero-mark', { scale: 1.16, duration: 0.14 }, 0)
+        .to('.hero-mark', { scale: 1.16, autoAlpha: 0, duration: 0.14 }, 0)
         .to('.hero-dot.is-left', { x: '-46vw', y: '-42vh', duration: 0.14 }, 0)
         .to('.hero-dot.is-right', { x: '46vw', y: '42vh', duration: 0.14 }, 0)
         .to('.hero-chrome', { opacity: 0, duration: 0.07 }, 0.04)
