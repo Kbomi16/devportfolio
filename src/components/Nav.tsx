@@ -54,7 +54,7 @@ export default function Nav() {
           className="font-display text-[15px] font-extrabold tracking-[-0.02em]"
           onClick={handleMarkClick}
         >
-          kim bomi
+          KIM BOMI
         </button>
         <Pill className="border-white/40 hover:border-white" href="mailto:bomi2172@gmail.com">
           contact me

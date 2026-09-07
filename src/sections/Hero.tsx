@@ -12,8 +12,8 @@ const IMAGE_SRC = '/images/bomi-landing.jpg'
 
 /**
  * HERO (CH1+CH2 통합) — 단일 핀 타임라인으로 끊김 없이 연결:
- * 문 개폐(0–0.14) → 필름 스크럽(0.10–0.66) → 랜딩 크로스페이드(0.66–0.76)
- * → 이미지 위 타이포 리빌(0.76–0.9) → 홀드.
+ * 문 개폐(0–0.14) → 필름 스크럽(0.10–0.66) → 블랙 비트(0.66–0.78)
+ * → 랜딩 크로스페이드(0.78–0.88) → 타이포 리빌(0.88–1.02) → 홀드.
  * 랜딩은 풀블리드 이미지 + 마우스(--mx/--my)에 따라 사진·하이라이트·타이포·플로팅
  * 라벨이 서로 다른 깊이로 움직인다 (zustand 홈 스타일, CSS calc 바인딩).
  * 폴백(auto): reduced-motion·영상 오류 → 문 열린 상태 + 1회 재생 후 랜딩 노출.
@@ -23,11 +23,16 @@ export default function Hero() {
     prefersReducedMotion() ? 'auto' : 'scrub',
   )
   const [landed, setLanded] = useState(false)
+  const [fadingOut, setFadingOut] = useState(false)
 
   const sectionRef = useRef<HTMLElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  const handleEnded = () => setLanded(true)
+  const handleEnded = () => {
+    if (mode === 'scrub') return
+    setFadingOut(true)
+    window.setTimeout(() => setLanded(true), 700)
+  }
 
   const handleVideoError = () => {
     setMode('auto')
@@ -79,21 +84,21 @@ export default function Hero() {
           },
           0.1,
         )
-        // 영상 마지막 프레임 → 랜딩 이미지 크로스페이드 (같은 피규어·같은 검은 무대)
-        .fromTo('[data-hero-landing]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.1 }, 0.66)
-        .fromTo('[data-hero-landing-zoom]', { scale: 1.14 }, { scale: 1.02, duration: 0.26 }, 0.66)
-        // 문 워드마크는 랜딩보다 z가 높아, 랜딩이 뜰 때 같이 꺼야 겹치지 않는다
-        .to('[data-hero-bo], [data-hero-mi]', { autoAlpha: 0, duration: 0.1 }, 0.66)
+        // 영상 끝 → 검정 비트 → 랜딩
+        .to('[data-hero-blackout]', { autoAlpha: 1, duration: 0.08 }, 0.66)
+        .to('[data-hero-bo], [data-hero-mi]', { autoAlpha: 0, duration: 0.08 }, 0.66)
+        .fromTo('[data-hero-landing]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.78)
+        .fromTo('[data-hero-landing-zoom]', { scale: 1.14 }, { scale: 1.02, duration: 0.26 }, 0.78)
         // 이미지 위 타이포 리빌
         .fromTo(
           '[data-hero-copy]',
           { y: 56, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.09, stagger: 0.025 },
-          0.76,
+          0.88,
         )
-        .fromTo('[data-hero-float]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08, stagger: 0.03 }, 0.82)
+        .fromTo('[data-hero-float]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08, stagger: 0.03 }, 0.94)
         // 홀드 — 마우스 패럴랙스 무대
-        .to({}, { duration: 0.1 }, 0.9)
+        .to({}, { duration: 0.1 }, 1.02)
     },
     { scope: sectionRef, dependencies: [mode], revertOnUpdate: true },
   )
@@ -106,7 +111,10 @@ export default function Hero() {
     >
       <video
         ref={videoRef}
-        className="absolute inset-0 size-full object-cover"
+        className={cn(
+          'absolute inset-0 size-full object-cover',
+          fadingOut && 'opacity-0 transition-opacity duration-500 ease-linear',
+        )}
         src={VIDEO_SRC}
         poster={IMAGE_SRC}
         muted
@@ -115,6 +123,12 @@ export default function Hero() {
         autoPlay={mode === 'auto'}
         onEnded={handleEnded}
         onError={handleVideoError}
+        aria-hidden
+      />
+
+      <div
+        data-hero-blackout
+        className="pointer-events-none absolute inset-0 z-[1] bg-black opacity-0"
         aria-hidden
       />
 
@@ -180,7 +194,7 @@ export default function Hero() {
 
         <Label
           data-hero-float
-          className="absolute top-[calc(var(--nav-h)+18rem)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*-10px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          className="absolute top-[calc(var(--nav-h)+18rem)] left-[var(--pad)] z-[3] text-dark-ink/72 will-change-transform [transform:translate3d(calc(var(--mx)*-10px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
           aria-hidden
         >
          YOU CAN HOVER NAV ↓
