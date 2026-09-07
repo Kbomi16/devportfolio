@@ -48,7 +48,7 @@ export default function Work() {
         >
           {work.title}
         </Display>
-        <p className="mt-5 text-[clamp(17px,1.8vw,21px)] leading-normal font-semibold">
+        <p className="mt-5 whitespace-pre-line text-[clamp(17px,1.8vw,21px)] leading-normal font-semibold">
           {work.oneLiner}
         </p>
         <Label className="my-[18px] mb-12 text-muted">{work.stack.join(' · ')}</Label>

@@ -2,6 +2,8 @@ export type WorkItem = {
   slug: 'tcc' | 'sites' | 'alleo'
   /** 갤러리 라벨 (홈 CH3) */
   label: string
+  /** 갤러리 라벨 위 보조 줄 (선택) */
+  labelEyebrow?: string
   title: string
   period: string
   oneLiner: string
@@ -21,7 +23,7 @@ export const WORKS: WorkItem[] = [
     label: 'TCC',
     title: 'TCC — 중대재해 관리 백오피스',
     period: '2025.05 — 2026.03',
-    oneLiner: '권한을 버튼 숨기기로 끝내지 않고, 메뉴·기능 권한·조직 선택을 공통 구조로 묶었습니다.',
+    oneLiner: '권한을 버튼 숨기기로 끝내지 않고,\n메뉴·기능 권한·조직 선택을 공통 구조로 묶었습니다.',
     homeLine: '권한 훅 ~90개 파일 · 조직 모달 ~50개 화면',
     stack: ['Next.js', 'TypeScript', 'React Query', 'Ant Design'],
     problem:
@@ -41,11 +43,12 @@ export const WORKS: WorkItem[] = [
   {
     slug: 'sites',
     label: 'SITES',
+    labelEyebrow: 'SEO GEO AEO',
     title: 'SITES — 기업·브랜드 웹 4종',
-    period: '2026.01 — 2026.07',
+    period: '2026.01 —',
     oneLiner:
       '공개 웹에서는 권한이 아니라 검색 노출과 문의 전환이 우선입니다. 목적이 다르면 집착하는 지점이 달라집니다.',
-    homeLine: '크로플 · 감탄누수 · 요셉씨의 빛자루 · 고야차트',
+    homeLine: '크로플 · 감탄누수 · 요셉씨의 빛자루 · 고야차트 · 탑애드컴퍼니',
     stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'Solapi', 'GSAP'],
     problem:
       '크로플·감탄누수·요셉씨의 빛자루·고야차트 — 네 사이트 모두 "완성된 웹"이 아니라, 검색에 노출되고 문의로 이어지는 웹이 필요했습니다.',
@@ -67,8 +70,8 @@ export const WORKS: WorkItem[] = [
     title: 'ALLEO — AI 검색 최적화 · 콘텐츠 자동화 SaaS',
     period: '2026.04 —',
     oneLiner:
-      '소개 웹·공개 블로그·관리자·콘솔로 나뉜 멀티 앱에서, 분석→글→발행→SNS가 한 흐름으로 이어지게 프론트를 붙였습니다.',
-    homeLine: 'intro · blog · admin · console — worktree · 서브에이전트',
+      '소개 웹·공개 블로그·관리자·콘솔로 나뉜 멀티 앱에서,\n분석→글→발행→SNS가 한 흐름으로 이어지게 프론트를 붙였습니다.',
+    homeLine: 'intro · blog · admin · console',
     stack: [
       'Next.js 16',
       'React 19',

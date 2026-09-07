@@ -80,14 +80,19 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
               aria-label={`${work.title} 케이스 스터디 열기`}
             >
               <div className="flex justify-between text-ink-2">
-                <Label className="text-[20px] text-transparent [-webkit-text-stroke:1px_var(--dark-ink)]">
+                <Label className="text-[20px]">
                   {`0${i + 1}`}
                 </Label>
                 <Label>{work.period}</Label>
               </div>
-              <Display className="text-[clamp(56px,8vw,128px)]">{work.label}</Display>
+              <div className="flex flex-col gap-2">
+                {work.labelEyebrow ? (
+                  <Display className="text-[clamp(28px,4.5vw,72px)]">{work.labelEyebrow}</Display>
+                ) : null}
+                <Display className="text-[clamp(56px,8vw,128px)]">{work.label}</Display>
+              </div>
               <div className="flex flex-col gap-3">
-                <p className="max-w-[44ch] text-[15px] leading-[1.6] text-dark-ink">{work.oneLiner}</p>
+                <p className="max-w-[44ch] whitespace-pre-line text-[15px] leading-[1.6] text-dark-ink">{work.oneLiner}</p>
                 <Label className="text-ink-2">{work.homeLine}</Label>
                 <Label className="mt-2 text-dark-ink group-hover:underline group-hover:underline-offset-4">
                   OPEN CASE →
