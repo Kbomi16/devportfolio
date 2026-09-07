@@ -180,10 +180,10 @@ export default function Hero() {
 
         <Label
           data-hero-float
-          className="absolute top-[calc(var(--nav-h)+18px)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*38px),calc(var(--my)*22px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
+          className="absolute top-[calc(var(--nav-h)+18rem)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*-10px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
           aria-hidden
         >
-          FIG. 01 — VINYL
+         YOU CAN HOVER NAV ↓
         </Label>
         <Label
           data-hero-float
