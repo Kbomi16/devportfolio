@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import Display from '../components/common/Display'
 import Label from '../components/common/Label'
-import OutlineText from '../components/common/OutlineText'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
@@ -172,7 +171,6 @@ export default function Hero() {
               className="text-[clamp(56px,9vw,150px)] leading-[0.94] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]"
             >
               KIM BOMI
-              <OutlineText>.</OutlineText>
             </Display>
           </div>
           <p

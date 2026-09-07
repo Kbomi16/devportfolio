@@ -1,11 +1,11 @@
-import { useRef } from 'react'
+import { useRef, type ReactNode } from 'react'
 import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import OutlineText from '../components/common/OutlineText'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
-import { useGSAP } from '../lib/gsapSetup'
+import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 import { revealOnce } from '../lib/reveal'
 
@@ -32,6 +32,27 @@ export default function Method() {
     (context) => {
       if (prefersReducedMotion()) return
       revealOnce((context.selector?.('[data-rv]') ?? []) as HTMLElement[])
+
+      const mark = context.selector?.('[data-mark]')?.[0] as HTMLElement | undefined
+      const fill = context.selector?.('[data-mark-fill]')?.[0] as HTMLElement | undefined
+      const text = context.selector?.('[data-mark-text]')?.[0] as HTMLElement | undefined
+      if (!mark || !fill || !text) return
+
+      gsap.set(fill, { scaleX: 0, transformOrigin: 'left center' })
+      gsap.set(text, { clipPath: 'inset(0 100% 0 0)' })
+
+      gsap
+        .timeline({
+          delay: 0.22,
+          scrollTrigger: { trigger: mark, start: 'top 88%', once: true },
+        })
+        .to(fill, { scaleX: 1, duration: 0.5, ease: 'power3.inOut' })
+        .add('write')
+        .to(
+          text,
+          { clipPath: 'inset(0 0% 0 0)', duration: 0.42, ease: 'power3.out' },
+          'write',
+        )
     },
     { scope: sectionRef },
   )
@@ -60,7 +81,15 @@ export default function Method() {
         >
           잘 모르는 걸 만나면 일단 적고,
           <br />
-          <OutlineText>다시 꺼낼 수 있는 형태</OutlineText>로 남깁니다.
+          <MarkedPhrase>
+            <span
+              data-mark-text
+              className="text-dark-ink [clip-path:inset(0_100%_0_0)] motion-reduce:[clip-path:none]"
+            >
+              다시 꺼낼 수 있는 형태
+            </span>
+          </MarkedPhrase>
+          로 남깁니다.
         </p>
       </div>
 
@@ -106,5 +135,21 @@ export default function Method() {
         ))}
       </div>
     </section>
+  )
+}
+
+function MarkedPhrase({ children }: { children: ReactNode }) {
+  return (
+    <span
+      data-mark
+      className="relative inline-block overflow-hidden align-baseline motion-reduce:overflow-visible"
+    >
+      <span
+        data-mark-fill
+        className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-ink motion-reduce:scale-x-100"
+        aria-hidden
+      />
+      <span className="relative">{children}</span>
+    </span>
   )
 }
