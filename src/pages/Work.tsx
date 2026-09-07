@@ -4,7 +4,7 @@ import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import Pill from '../components/common/Pill'
-import { WORKS, workBySlug } from '../content/works'
+import { WORKS, workBySlug, type WorkEntry, type WorkItem, type WorkStat } from '../content/works'
 
 /** /work/:slug — 읽기 우선 케이스 스터디 (3D 없음) */
 export default function Work() {
@@ -35,23 +35,22 @@ export default function Work() {
         <Label>{`0${index + 1} / 0${WORKS.length}`}</Label>
       </header>
 
-      <div className="mx-auto my-[5vh] flex aspect-square w-[min(420px,78vw)] flex-col justify-between rounded-[10px] border border-hairline-on-light bg-light-ground p-6 shadow-[0_18px_40px_rgba(0,0,0,0.18)]">
-        <Label className="text-muted">{`CATALOGUE 0${index + 1}`}</Label>
-        <Display className="text-center text-[clamp(56px,9vw,110px)]">{work.label}</Display>
-        <Label className="text-muted">{work.period}</Label>
-      </div>
+      <Cover work={work} />
 
       <article className="mx-auto max-w-[720px] px-[var(--pad)] pt-[6vh] pb-[10vh]">
+        <Label className="text-muted">{work.period}</Label>
         <Display
           as="h1"
-          className="font-kr text-[clamp(28px,4vw,48px)] leading-[1.2] font-extrabold tracking-[-0.02em]"
+          className="mt-3 font-kr text-[clamp(28px,4vw,48px)] leading-[1.2] font-extrabold tracking-[-0.02em]"
         >
           {work.title}
         </Display>
         <p className="mt-5 whitespace-pre-line text-[clamp(17px,1.8vw,21px)] leading-normal font-semibold">
           {work.oneLiner}
         </p>
-        <Label className="my-[18px] mb-12 text-muted">{work.stack.join(' · ')}</Label>
+        <Label className="my-[18px] mb-8 text-muted">{work.stack.join(' · ')}</Label>
+
+        {work.stats ? <Stats stats={work.stats} /> : null}
 
         <Hairline as="section" className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2">
           <Label className="text-muted">문제</Label>
@@ -69,6 +68,8 @@ export default function Work() {
           <Label className="text-muted">배운 점</Label>
           <p className="text-base leading-[1.8]">{work.learned}</p>
         </Hairline>
+
+        {work.entries ? <Entries entries={work.entries} /> : null}
 
         <div className="mt-10 flex flex-wrap gap-3">
           {work.links.map((link) => (
@@ -100,5 +101,57 @@ export default function Work() {
         </Label>
       </Hairline>
     </div>
+  )
+}
+
+function Cover({ work }: { work: WorkItem }) {
+  return (
+    <figure className="mx-auto w-full max-w-[1100px] px-[var(--pad)]">
+      <img
+        src={work.cover.src}
+        alt={work.cover.alt}
+        className="aspect-[16/9] w-full rounded-[32px] object-cover shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
+      />
+    </figure>
+  )
+}
+
+function Stats({ stats }: { stats: WorkStat[] }) {
+  return (
+    <ul className="mb-4 grid list-none grid-cols-3 gap-4 max-sm:grid-cols-1">
+      {stats.map((stat) => (
+        <li key={stat.label} className="border-t border-hairline pt-4">
+          <Display className="text-[clamp(28px,4vw,40px)]">{stat.value}</Display>
+          <Label className="mt-2 text-muted">{stat.label}</Label>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function Entries({ entries }: { entries: WorkEntry[] }) {
+  return (
+    <Hairline as="section" className="flex flex-col gap-5 py-7">
+      <Label className="text-muted">구성</Label>
+      <ul className="list-none">
+        {entries.map((entry) => (
+          <li key={entry.name} className="grid grid-cols-[140px_1fr] gap-5 py-3 max-sm:grid-cols-1 max-sm:gap-1">
+            {entry.url ? (
+              <a
+                className="font-ui text-[13px] tracking-[0.12em] uppercase hover:underline hover:underline-offset-4"
+                href={entry.url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {entry.name}
+              </a>
+            ) : (
+              <span className="font-ui text-[13px] tracking-[0.12em] uppercase">{entry.name}</span>
+            )}
+            <p className="text-base leading-[1.8]">{entry.note}</p>
+          </li>
+        ))}
+      </ul>
+    </Hairline>
   )
 }
