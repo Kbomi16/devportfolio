@@ -2,23 +2,21 @@ import { useRef, type ReactNode } from 'react'
 import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
-import OutlineText from '../components/common/OutlineText'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 
 const INDEX = [
-  { tag: 'NOW', name: '주식회사 크로플 — Frontend Developer', meta: '2025.05 —' },
+  { tag: 'NOW', name: '주식회사 크로플 · Frontend Developer', meta: '2025.05 —' },
   { tag: 'CAMP', name: '코드잇 프론트엔드 부트캠프 · 팀장', meta: '2024.03 — 08' },
   { tag: 'DEGREE', name: '명지전문대학교 전공심화 · 4.00 / 4.50', meta: '2023.03 — 2024.02' },
   { tag: 'AWARD', name: '학습 포트폴리오 공모전 「보미의 갓생 라이프」 은상', meta: '2023.07' },
-  { tag: 'AWARD', name: '학과 캡스톤 디자인 대회 은상 — 향수 추천 쇼핑몰', meta: '교내' },
+  { tag: 'AWARD', name: '학과 캡스톤 디자인 대회 은상 · 향수 추천 쇼핑몰', meta: '2023.12' },
   { tag: 'CERT', name: '정보처리산업기사', meta: '2022.11' },
   { tag: 'LEAD', name: '정보통신공학과 학생회장', meta: '2022.03 — 12' },
-  { tag: 'TUTOR', name: '명지튜터링 — 인터넷 프로그래밍 튜터', meta: '2021.09 — 12' },
+  { tag: 'TUTOR', name: '명지튜터링 · 인터넷 프로그래밍 튜터', meta: '2021.09 — 12' },
   { tag: 'DEGREE', name: '명지전문대학 정보통신공학과 · 3.76 / 4.50', meta: '2020.03 — 2023.02' },
-  { tag: 'NOTE', name: '블로그 — 실무에서 막힌 지점의 기록', meta: '100+' },
 ]
 
 /** CH4 — 핀 + 스크럽 인덱스. 스테이트먼트가 먼저 열리고, 이력 행이 스크롤에 맞춰 한 줄씩 쌓인다. */
@@ -76,14 +74,8 @@ export default function Method() {
       )}
       id="roster"
     >
-      <div data-statement className="relative mx-auto w-full max-w-[1200px] max-md:flex max-md:flex-col">
+      <div data-statement className="mx-auto w-full max-w-[1200px]">
         <Label>일하는 방식</Label>
-        <Display
-          className="absolute top-0 right-0 text-[clamp(72px,9vw,150px)] opacity-60 max-md:static max-md:order-first"
-          as={OutlineText}
-        >
-          01
-        </Display>
         <p className="mt-[16px] max-w-[24ch] text-[clamp(22px,3.2vw,46px)] leading-[1.25] font-bold tracking-[-0.01em]">
           잘 모르는 걸 만나면 일단 적고,
           <br />

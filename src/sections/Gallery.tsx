@@ -55,15 +55,17 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
       id="work"
     >
       <header className="absolute top-[calc(var(--nav-h)+22px)] left-[var(--pad)] flex flex-col gap-2 motion-reduce:static motion-reduce:px-[var(--pad)] motion-reduce:pb-6">
-        <Label className="text-muted">CATALOGUE</Label>
+        <Label className="text-muted">PROJECTS</Label>
         <h2 className="font-kr text-[clamp(22px,2.6vw,36px)] font-extrabold tracking-[-0.02em]">
-          규칙이 이어지는 방식.
+          권한은 막고, 검색은 붙이고,
+          <br className="max-md:hidden" />
+          흐름은 이어 붙였습니다.
         </h2>
       </header>
 
       <div
         ref={trackRef}
-        className="flex w-max items-center gap-[clamp(20px,3vw,48px)] px-[max(var(--pad),8vw)] will-change-transform"
+        className="mt-[clamp(148px,20vh,228px)] flex w-max items-center gap-[clamp(20px,3vw,48px)] px-[max(var(--pad),8vw)] will-change-transform motion-reduce:mt-0"
       >
         {WORKS.map((work, i) => (
           <motion.article

@@ -70,8 +70,8 @@ export default function Journal() {
         다음이 짧아집니다.
       </Display>
       <p data-head className="max-w-[46ch] text-ink-2">
-        실무에서 막힌 지점을 100편 넘게 적어 왔습니다. 거창한 지식 나눔보다는, 같은 문제가 다시
-        왔을 때 꺼내 읽는 메모에 가깝습니다.
+        모르는 걸 만나면 적어 두었습니다. 완성된 글보다는, 다음에 같은 자리에서 덜 헤매려는
+        메모입니다.
       </p>
       <ul className="mt-3 list-none">
         {POSTS.map((post) => (

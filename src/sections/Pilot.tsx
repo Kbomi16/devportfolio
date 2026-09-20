@@ -12,29 +12,29 @@ const SKILLS_URL = 'https://github.com/Kbomi16/ai-skills'
 
 const PROTOCOL = [
   {
-    no: '001',
+    no: '01',
     en: 'RULES FIRST',
-    kr: '시키기 전에 쓰는 스킬 파일과 지금 구조를 먼저 넘깁니다. 규칙 없이 맡기면 파일 위치부터 같은 이유로 여러 번 고치게 됩니다.',
+    kr: '시키기 전에 쓰는 스킬 파일과 지금 구조를 먼저 넘깁니다.\n규칙 없이 맡기면 파일 위치부터 같은 이유로 여러 번 고치게 됩니다.',
   },
   {
-    no: '002',
+    no: '02',
     en: 'SPLIT WORKTREES',
-    kr: '사이트가 여러 개면 git worktree로 작업 폴더부터 나눕니다. 소개 웹과 콘솔을 한 창에서 고치면 문구와 기능이 섞입니다.',
+    kr: '사이트가 여러 개면 git worktree로 작업 폴더부터 나눕니다.\n소개 웹과 콘솔을 한 창에서 고치면 문구와 기능이 섞입니다.',
   },
   {
-    no: '003',
+    no: '03',
     en: 'ONE SESSION, ONE JOB',
-    kr: '기획 → 구현 → 검수. 한 세션에는 한 가지만 맡깁니다. 한꺼번에 시키면 어디까지가 맞는지 볼 수 없습니다.',
+    kr: '기획 → 구현 → 검수. 한 세션에는 한 가지만 맡깁니다.\n한꺼번에 시키면 어디까지가 맞는지 볼 수 없습니다.',
   },
   {
-    no: '004',
+    no: '04',
     en: 'FLOW BEFORE PROMPT',
-    kr: '기능을 들으면 상태·화면·API 흐름을 먼저 그려 보고, 그다음 맡깁니다.',
+    kr: '기능을 들으면 상태·화면·API 흐름을 먼저 그려 보고,\n그다음 맡깁니다.',
   },
   {
-    no: '005',
+    no: '05',
     en: 'VERIFY & WRITE',
-    kr: 'AI 속도에 맞춰 일하되, 나온 결과 확인과 기록은 제 몫으로 남깁니다. 그래서 같은 수정을 반복하지 않습니다.',
+    kr: 'AI 속도에 맞춰 일하되, 나온 결과 확인과 기록은 제 몫으로 남깁니다.\n그래서 같은 수정을 반복하지 않습니다.',
   },
 ]
 
@@ -97,8 +97,11 @@ export default function Pilot() {
           파일럿이어야 합니다.
         </Display>
         <p className="mt-4 max-w-[46ch] font-ui text-[clamp(13px,1.2vw,15px)] leading-[1.7] text-ink-2">
-          Cursor에 코드를 많이 맡기지만, AI가 빨라졌다고 공부를 빼지 않습니다. 제가 그 일을 알고
-          있어야 나온 코드가 맞는지 볼 수 있습니다.
+          Cursor에 코드를 많이 맡기지만,
+          <br />
+          AI가 빨라졌다고 공부를 빼지 않습니다.
+          <br />
+          제가 그 일을 알고 있어야 나온 코드가 맞는지 볼 수 있습니다.
         </p>
       </div>
 
@@ -112,7 +115,7 @@ export default function Pilot() {
           >
             <Label className="text-muted">{step.no}</Label>
             <Display className="text-[clamp(13px,1.3vw,17px)]">{step.en}</Display>
-            <p className="font-kr text-[clamp(13px,1.3vw,16px)] leading-[1.65] text-ink-2 max-md:col-start-2">
+            <p className="font-kr whitespace-pre-line text-[clamp(13px,1.3vw,16px)] leading-[1.65] text-ink-2 max-md:col-start-2">
               {step.kr}
             </p>
           </Hairline>

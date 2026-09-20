@@ -49,15 +49,14 @@ export default function Close() {
       id="contact"
     >
       <div>
-        <p
+        <Display
           data-rv
-          className="text-[clamp(18px,2vw,26px)] leading-normal font-semibold"
+          as="h2"
+          className="text-[clamp(40px,6vw,96px)] leading-[0.95] font-extrabold tracking-[-0.02em]"
         >
-          커피보다 짧은 메모도 환영합니다.
-          <br />
-          읽으면 빠르게 답장합니다.
-        </p>
-        <div data-rv className="mt-0 flex flex-wrap gap-3">
+          Contact
+        </Display>
+        <div data-rv className="mt-5 flex flex-wrap gap-3">
           <Pill href="mailto:bomi2172@gmail.com">bomi2172@gmail.com</Pill>
           <Pill href="https://github.com/Kbomi16" target="_blank" rel="noreferrer">
             GitHub
