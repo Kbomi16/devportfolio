@@ -4,6 +4,7 @@ import Nav from '../components/Nav'
 import Hero from '../sections/Hero'
 import Gallery from '../sections/Gallery'
 import Method from '../sections/Method'
+import Pilot from '../sections/Pilot'
 import Journal from '../sections/Journal'
 import Close from '../sections/Close'
 import { ScrollTrigger } from '../lib/gsapSetup'
@@ -45,6 +46,7 @@ export default function Home() {
         <Hero />
         <Gallery onOpenWork={handleOpenWork} />
         <Method />
+        <Pilot />
         <Journal />
         <Close />
       </main>

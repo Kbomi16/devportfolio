@@ -7,7 +7,8 @@ const LINKS: { label: string; id: string; line: string }[] = [
   { label: '소개', id: 'about', line: 'w-[52px]' },
   { label: '작업', id: 'work', line: 'w-[42px]' },
   { label: '명단', id: 'roster', line: 'w-[32px]' },
-  { label: '기록', id: 'journal', line: 'w-[22px]' },
+  { label: 'AI', id: 'pilot', line: 'w-[26px]' },
+  { label: '기록', id: 'journal', line: 'w-[18px]' },
   { label: '연락', id: 'contact', line: 'w-[12px]' },
 ]
 

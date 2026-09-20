@@ -177,13 +177,13 @@ export default function Hero() {
             data-hero-copy
             className="text-[clamp(17px,1.8vw,24px)] font-bold tracking-[-0.01em]"
           >
-            프론트엔드 개발자 김보미
+            일단 적고, 다시 꺼내는 프론트엔드 개발자
           </p>
           <p
             data-hero-copy
             className="max-w-[36ch] font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72"
           >
-            Building interfaces that respond like they&rsquo;re alive.
+            Write it down, bring it back.
           </p>
           <Label data-hero-copy className="mt-2 text-ink-2">
             DEVELOPER · SEOUL · 2026

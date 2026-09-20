@@ -4,9 +4,8 @@ import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
-import { useGSAP } from '../lib/gsapSetup'
+import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
-import { revealOnce } from '../lib/reveal'
 
 const POSTS = [
   { title: 'BFF로 토큰을 감싸는 구조', url: 'https://bori-note.tistory.com/' },
@@ -14,14 +13,36 @@ const POSTS = [
   { title: '한글 IME에서 엔터가 두 번 먹는 문제', url: 'https://bori-note.tistory.com/' },
 ]
 
-/** CH5 — 기록 (GSAP 1회 리빌) */
+/** CH5 — 기록. 핀 + 스크럽으로 헤드라인이 열리고 포스트가 한 줄씩 등장한다. */
 export default function Journal() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useGSAP(
     (context) => {
       if (prefersReducedMotion()) return
-      revealOnce((context.selector?.('[data-rv]') ?? []) as HTMLElement[])
+
+      const heads = (context.selector?.('[data-head]') ?? []) as HTMLElement[]
+      const rows = (context.selector?.('[data-row]') ?? []) as HTMLElement[]
+
+      gsap.set(rows, { autoAlpha: 0, y: 30 })
+
+      const tl = gsap.timeline({
+        defaults: { ease: 'power2.out' },
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: '+=160%',
+          pin: true,
+          scrub: 0.5,
+          anticipatePin: 1,
+        },
+      })
+
+      tl.from(heads, { y: 44, opacity: 0, duration: 0.6, stagger: 0.16 })
+      rows.forEach((row) => {
+        tl.to(row, { autoAlpha: 1, y: 0, duration: 0.45 }, '+=0.18')
+      })
+      tl.to({}, { duration: 0.45 })
     },
     { scope: sectionRef },
   )
@@ -31,15 +52,16 @@ export default function Journal() {
       ref={sectionRef}
       className={cn(
         ground.light,
-        'flex flex-col gap-5 px-[var(--pad)] pt-[6vh] pb-[22vh] [&>*]:mx-auto [&>*]:w-full [&>*]:max-w-[900px]',
+        'relative flex h-screen flex-col justify-center gap-5 overflow-hidden px-[var(--pad)] [&>*]:mx-auto [&>*]:w-full [&>*]:max-w-[900px]',
+        'motion-reduce:h-auto motion-reduce:overflow-visible motion-reduce:py-[18vh]',
       )}
       id="journal"
     >
-      <Label data-rv className="text-muted">
+      <Label data-head className="text-muted">
         JOURNAL · 100+
       </Label>
       <Display
-        data-rv
+        data-head
         as="h2"
         className="font-kr text-[clamp(32px,4.4vw,64px)] leading-[1.15] font-extrabold tracking-[-0.02em]"
       >
@@ -47,13 +69,13 @@ export default function Journal() {
         <br />
         다음이 짧아집니다.
       </Display>
-      <p data-rv className="max-w-[44ch] text-ink-2">
-        실무에서 막힌 지점을 100편 넘게 적어 왔습니다. 미래의 저와 팀원을 위한 메모장을
-        공개해 둔 것에 가깝습니다.
+      <p data-head className="max-w-[46ch] text-ink-2">
+        실무에서 막힌 지점을 100편 넘게 적어 왔습니다. 거창한 지식 나눔보다는, 같은 문제가 다시
+        왔을 때 꺼내 읽는 메모에 가깝습니다.
       </p>
       <ul className="mt-3 list-none">
         {POSTS.map((post) => (
-          <li key={post.title} data-rv>
+          <li key={post.title} data-row>
             <Hairline
               as="a"
               className="group flex items-center justify-between gap-4 py-[18px] font-semibold"
