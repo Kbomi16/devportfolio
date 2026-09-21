@@ -4,6 +4,11 @@ import Display from '../components/common/Display'
 import Label from '../components/common/Label'
 import { WORKS } from '../content/works'
 import { cn } from '../lib/cn'
+
+const galleryLabelClass = (label: string) =>
+  label.length > 5
+    ? 'max-w-full text-[clamp(28px,5.2vw,68px)] leading-[0.92] tracking-[-0.03em]'
+    : 'text-[clamp(56px,8vw,128px)]'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
@@ -91,7 +96,7 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
                 {work.labelEyebrow ? (
                   <Display className="text-[clamp(28px,4.5vw,72px)]">{work.labelEyebrow}</Display>
                 ) : null}
-                <Display className="text-[clamp(56px,8vw,128px)]">{work.label}</Display>
+                <Display className={galleryLabelClass(work.label)}>{work.label}</Display>
               </div>
               <div className="flex flex-col gap-3">
                 <p className="max-w-[44ch] whitespace-pre-line text-[15px] leading-[1.6] text-dark-ink">{work.oneLiner}</p>

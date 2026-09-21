@@ -34,8 +34,8 @@ export type WorkItem = {
 export const WORKS: WorkItem[] = [
   {
     slug: 'tcc',
-    label: 'TCC',
-    title: 'TCC — 중대재해 관리 백오피스',
+    label: 'BACKOFFICE',
+    title: '중대재해 관리 백오피스',
     period: '2025.05 — 2026.03',
     oneLiner: '버튼만 숨기면 끝인 줄 알았습니다.\n권한을 메뉴·기능·조직 선택까지 공통 구조로 묶었습니다.',
     homeLine: '권한 훅 ~90개 파일 · 조직 모달 ~50개 화면',
