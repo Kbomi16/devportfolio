@@ -59,9 +59,9 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
       )}
       id="work"
     >
-      <header className="absolute top-[calc(var(--nav-h)+22px)] left-[var(--pad)] flex flex-col gap-2 motion-reduce:static motion-reduce:px-[var(--pad)] motion-reduce:pb-6">
+      <header className="absolute top-[calc(var(--nav-h)+22px)] left-[max(var(--pad),calc((100%-1200px)/2))] flex w-[min(calc(100%-2*var(--pad)),1200px)] flex-col motion-reduce:static motion-reduce:px-[var(--pad)] motion-reduce:pb-6">
         <Label className="text-muted">PROJECTS</Label>
-        <h2 className="font-kr text-[clamp(22px,2.6vw,36px)] font-extrabold tracking-[-0.02em]">
+        <h2 className="mt-3 font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
           권한은 막고, 검색은 붙이고,
           <br className="max-md:hidden" />
           흐름은 이어 붙였습니다.

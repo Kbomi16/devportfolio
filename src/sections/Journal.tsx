@@ -1,5 +1,4 @@
 import { useRef } from 'react'
-import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import { cn } from '../lib/cn'
@@ -52,28 +51,28 @@ export default function Journal() {
       ref={sectionRef}
       className={cn(
         ground.light,
-        'relative flex h-screen flex-col justify-center gap-5 overflow-hidden px-[var(--pad)] [&>*]:mx-auto [&>*]:w-full [&>*]:max-w-[900px]',
+        'relative flex h-screen flex-col justify-center overflow-hidden px-[var(--pad)]',
         'motion-reduce:h-auto motion-reduce:overflow-visible motion-reduce:py-[18vh]',
       )}
       id="journal"
     >
-      <Label data-head className="text-muted">
-        JOURNAL · 100+
-      </Label>
-      <Display
-        data-head
-        as="h2"
-        className="font-kr text-[clamp(32px,4.4vw,64px)] leading-[1.15] font-extrabold tracking-[-0.02em]"
-      >
-        적어두면,
-        <br />
-        다음이 짧아집니다.
-      </Display>
-      <p data-head className="max-w-[46ch] text-ink-2">
-        모르는 걸 만나면 적어 두었습니다. 완성된 글보다는, 다음에 같은 자리에서 덜 헤매려는
-        메모입니다.
-      </p>
-      <ul className="mt-3 list-none">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col">
+        <Label data-head className="text-muted">
+          JOURNAL · 100+
+        </Label>
+        <h2
+          data-head
+          className="mt-3 font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]"
+        >
+          적어두면,
+          <br />
+          다음이 짧아집니다.
+        </h2>
+        <p data-head className="max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
+          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다. 거창한 나눔보다, 다음에
+          제가 다시 읽는 메모에 가깝습니다.
+        </p>
+        <ul className="mt-3 list-none">
         {POSTS.map((post) => (
           <li key={post.title} data-row>
             <Hairline
@@ -90,7 +89,8 @@ export default function Journal() {
             </Hairline>
           </li>
         ))}
-      </ul>
+        </ul>
+      </div>
     </section>
   )
 }

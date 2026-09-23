@@ -19,13 +19,13 @@ const INDEX: IndexRow[] = [
     tag: 'NOW',
     name: '주식회사 크로플 · Frontend Developer',
     meta: '2025.05 —',
-    note: '중대재해 백오피스에서 시작해, 기업 웹과 AI 콘텐츠 SaaS까지 프론트를 맡았습니다.',
+    note: '중대재해 관리 백오피스에서 시작해, 기업·브랜드 웹과 AI 콘텐츠 SaaS까지 프론트를 맡았습니다.',
   },
   {
     tag: 'CAMP',
     name: '코드잇 프론트엔드 부트캠프 · 팀장',
     meta: '2024.03 — 08',
-    note: '팀장으로 스크럼을 돌리고, 리뷰만 보는 시간을 따로 두어 코드 리뷰가 끊기지 않게 했습니다.',
+    note: '팀장으로 스크럼 회의를 진행하고, 리뷰만 보는 시간을 따로 두어 리뷰가 끊기지 않게 했습니다.',
   },
   {
     tag: 'DEGREE',
@@ -127,8 +127,8 @@ export default function Method() {
       id="roster"
     >
       <div data-statement className="mx-auto w-full max-w-[1200px]">
-        <Label>일하는 방식</Label>
-        <p className="mt-[16px] max-w-[24ch] text-[clamp(22px,3.2vw,46px)] leading-[1.25] font-bold tracking-[-0.01em]">
+        <Label className="text-muted">일하는 방식</Label>
+        <p className="mt-3 max-w-[16em] font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
           잘 모르는 걸 만나면 일단 적고,
           <br />
           <MarkedPhrase>
@@ -141,9 +141,9 @@ export default function Method() {
           </MarkedPhrase>
           로 남깁니다.
         </p>
-        <p className="mt-3 max-w-[52ch] font-ui text-[clamp(12px,1.1vw,14px)] text-ink-2">
-          &lsquo;왜 이렇게 되지?&rsquo;를 그냥 넘기지 못한 습관이 일이 됐습니다. 아래는 그 습관이
-          지나온 자리입니다.
+        <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
+          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다. 그 습관이 지금은 일하는
+          방식입니다.
         </p>
       </div>
 

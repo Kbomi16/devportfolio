@@ -177,13 +177,13 @@ export default function Hero() {
             data-hero-copy
             className="text-[clamp(17px,1.8vw,24px)] font-bold tracking-[-0.01em]"
           >
-            일단 적고, 다시 꺼내는 프론트엔드 개발자
+            만들고, 남기고, 다시 꺼내는 메이커
           </p>
           <p
             data-hero-copy
             className="max-w-[36ch] font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72"
           >
-            Write it down, bring it back.
+            Make it. Leave it. Bring it back.
           </p>
           <Label data-hero-copy className="mt-2 text-ink-2">
             DEVELOPER · SEOUL · 2026
@@ -209,7 +209,7 @@ export default function Hero() {
           className="absolute right-[var(--pad)] bottom-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*-34px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
           aria-hidden
         >
-          ONE CONTINUOUS SHOT
+          MAKER KIMBOMI
         </Label>
       </div>
 

@@ -37,7 +37,7 @@ export const WORKS: WorkItem[] = [
     label: 'BACKOFFICE',
     title: '중대재해 관리 백오피스',
     period: '2025.05 — 2026.03',
-    oneLiner: '버튼만 숨기면 끝인 줄 알았습니다.\n권한을 메뉴·기능·조직 선택까지 공통 구조로 묶었습니다.',
+    oneLiner: '서버에서 내려주는 메뉴로 사이드바를 그렸습니다.\n주소로 들어오는 화면도 한 번 더 막았습니다.',
     homeLine: '권한 훅 ~90개 파일 · 조직 모달 ~50개 화면',
     stack: ['Next.js', 'TypeScript', 'React Query', 'Ant Design'],
     cover: {
@@ -50,13 +50,13 @@ export const WORKS: WorkItem[] = [
       { value: '0', label: '메뉴 변경 시 재배포' },
     ],
     problem:
-      'URL을 직접 치면 버튼이 없어도 화면이 열렸습니다. 메뉴를 프론트 코드에 고정하면 항목 하나만 바꿔도 배포가 필요했고, 화면마다 권한 if를 짜다 보니 같은 실수가 반복됐습니다. 조직·사용자 선택도 화면마다 UX가 달랐습니다.',
+      '버튼을 숨겨도 주소로 치면 화면이 열렸습니다. 메뉴를 프론트 코드에 두면 항목 하나만 바꿔도 다시 배포해야 했습니다.',
     choice:
-      '서버 menuTree로 사이드바를 그리고, 경로에 맞는 menuId로 접근 권한을 한 번 더 확인했습니다. 수정·승인·다운로드 같은 기능 권한은 useAdminCheckPermissionFuncAccess 훅에 코드만 넘기게 했고, 조직 타입과 선택 규칙은 CommonOrganizationModal props로 모았습니다.',
+      '서버에서 내려주는 메뉴로 사이드바를 그리고, 주소로 들어오는 화면도 한 번 더 막았습니다. 수정·승인 권한은 훅 하나로, 조직·사람을 고르는 창은 공통 모달로 뺐습니다. 정책이 바뀌면 그곳만 고칩니다.',
     result:
-      '권한 훅 약 90개 파일, 조직 선택 모달 약 50개 화면에서 재사용. 메뉴 구조는 서버 설정만으로 바뀌어 프론트 재배포가 필요 없어졌습니다.',
+      '권한 훅 약 90개 파일, 조직 모달 약 50개 화면에서 재사용 중입니다.',
     learned:
-      '관리자 화면에서 진짜 비싼 건 페이지를 하나 더 만드는 시간이 아니라, 정책이 바뀔 때마다 코드를 헤집는 시간이었습니다. 관리자 FE의 핵심이 CRUD가 아니라 운영 변경 비용을 낮추는 설계임을 배웠습니다.',
+      '관리자 화면에서 비싼 건 페이지를 더 만드는 시간이 아닙니다. 정책이 바뀔 때 한곳만 고치게 만드는 일입니다.',
     links: [
       {
         label: '케이스 노트 (Notion)',
@@ -68,11 +68,11 @@ export const WORKS: WorkItem[] = [
     slug: 'sites',
     label: 'SITES',
     labelEyebrow: 'SEO GEO AEO',
-    title: 'SITES — 기업·브랜드 웹 5종',
+    title: 'SITES — 기업·브랜드 웹 7종',
     period: '2026.01 — 2026.08',
     oneLiner:
-      '같은 Next.js라도, 검색되는 방식을 설계했습니다.\n권한보다 검색 노출과 문의 전환이 우선입니다.',
-    homeLine: '크로플 · 감탄누수 · 요셉씨의 빛자루 · 고야차트 · 탑애드컴퍼니',
+      '권한이 아니라, 검색에 잡히고 문의가 가는 일이 우선입니다.\n언어별 주소·문구·메타데이터는 같은 규칙으로 맞췄습니다.',
+    homeLine: '크로플 · 감탄누수 · 빛자루 · 고야차트 · 탑애드 · 현중고차 · 시하디자인',
     stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'next-intl', 'Solapi', 'GSAP'],
     cover: {
       src: '/images/works/work-sites.jpg',
@@ -104,21 +104,33 @@ export const WORKS: WorkItem[] = [
         note: 'SEO · GEO · AEO, JSON-LD, 전화 상담 전환',
         url: 'https://www.toplawyermarketing.com',
       },
+      {
+        name: '현중고차',
+        note: '검색에 잡히고 문의로 이어지는 공개 웹',
+        url: 'https://hyunjoongcar.com/',
+      },
+      {
+        name: '시하디자인',
+        note: '검색에 잡히고 문의로 이어지는 공개 웹',
+        url: 'https://sihadesign.com/',
+      },
     ],
     problem:
-      '크로플·감탄누수·요셉씨의 빛자루·고야차트·탑애드컴퍼니 — 다섯 사이트 모두 "완성된 웹"이 아니라, 검색에 노출되고 문의로 이어지는 웹이 필요했습니다. 화면 문구만 번역하면 URL·메타가 어긋나고, 문의는 화면에서 끊기기 쉬웠습니다.',
+      '일곱 사이트 모두 완성된 화면보다, 검색에 잡히고 문의가 담당자에게 가는 일이 우선이었습니다. 문구만 바꾸면 주소와 메타데이터가 어긋났습니다.',
     choice:
-      'next-intl로 언어별 URL과 메타데이터를 한 세트로 맞추고 Sitemap·JSON-LD·hreflang까지 챙겼습니다. 문의가 접수되면 Solapi로 담당자 알림과 신청자 확인 문자를 붙였고, 애니메이션은 히어로와 핵심 메시지에만 남겼습니다.',
+      '언어별 주소·문구·메타데이터를 같은 규칙으로 맞췄습니다. 크로플·감탄누수·고야차트는 문의가 오면 Solapi로 담당자에게 바로 가게 연결했고, 사이트가 여러 개라 작업 폴더를 나눠 진행했습니다.',
     result:
-      '크로플 4개 locale 다국어 SEO, 여러 사이트에 Solapi 문의 알림 연결. 검색엔진이 언어 URL 관계를 구분하고, 문의가 담당자에게 실제로 도착하는 흐름을 만들었습니다.',
+      '공개 웹 7종을 같은 규칙으로 맞췄습니다. 크로플은 4개 국어 URL, 문의가 오는 사이트는 담당자 문자까지 이어집니다.',
     learned:
-      '같은 Next.js인데도 제품 목적이 다르면 집착해야 하는 지점이 달라진다는 걸, 백오피스와 공개 웹을 오가며 몸으로 익혔습니다.',
+      '같은 Next.js라도 목적이 다르면 붙잡아야 하는 지점이 달라집니다. 백오피스는 권한, 공개 웹은 검색과 문의였습니다.',
     links: [
       { label: '크로플', url: 'https://www.kroffle.com/kr' },
       { label: '감탄누수', url: 'https://gamtannusu.com' },
       { label: '요셉씨의 빛자루', url: 'https://joecbroom-web.pages.dev/' },
       { label: '고야차트', url: 'https://exproject.work' },
       { label: '탑애드컴퍼니', url: 'https://www.toplawyermarketing.com' },
+      { label: '현중고차', url: 'https://hyunjoongcar.com/' },
+      { label: '시하디자인', url: 'https://sihadesign.com/' },
     ],
   },
   {
@@ -127,8 +139,8 @@ export const WORKS: WorkItem[] = [
     title: 'ALLEO — AI 검색 최적화 · 콘텐츠 자동화 SaaS',
     period: '2026.04 — 2026.08',
     oneLiner:
-      '분석에서 발행까지, 다음 작업이 이어지게 만들었습니다.\n사이트 분석 → 글 생성 → 블로그 발행 → SNS가 한 흐름입니다.',
-    homeLine: 'intro · blog · wiki · console',
+      '소개 웹·블로그·관리자·콘솔을 한 흐름으로 이어 붙였습니다.\n느릴 때는 감으로 지우지 않고, 요청 횟수부터 봤습니다.',
+    homeLine: '같은 요청 1,532 → 33',
     stack: [
       'Next.js 16',
       'React 19',
@@ -148,13 +160,13 @@ export const WORKS: WorkItem[] = [
       { name: 'console', note: '분석 · SNS OAuth', url: 'https://console.alleo.pro' },
     ],
     problem:
-      '분석 리포트가 없는데도 다음 단계로 넘어가면 흐름이 끊겼습니다. 멀티 앱을 한 브랜치에서 고치면 소개 웹 작업이 콘솔과 섞였고, 같은 요청에서 getMe를 여러 번 부르며 개발 서버가 바빠졌습니다.',
+      '한 폴더에서 같이 고치면 소개 문구와 콘솔 작업이 섞였습니다. 개발 서버가 느릴 때 어디를 지워야 하는지도 감으로만 보였습니다.',
     choice:
-      '분석 리포트가 있어야만 추적 화면으로 가게 단계 의존을 고정했습니다. SNS OAuth는 성공·실패와 관계없이 연동 화면으로 돌아오게 했고, React cache()로 서버 세션 조회를 요청 단위로 묶었습니다. 앱·기능마다 브랜치를 나누고 git worktree로 체크아웃을 겹치지 않게 띄웠습니다.',
+      '앱마다 작업 공간을 나눴습니다. 요청이 몇 번 나가는지부터 세고, 세션 조회를 묶고 필요 없는 미리 불러오기를 끊었습니다.',
     result:
-      'intro / blog / wiki / console 4개 앱을 한 제품 흐름으로 연결. proxy 준비 이벤트 1,532→33, /api/blog/primary 약 48→2로 중복 요청을 줄였습니다.',
+      '같은 길이 1,532번 반복되던 요청이 33번대로 줄었습니다. intro · blog · wiki · console은 앱마다 폴더를 나눠 진행합니다.',
     learned:
-      '에이전트에게 일을 시키기 전에 규칙과 레거시를 먼저 넘기는 편이 됐습니다. 스킬과 워크트리를 남겨 두면 다음 브랜치에서 같은 실수를 반복하지 않습니다.',
+      '느릴 때는 감으로 지우지 않습니다. 같은 요청이 몇 번 나가는지부터 보면, 어디를 끊을지가 보입니다.',
     links: [
       { label: 'alleo.pro', url: 'https://alleo.pro' },
       { label: 'alleo.blog', url: 'https://alleo.blog' },
