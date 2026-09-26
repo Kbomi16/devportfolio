@@ -1,0 +1,3 @@
+[build.environment]
+  # Vite 8(Rolldown)은 node:util의 styleText가 있는 Node 22가 필요함. Netlify 기본 18에서는 빌드가 죽는다.
+  NODE_VERSION = "22"
