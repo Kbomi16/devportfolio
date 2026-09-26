@@ -9,7 +9,10 @@ import { prefersReducedMotion } from '../lib/motion'
 const POSTS = [
   { title: 'BFF로 토큰을 감싸는 구조', url: 'https://bori-note.tistory.com/' },
   { title: 'URL이 남는 모달 — Parallel Routes', url: 'https://bori-note.tistory.com/' },
-  { title: '한글 IME에서 엔터가 두 번 먹는 문제', url: 'https://bori-note.tistory.com/' },
+  {
+    title: 'Next.js Image 컴포넌트 톺아보기',
+    url: 'https://bori-note.tistory.com/117',
+  },
 ]
 
 /** CH5 — 기록. 핀 + 스크럽으로 헤드라인이 열리고 포스트가 한 줄씩 등장한다. */
@@ -69,8 +72,9 @@ export default function Journal() {
           다음이 짧아집니다.
         </h2>
         <p data-head className="max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
-          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다. 거창한 나눔보다, 다음에
-          제가 다시 읽는 메모에 가깝습니다.
+          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다.
+          <br />
+          거창한 나눔보다, 다음에 제가 다시 읽는 메모에 가깝습니다.
         </p>
         <ul className="mt-3 list-none">
         {POSTS.map((post) => (
@@ -82,10 +86,12 @@ export default function Journal() {
               target="_blank"
               rel="noreferrer"
             >
-              <span className="group-hover:underline group-hover:underline-offset-[5px]">
+              <span className="group-hover:underline group-hover:decoration-neon group-hover:underline-offset-[5px]">
                 {post.title}
               </span>
-              <Label className="text-muted">READ →</Label>
+              <Label className="rounded-full px-2 py-1 text-muted transition-[background-color,color] duration-200 group-hover:bg-neon group-hover:text-dark-ground">
+                READ →
+              </Label>
             </Hairline>
           </li>
         ))}
