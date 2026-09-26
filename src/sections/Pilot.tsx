@@ -157,7 +157,7 @@ function ProtocolCard({ step, index }: { step: ProtocolStep; index: number }) {
       as="li"
       data-line
       style={{ zIndex: index + 1 }}
-      className="absolute inset-0 flex w-full flex-col gap-4 border border-hairline bg-dark-ground p-5 motion-reduce:static motion-reduce:inset-auto lg:grid lg:grid-cols-[minmax(300px,1.22fr)_minmax(160px,0.68fr)] lg:items-stretch lg:gap-5 lg:p-0"
+      className="absolute inset-0 flex w-full flex-col gap-4 border border-hairline bg-dark-ground p-5 motion-reduce:static motion-reduce:inset-auto lg:grid lg:grid-cols-[minmax(300px,1fr)_minmax(220px,0.92fr)] lg:items-stretch lg:gap-5 lg:p-0"
     >
       <div className="min-w-0 lg:flex lg:flex-col lg:justify-center lg:py-7 lg:pr-4 lg:pl-6">
         <div className="flex flex-nowrap items-baseline gap-x-3">

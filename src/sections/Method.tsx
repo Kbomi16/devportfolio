@@ -19,7 +19,8 @@ const INDEX: IndexRow[] = [
     tag: 'NOW',
     name: '주식회사 크로플 · Frontend Developer',
     meta: '2025.05 —',
-    note: '중대재해 관리 백오피스에서 시작해, 기업·브랜드 웹과 AI 콘텐츠 SaaS까지 프론트를 맡았습니다.',
+    note:
+      '중대재해 관리 백오피스 FE.\n메뉴·권한·조직 선택을 공통 구조로 묶었습니다.\n\n공개 웹 7종.\n다국어 주소, 검색, 문의까지 같은 규칙으로 맞췄습니다.\n\nAlleo AI SaaS.\n분석부터 글·발행까지 이어지는 콘솔 프론트를 맡았습니다.',
   },
   {
     tag: 'CAMP',
@@ -142,8 +143,9 @@ export default function Method() {
           로 남깁니다.
         </p>
         <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
-          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다. 그 습관이 지금은 일하는
-          방식입니다.
+          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다.
+          <br />
+          그 습관이 지금은 일하는 방식입니다.
         </p>
       </div>
 
@@ -171,7 +173,7 @@ function IndexItem({ row }: { row: IndexRow }) {
         </Display>
         <p className="grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr] group-focus:grid-rows-[1fr] motion-reduce:transition-none">
           <span className="min-h-0 overflow-hidden">
-            <span className="mt-1.5 block max-w-[52ch] font-ui text-[12.5px] leading-[1.55] text-ink-2">
+            <span className="mt-1.5 block max-w-[48ch] whitespace-pre-line font-ui text-[12.5px] leading-[1.6] text-ink-2">
               {row.note}
             </span>
           </span>

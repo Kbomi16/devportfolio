@@ -38,6 +38,7 @@ export default function Hero() {
     setLanded(true)
   }
 
+  // ! 1. 스크럽 모드 일때 스크롤 연동 애니메이션 시작
   useGSAP(
     () => {
       if (mode !== 'scrub') return
@@ -49,12 +50,13 @@ export default function Hero() {
       // 트리거 순서·레이아웃이 흔들리지 않는다 (구간 튐 방지)
       const scrubState = { t: 0 }
 
+      // ! 2. 섹션을 pin하고, 스크롤 진행도가 타임라인 progress가 된다.
       const tl = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=1000%',
+          end: '+=2000%',
           pin: true,
           scrub: 0.4,
           anticipatePin: 1,
@@ -71,6 +73,9 @@ export default function Hero() {
         .to('[data-hero-dot="right"]', { x: '46vw', y: '42vh', duration: 0.14 }, 0)
         .to('[data-hero-chrome]', { opacity: 0, duration: 0.07 }, 0.04)
         // 필름 스크럽 (0.10 – 0.66) — 스크롤이 곧 재생 헤드
+        // ! 타임라인 안의 객체 scrubState.t가 0→1로 보간되고, 
+        // ! onUpdate마다: video.currentTime = scrubState.t × video.duration
+        // ! 스크롤을 내리면 앞으로, 올리면 뒤로.
         .to(
           scrubState,
           {
