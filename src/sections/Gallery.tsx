@@ -86,11 +86,14 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
               onClick={() => onOpenWork(work.slug)}
               aria-label={`${work.title} 케이스 스터디 열기`}
             >
-              <div className="flex justify-between text-ink-2">
-                <Label className="text-[20px]">
-                  {`0${i + 1}`}
-                </Label>
-                <Label>{work.period}</Label>
+              <div className="flex items-start justify-between gap-3 text-ink-2">
+                <span className="flex items-center gap-3">
+                  <Label className="text-[20px] text-neon">{`0${i + 1}`}</Label>
+                  {work.status ? (
+                    <Label className="rounded-full bg-neon px-2 py-1 text-dark-ground">{work.status}</Label>
+                  ) : null}
+                </span>
+                <Label className="text-right">{work.period}</Label>
               </div>
               <div className="flex flex-col gap-2">
                 {work.labelEyebrow ? (

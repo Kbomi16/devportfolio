@@ -4,7 +4,8 @@ import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import Pill from '../components/common/Pill'
-import { WORKS, workBySlug, type WorkEntry, type WorkItem, type WorkStat } from '../content/works'
+import { WORKS, workBySlug, type WorkEntry, type WorkItem, type WorkShot, type WorkStat } from '../content/works'
+import { cn } from '../lib/cn'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 import { revealOnce } from '../lib/reveal'
@@ -86,10 +87,14 @@ export default function Work() {
 
       <Cover work={work} onLoad={handleCoverLoad} />
 
-      <article className="mx-auto max-w-[720px] px-[var(--pad)] pt-[6vh] pb-[10vh]">
-        <Label data-rv className="text-muted">
-          {work.period}
-        </Label>
+      <article className="mx-auto max-w-[1100px] px-[var(--pad)] pt-[6vh] pb-[10vh]">
+        <div className="max-w-[720px]">
+        <div data-rv className="flex flex-wrap items-center gap-3">
+          <Label className="text-muted">{work.period}</Label>
+          {work.status ? (
+            <Label className="rounded-full bg-neon px-2.5 py-1 text-dark-ground">{work.status}</Label>
+          ) : null}
+        </div>
         <Display
           data-rv
           as="h1"
@@ -103,43 +108,53 @@ export default function Work() {
         >
           {work.oneLiner}
         </p>
+        <p data-rv className="mt-4 text-[15px] leading-[1.7] text-ink-2">
+          {work.role}
+        </p>
         <Label data-rv className="my-[18px] mb-8 text-muted">
           {work.stack.join(' · ')}
         </Label>
+        </div>
 
-        {work.stats ? <Stats stats={work.stats} /> : null}
+        {work.stats ? (
+          <div className="max-w-[720px]">
+            <Stats stats={work.stats} />
+          </div>
+        ) : null}
+
+        {work.shots ? <Shots shots={work.shots} /> : null}
 
         <Hairline
           as="section"
           data-rv
           className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
         >
-          <Label className="text-muted">문제</Label>
-          <p className="text-base leading-[1.8]">{work.problem}</p>
+          <Label className="whitespace-nowrap text-muted">문제</Label>
+          <p className="max-w-[62ch] text-base leading-[1.8]">{work.problem}</p>
         </Hairline>
         <Hairline
           as="section"
           data-rv
           className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
         >
-          <Label className="text-muted">내가 한 선택</Label>
-          <p className="text-base leading-[1.8]">{work.choice}</p>
+          <Label className="whitespace-nowrap text-muted">내가 한 선택</Label>
+          <p className="max-w-[62ch] text-base leading-[1.8]">{work.choice}</p>
         </Hairline>
         <Hairline
           as="section"
           data-rv
           className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
         >
-          <Label className="text-muted">결과</Label>
-          <p className="text-base leading-[1.8] font-bold">{work.result}</p>
+          <Label className="whitespace-nowrap text-muted">결과</Label>
+          <p className="max-w-[62ch] text-base leading-[1.8] font-bold">{work.result}</p>
         </Hairline>
         <Hairline
           as="section"
           data-rv
           className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
         >
-          <Label className="text-muted">배운 점</Label>
-          <p className="text-base leading-[1.8]">{work.learned}</p>
+          <Label className="whitespace-nowrap text-muted">배운 점</Label>
+          <p className="max-w-[62ch] text-base leading-[1.8]">{work.learned}</p>
         </Hairline>
 
         {work.entries ? <Entries entries={work.entries} /> : null}
@@ -177,7 +192,10 @@ function Cover({ work, onLoad }: { work: WorkItem; onLoad: () => void }) {
           data-cover-img
           src={work.cover.src}
           alt={work.cover.alt}
-          className="aspect-[16/9] w-full origin-center object-cover"
+          className={cn(
+            'aspect-[16/9] w-full origin-center bg-white',
+            work.cover.fit === 'contain' ? 'object-contain' : 'object-cover',
+          )}
           onLoad={onLoad}
         />
       </div>
@@ -274,33 +292,70 @@ function PagerCard({
   )
 }
 
+function Shots({ shots }: { shots: WorkShot[] }) {
+  return (
+    <ul className="mt-2 mb-8 grid list-none grid-cols-2 gap-4 max-sm:grid-cols-1">
+      {shots.map((shot) => (
+        <li key={shot.src} data-rv className="overflow-hidden rounded-2xl border border-hairline bg-white">
+          <img src={shot.src} alt={shot.alt} className="aspect-[4/3] w-full object-contain object-top" />
+          <p className="px-4 py-3 text-[13px] leading-[1.6] text-ink-2">{shot.caption}</p>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 function Entries({ entries }: { entries: WorkEntry[] }) {
+  const pictured = entries.filter((entry) => entry.image)
+  const plain = entries.filter((entry) => !entry.image)
+
   return (
     <Hairline as="section" data-rv className="flex flex-col gap-5 py-7">
       <Label className="text-muted">구성</Label>
-      <ul className="list-none">
-        {entries.map((entry) => (
-          <li
-            key={entry.name}
-            data-rv
-            className="grid grid-cols-[140px_1fr] gap-5 py-3 max-sm:grid-cols-1 max-sm:gap-1"
-          >
-            {entry.url ? (
-              <a
-                className="font-ui text-[13px] tracking-[0.12em] uppercase hover:underline hover:underline-offset-4"
-                href={entry.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {entry.name}
+      {pictured.length > 0 ? (
+        <ul className="grid list-none grid-cols-2 gap-4 max-md:grid-cols-1">
+          {pictured.map((entry) => (
+            <li key={entry.name} data-rv className="overflow-hidden rounded-2xl border border-hairline bg-white">
+              <a href={entry.url} target="_blank" rel="noreferrer" className="block">
+                <img
+                  src={entry.image?.src}
+                  alt={entry.image?.alt ?? entry.name}
+                  className="aspect-[16/9] w-full object-contain"
+                />
+                <span className="block px-4 pt-4 font-ui text-[13px] tracking-[0.12em] uppercase">
+                  {entry.name}
+                </span>
+                <span className="block px-4 pt-2 pb-4 text-[14px] leading-[1.6]">{entry.note}</span>
               </a>
-            ) : (
-              <span className="font-ui text-[13px] tracking-[0.12em] uppercase">{entry.name}</span>
-            )}
-            <p className="text-base leading-[1.8]">{entry.note}</p>
-          </li>
-        ))}
-      </ul>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {plain.length > 0 ? (
+        <ul className="list-none">
+          {plain.map((entry) => (
+            <li
+              key={entry.name}
+              data-rv
+              className="grid grid-cols-[140px_1fr] gap-5 py-3 max-sm:grid-cols-1 max-sm:gap-1"
+            >
+              {entry.url ? (
+                <a
+                  className="font-ui text-[13px] tracking-[0.12em] uppercase hover:underline hover:underline-offset-4"
+                  href={entry.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {entry.name}
+                </a>
+              ) : (
+                <span className="font-ui text-[13px] tracking-[0.12em] uppercase">{entry.name}</span>
+              )}
+              <p className="text-base leading-[1.8]">{entry.note}</p>
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </Hairline>
   )
 }
