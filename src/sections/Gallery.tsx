@@ -114,9 +114,12 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
       </motion.div>
 
       <div className="relative z-20 mx-auto flex w-full max-w-[1200px] flex-col items-center gap-4">
-        <p className="text-center" aria-live="polite">
+        <p className="mx-auto max-w-[min(100%,28rem)] text-center" aria-live="polite">
           <Label className="text-muted">{`0${active + 1} / 0${total}`}</Label>
           <span className="mt-1 block font-kr text-[15px] font-semibold">{current.title}</span>
+          <span className="mt-2 block font-kr text-[14px] leading-[1.55] whitespace-pre-line text-ink-2">
+            {current.oneLiner}
+          </span>
         </p>
         <div className="flex gap-2">
           <MagneticButton
@@ -165,6 +168,12 @@ function SlideCard({
       onClick={handleClick}
     >
       <CardMark slug={work.slug} />
+      <img
+        src={work.thumb.src}
+        alt=""
+        className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+        draggable={false}
+      />
       <span className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">
         <span className="flex items-center gap-2">
           <Label className="text-neon">{`0${index + 1}`}</Label>

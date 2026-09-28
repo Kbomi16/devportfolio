@@ -12,7 +12,7 @@ export default function CardMark({ slug }: MarkProps) {
   return (
     <svg
       viewBox="0 0 300 400"
-      className="pointer-events-none absolute inset-0 size-full origin-[50%_32%] transition-transform duration-500 group-hover:scale-[1.04]"
+      className="pointer-events-none absolute inset-0 size-full origin-[50%_32%] transition-[transform,opacity] duration-300 group-hover:scale-[1.04] group-hover:opacity-0 group-focus-visible:opacity-0 motion-reduce:transition-none"
       aria-hidden
     >
       {slug === 'tcc' ? <Note id="tcc" /> : null}

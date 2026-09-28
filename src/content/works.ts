@@ -32,6 +32,8 @@ export type WorkItem = {
   homeLine: string
   stack: string[]
   cover: { src: string; alt: string; fit?: 'cover' | 'contain' }
+  /** 갤러리 카드 호버 썸네일. 로고가 있으면 로고, 없으면 2D 일러스트 */
+  thumb: { src: string; alt: string }
   shots?: WorkShot[]
   stats?: WorkStat[]
   entries?: WorkEntry[]
@@ -55,6 +57,10 @@ export const WORKS: WorkItem[] = [
     cover: {
       src: '/images/works/work-tcc.jpg',
       alt: '중대재해 관리 백오피스 — 사이드바 메뉴와 점검 테이블이 보이는 관리자 화면',
+    },
+    thumb: {
+      src: '/images/works/thumb-tcc.svg',
+      alt: '백오피스 일러스트. 사이드바와 자물쇠.',
     },
     stats: [
       { value: '90', label: '권한 훅 재사용 파일' },
@@ -90,6 +96,10 @@ export const WORKS: WorkItem[] = [
     cover: {
       src: '/images/works/work-sites.jpg',
       alt: '다국어 기업 웹 랜딩 — 언어 전환과 히어로가 보이는 브랜드 사이트',
+    },
+    thumb: {
+      src: '/images/works/thumb-sites.svg',
+      alt: '기업 웹 일러스트. 겹친 브라우저 창.',
     },
     entries: [
       {
@@ -174,6 +184,10 @@ export const WORKS: WorkItem[] = [
       src: '/images/works/work-alleo.jpg',
       alt: 'Alleo 콘솔 — 사이트 분석 점수와 콘텐츠 파이프라인이 보이는 SaaS 화면',
     },
+    thumb: {
+      src: '/images/works/thumb-alleo.svg',
+      alt: 'alleo 로고',
+    },
     entries: [
       {
         name: 'intro',
@@ -221,6 +235,10 @@ export const WORKS: WorkItem[] = [
       alt: '내 돈 어디갔지? 로그인 화면. 이메일과 비밀번호로 가계부에 들어갑니다.',
       fit: 'contain',
     },
+    thumb: {
+      src: '/images/works/thumb-money.svg',
+      alt: '내 돈 어디갔지 지갑 로고',
+    },
     problem:
       '기능이 많으면 기록이 귀찮아집니다. 할부·구독처럼 매달 반복되는 지출은, 단건 입력만 있으면 같은 내용을 다시 적어야 했습니다.',
     choice:
@@ -248,6 +266,10 @@ export const WORKS: WorkItem[] = [
       src: '/images/works/useme-discover.png',
       alt: 'useMe 둘러보기. 어떤 프로젝트를 써 볼까요, 검색과 오늘의 카드.',
       fit: 'contain',
+    },
+    thumb: {
+      src: '/images/works/thumb-useme.svg',
+      alt: 'useMe 로고',
     },
     shots: [
       {
@@ -285,6 +307,10 @@ export const WORKS: WorkItem[] = [
       src: '/images/works/isle-cover.svg',
       alt: '모이섬. 걷기, 만나기, 말하기. 전투와 점수는 만들지 않습니다.',
       fit: 'cover',
+    },
+    thumb: {
+      src: '/images/works/thumb-isle.svg',
+      alt: '모이섬 일러스트. 언덕 위의 집.',
     },
     problem:
       '포트폴리오를 건물로 늘어놓으면, 다른 사람이 들어와 만나고 말하는 경험은 없습니다. 그래픽을 목표로 잡으면 범위가 걷잡을 수 없습니다.',
