@@ -453,7 +453,10 @@ export const WORKS: WorkItem[] = [
         result: '실무에서 쓰던 앱 분리와 쿠키 세션을 개인 프로젝트에서 같은 방식으로 적용하고 있습니다.',
       },
     ],
-    links: [{ label: 'GitHub', url: 'https://github.com/Kbomi16/useme' }],
+    links: [
+      { label: '배포', url: 'https://useme-web-beige.vercel.app/' },
+      { label: 'GitHub', url: 'https://github.com/Kbomi16/useme' },
+    ],
   },
   {
     slug: 'isle',
@@ -500,7 +503,10 @@ export const WORKS: WorkItem[] = [
         result: '클레이 비율 캐릭터와 로우폴리 낮 마을 톤은 잡아 둔 상태이고, 말하기 고리를 붙이는 중입니다.',
       },
     ],
-    links: [{ label: 'GitHub', url: 'https://github.com/Kbomi16/moi-isle' }],
+    links: [
+      { label: '배포', url: 'https://moi-isle.vercel.app/' },
+      { label: 'GitHub', url: 'https://github.com/Kbomi16/moi-isle' },
+    ],
   },
 ]
 

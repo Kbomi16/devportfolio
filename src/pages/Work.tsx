@@ -206,7 +206,29 @@ function WorkTitleMark({ work, onMarkLoad }: { work: WorkItem; onMarkLoad: () =>
           ))}
         </div>
         <p className="mt-3 text-[15px] leading-[1.7] text-ink-2">{work.role}</p>
-        <Label className="mb-8 mt-4 max-w-[46rem] text-muted">{work.stack.join(' · ')}</Label>
+        <Label
+          className={cn(
+            'mt-4 max-w-[46rem] text-muted',
+            !(work.links.length > 0 && !work.entries) && 'mb-8',
+          )}
+        >
+          {work.stack.join(' · ')}
+        </Label>
+        {work.links.length > 0 && !work.entries ? (
+          <div className="mb-8 mt-5 flex flex-wrap gap-3">
+            {work.links.map((link) => (
+              <Pill
+                key={link.url}
+                className="border-hairline-on-light hover:border-light-ink"
+                href={link.url}
+                target="_blank"
+                {...outboundLinkProps(link.url)}
+              >
+                {link.label} ↗
+              </Pill>
+            ))}
+          </div>
+        ) : null}
       </div>
     </div>
   )
