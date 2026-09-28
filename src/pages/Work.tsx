@@ -1,10 +1,19 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import Pill from '../components/common/Pill'
-import { WORKS, workBySlug, type WorkEntry, type WorkItem, type WorkShot, type WorkStat } from '../content/works'
+import {
+  WORKS,
+  workBySlug,
+  type WorkDecision,
+  type WorkEntry,
+  type WorkItem,
+  type WorkShot,
+  type WorkStat,
+} from '../content/works'
+import CaseFlow from '../sections/CaseFlow'
 import { cn } from '../lib/cn'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
@@ -19,7 +28,7 @@ export default function Work() {
   const navigate = useNavigate()
   useLenis()
 
-  const handleCoverLoad = () => {
+  const handleThumbLoad = () => {
     ScrollTrigger.refresh()
   }
 
@@ -28,13 +37,11 @@ export default function Work() {
       if (prefersReducedMotion()) return
 
       const nav = context.selector?.('[data-work-nav]')?.[0] as HTMLElement | undefined
-      const cover = context.selector?.('[data-cover]')?.[0] as HTMLElement | undefined
-      const coverImg = context.selector?.('[data-cover-img]')?.[0] as HTMLElement | undefined
+      const thumbImg = context.selector?.('[data-work-thumb]')?.[0] as HTMLElement | undefined
       const stats = (context.selector?.('[data-stat]') ?? []) as HTMLElement[]
 
       if (nav) gsap.from(nav, { y: -16, opacity: 0, duration: 0.55, ease: 'power2.out' })
-      if (cover) gsap.from(cover, { y: 36, opacity: 0, duration: 0.9, ease: 'power3.out' })
-      if (coverImg) gsap.from(coverImg, { scale: 1.08, duration: 1.2, ease: 'power3.out' })
+      if (thumbImg) gsap.from(thumbImg, { scale: 1.08, duration: 1.2, ease: 'power3.out' })
       revealOnce((context.selector?.('[data-rv]') ?? []) as HTMLElement[])
       if (stats.length > 0) {
         gsap.from(stats, {
@@ -73,7 +80,7 @@ export default function Work() {
     >
       <header
         data-work-nav
-        className="fixed inset-x-0 top-0 z-20 flex h-[var(--nav-h)] items-center justify-between border-b border-hairline bg-light-ground/88 px-[var(--pad)] backdrop-blur-sm"
+        className="fixed inset-x-0 top-0 z-20 flex h-[var(--nav-h)] items-center justify-between border-b border-hairline bg-white/90 px-[var(--pad)] backdrop-blur-sm"
       >
         <Label
           as={Link}
@@ -85,36 +92,26 @@ export default function Work() {
         <Label className="text-[12.5px] tracking-[0.13em]">{`0${index + 1} / 0${WORKS.length}`}</Label>
       </header>
 
-      <Cover work={work} onLoad={handleCoverLoad} />
-
-      <article className="mx-auto max-w-[1100px] px-[var(--pad)] pt-[6vh] pb-[10vh]">
-        <div className="max-w-[720px]">
+      <div className="bg-white">
+      <article
+        className={cn(
+          'mx-auto max-w-[1100px] px-[var(--pad)] pt-[calc(var(--nav-h)+clamp(28px,5vh,48px))]',
+          work.entries ? 'pb-0' : 'pb-8',
+        )}
+      >
+        <div className="max-w-[1100px]">
         <div data-rv className="flex flex-wrap items-center gap-3">
           <Label className="text-muted">{work.period}</Label>
           {work.status ? (
             <Label className="rounded-full bg-neon px-2.5 py-1 text-dark-ground">{work.status}</Label>
           ) : null}
         </div>
-        <Display
-          data-rv
-          as="h1"
-          className="mt-3 font-kr text-[clamp(28px,4vw,48px)] leading-[1.2] font-extrabold tracking-[-0.02em]"
-        >
-          {work.title}
-        </Display>
-        <p
-          data-rv
-          className="mt-5 whitespace-pre-line text-[clamp(17px,1.8vw,21px)] leading-normal font-semibold"
-        >
-          {work.oneLiner}
-        </p>
-        <p data-rv className="mt-4 text-[15px] leading-[1.7] text-ink-2">
-          {work.role}
-        </p>
-        <Label data-rv className="my-[18px] mb-8 text-muted">
-          {work.stack.join(' · ')}
-        </Label>
+        <WorkTitleMark work={work} onMarkLoad={handleThumbLoad} />
         </div>
+
+        <section data-rv className="mt-2 mb-8 rounded-3xl border border-hairline px-4 py-8 sm:px-8">
+          <CaseFlow flow={work.flow} />
+        </section>
 
         {work.stats ? (
           <div className="max-w-[720px]">
@@ -124,55 +121,14 @@ export default function Work() {
 
         {work.shots ? <Shots shots={work.shots} /> : null}
 
-        <Hairline
-          as="section"
-          data-rv
-          className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
-        >
-          <Label className="whitespace-nowrap text-muted">문제</Label>
-          <p className="max-w-[62ch] text-base leading-[1.8]">{work.problem}</p>
-        </Hairline>
-        <Hairline
-          as="section"
-          data-rv
-          className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
-        >
-          <Label className="whitespace-nowrap text-muted">내가 한 선택</Label>
-          <p className="max-w-[62ch] text-base leading-[1.8]">{work.choice}</p>
-        </Hairline>
-        <Hairline
-          as="section"
-          data-rv
-          className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
-        >
-          <Label className="whitespace-nowrap text-muted">결과</Label>
-          <p className="max-w-[62ch] text-base leading-[1.8] font-bold">{work.result}</p>
-        </Hairline>
-        <Hairline
-          as="section"
-          data-rv
-          className="grid grid-cols-[140px_1fr] gap-5 py-7 max-sm:grid-cols-1 max-sm:gap-2"
-        >
-          <Label className="whitespace-nowrap text-muted">배운 점</Label>
-          <p className="max-w-[62ch] text-base leading-[1.8]">{work.learned}</p>
-        </Hairline>
-
-        {work.entries ? <Entries entries={work.entries} /> : null}
-
-        <div data-rv className="mt-10 flex flex-wrap gap-3">
-          {work.links.map((link) => (
-            <Pill
-              key={link.url}
-              className="border-hairline-on-light hover:border-light-ink"
-              href={link.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {link.label} ↗
-            </Pill>
-          ))}
-        </div>
+        <Decisions
+          decisions={work.decisions}
+          suppressTopRule={!work.stats && !work.shots}
+        />
       </article>
+      </div>
+
+      {work.entries ? <Entries entries={work.entries} /> : null}
 
       <WorkPager
         prev={prev}
@@ -184,30 +140,82 @@ export default function Work() {
   )
 }
 
-function Cover({ work, onLoad }: { work: WorkItem; onLoad: () => void }) {
+function Decisions({
+  decisions,
+  suppressTopRule,
+}: {
+  decisions: WorkDecision[]
+  suppressTopRule?: boolean
+}) {
   return (
-    <figure data-cover className="mx-auto w-full max-w-[1100px] px-[var(--pad)]">
-      <div className="overflow-hidden rounded-[32px] shadow-[0_18px_40px_rgba(0,0,0,0.18)]">
+    <>
+      {decisions.map((item, index) => (
+        <Hairline
+          as="section"
+          data-rv
+          key={item.title}
+          className={cn('grid gap-5 py-8', index === 0 && suppressTopRule && 'border-t-0')}
+        >
+          <h2 className="font-kr text-[18px] font-bold tracking-[-0.02em]">{item.title}</h2>
+          <div className="grid gap-6 sm:grid-cols-3">
+            <div>
+              <Label className="text-muted">문제</Label>
+              <p className="mt-2 text-[15px] leading-[1.75]">{item.problem}</p>
+            </div>
+            <div>
+              <Label className="text-muted">선택</Label>
+              <p className="mt-2 text-[15px] leading-[1.75]">{item.choice}</p>
+            </div>
+            <div>
+              <Label className="text-muted">결과</Label>
+              <p className="mt-2 text-[15px] leading-[1.75] font-bold">{item.result}</p>
+            </div>
+          </div>
+        </Hairline>
+      ))}
+    </>
+  )
+}
+
+function WorkTitleMark({ work, onMarkLoad }: { work: WorkItem; onMarkLoad: () => void }) {
+  return (
+    <div data-rv className="relative mt-5 sm:mt-6">
+      <figure className="pointer-events-none absolute top-[-6%] right-[-2%] z-[1] w-[clamp(140px,38vw,440px)]">
         <img
-          data-cover-img
-          src={work.cover.src}
-          alt={work.cover.alt}
-          className={cn(
-            'aspect-[16/9] w-full origin-center bg-white',
-            work.cover.fit === 'contain' ? 'object-contain' : 'object-cover',
-          )}
-          onLoad={onLoad}
+          data-work-thumb
+          src={work.thumb.src}
+          alt={work.thumb.alt}
+          className="aspect-[3/4] w-full object-contain"
+          onLoad={onMarkLoad}
         />
+      </figure>
+      <div className="relative z-[2] min-w-0 max-w-[42rem] pr-[min(36vw,11rem)] sm:max-w-[min(78%,46rem)] sm:pr-[min(40vw,14rem)] md:max-w-[min(88%,56rem)] md:pr-[min(34vw,17rem)]">
+        <Label className="text-muted">{work.label}</Label>
+        <Display
+          as="h1"
+          className="mt-2 font-kr text-[clamp(28px,4.6vw,52px)] leading-[1.14] font-extrabold tracking-[-0.03em]"
+        >
+          {work.title}
+        </Display>
+        <div className="mt-4 max-w-[56rem] text-[clamp(17px,1.8vw,21px)] leading-normal font-semibold">
+          {work.oneLiner.split('\n').map((line, index) => (
+            <span key={index} className="block md:whitespace-nowrap">
+              {line}
+            </span>
+          ))}
+        </div>
+        <p className="mt-3 text-[15px] leading-[1.7] text-ink-2">{work.role}</p>
+        <Label className="mb-8 mt-4 max-w-[46rem] text-muted">{work.stack.join(' · ')}</Label>
       </div>
-    </figure>
+    </div>
   )
 }
 
 function Stats({ stats }: { stats: WorkStat[] }) {
   return (
-    <ul className="mb-4 grid list-none grid-cols-3 gap-4 max-sm:grid-cols-1">
+    <ul className="mb-4 grid list-none grid-cols-3 gap-x-4 gap-y-6 border-t border-hairline pt-6 max-sm:grid-cols-1">
       {stats.map((stat) => (
-        <li key={stat.label} data-stat className="border-t border-hairline pt-4">
+        <li key={stat.label} data-stat>
           <Display className="text-[clamp(28px,4vw,40px)]">{stat.value}</Display>
           <Label className="mt-2 text-muted">{stat.label}</Label>
         </li>
@@ -306,56 +314,119 @@ function Shots({ shots }: { shots: WorkShot[] }) {
 }
 
 function Entries({ entries }: { entries: WorkEntry[] }) {
-  const pictured = entries.filter((entry) => entry.image)
-  const plain = entries.filter((entry) => !entry.image)
+  const [active, setActive] = useState(0)
+
+  const current = entries[active] ?? entries[0]
+
+  const handleSelect = (index: number) => {
+    setActive(index)
+  }
+
+  if (!current) return null
 
   return (
-    <Hairline as="section" data-rv className="flex flex-col gap-5 py-7">
-      <Label className="text-muted">구성</Label>
-      {pictured.length > 0 ? (
-        <ul className="grid list-none grid-cols-2 gap-4 max-md:grid-cols-1">
-          {pictured.map((entry) => (
-            <li key={entry.name} data-rv className="overflow-hidden rounded-2xl border border-hairline bg-white">
-              <a href={entry.url} target="_blank" rel="noreferrer" className="block">
-                <img
-                  src={entry.image?.src}
-                  alt={entry.image?.alt ?? entry.name}
-                  className="aspect-[16/9] w-full object-contain"
-                />
-                <span className="block px-4 pt-4 font-ui text-[13px] tracking-[0.12em] uppercase">
-                  {entry.name}
-                </span>
-                <span className="block px-4 pt-2 pb-4 text-[14px] leading-[1.6]">{entry.note}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      {plain.length > 0 ? (
-        <ul className="list-none">
-          {plain.map((entry) => (
-            <li
-              key={entry.name}
-              data-rv
-              className="grid grid-cols-[140px_1fr] gap-5 py-3 max-sm:grid-cols-1 max-sm:gap-1"
-            >
-              {entry.url ? (
-                <a
-                  className="font-ui text-[13px] tracking-[0.12em] uppercase hover:underline hover:underline-offset-4"
-                  href={entry.url}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {entry.name}
-                </a>
-              ) : (
-                <span className="font-ui text-[13px] tracking-[0.12em] uppercase">{entry.name}</span>
-              )}
-              <p className="text-base leading-[1.8]">{entry.note}</p>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-    </Hairline>
+    <section
+      data-rv
+      className="relative left-1/2 flex min-h-svh w-screen max-w-[100vw] -translate-x-1/2 flex-col bg-dark-ground text-dark-ink [--hairline:var(--hairline-on-dark)]"
+    >
+      <div className="mx-auto flex w-full max-w-[1100px] flex-1 flex-col px-[var(--pad)] py-10 md:py-14">
+        <div data-rv className="flex shrink-0 items-center justify-between gap-4">
+          <Label className="text-dark-ink/55">구성</Label>
+          <Label className="tabular-nums text-dark-ink/55">
+            {String(active + 1).padStart(2, '0')} / {String(entries.length).padStart(2, '0')}
+          </Label>
+        </div>
+        <div className="flex flex-1 flex-col justify-center pt-8 md:pt-10">
+          <div className="grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_minmax(240px,340px)] md:gap-12 lg:gap-16">
+            <ul className="list-none border-t border-hairline">
+              {entries.map((entry, index) => {
+                const selected = index === active
+
+                return (
+                  <li key={entry.name}>
+                    <button
+                      type="button"
+                      aria-current={selected ? 'true' : undefined}
+                      className={cn(
+                        'group relative grid w-full grid-cols-[2.25rem_minmax(0,1fr)] items-center gap-3 border-b border-hairline py-3.5 text-left transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                        selected ? 'translate-x-1.5 md:translate-x-2.5' : 'hover:translate-x-1',
+                      )}
+                      onMouseEnter={() => handleSelect(index)}
+                      onFocus={() => handleSelect(index)}
+                      onClick={() => handleSelect(index)}
+                    >
+                      <span
+                        aria-hidden
+                        className={cn(
+                          'absolute top-1/2 left-0 h-5 w-px origin-center -translate-y-1/2 bg-dark-ink transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                          selected ? 'scale-y-100' : 'scale-y-0 group-hover:scale-y-50',
+                        )}
+                      />
+                      <span
+                        className={cn(
+                          'text-right font-display text-[12px] tabular-nums tracking-[-0.02em] transition-colors duration-500',
+                          selected ? 'text-dark-ink' : 'text-dark-ink/45 group-hover:text-dark-ink/75',
+                        )}
+                      >
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span
+                        className={cn(
+                          'min-w-0 text-[15px] leading-snug transition-colors duration-500 md:text-[16px]',
+                          selected
+                            ? 'font-semibold text-dark-ink'
+                            : 'text-dark-ink/55 group-hover:text-dark-ink/85',
+                        )}
+                      >
+                        {entry.name}
+                      </span>
+                    </button>
+                  </li>
+                )
+              })}
+            </ul>
+            <EntryPreview entry={current} />
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+function EntryPreview({ entry }: { entry: WorkEntry }) {
+  return (
+    <figure
+      key={entry.name}
+      className="entry-swap mx-auto w-full max-w-[340px] md:mx-0 md:justify-self-end"
+    >
+      <div className="overflow-hidden rounded-2xl border border-hairline bg-white">
+        {entry.image ? (
+          <img
+            src={entry.image.src}
+            alt={entry.image.alt}
+            className="aspect-[16/10] w-full object-cover object-top"
+          />
+        ) : (
+          <div className="flex aspect-[16/10] items-end bg-light-ground px-4 py-3">
+            <Display className="text-[clamp(22px,2vw,28px)] leading-none text-light-ink">
+              {entry.name}
+            </Display>
+          </div>
+        )}
+      </div>
+      <figcaption className="mt-4">
+        <p className="text-[14px] leading-[1.6] font-medium text-dark-ink/90">{entry.note}</p>
+        {entry.url ? (
+          <a
+            href={entry.url}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-3 inline-block font-ui text-[11px] font-medium tracking-[0.12em] text-dark-ink/55 uppercase transition-colors duration-500 hover:text-neon"
+          >
+            열기 ↗
+          </a>
+        ) : null}
+      </figcaption>
+    </figure>
   )
 }

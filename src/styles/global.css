@@ -107,6 +107,27 @@ button {
 
 /* 1회성 리빌(.rv)은 GSAP gsap.from이 담당 — 기본 상태는 항상 보임(no-JS·reduced-motion 안전) */
 
+@keyframes entry-swap {
+  from {
+    opacity: 0;
+    translate: 18px 8px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+.entry-swap {
+  animation: entry-swap 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entry-swap {
+    animation: none;
+  }
+}
+
 .neon-cursor {
   position: fixed;
   top: 0;
