@@ -48,7 +48,7 @@ export const WORKS: WorkItem[] = [
     label: 'BACKOFFICE',
     title: '중대재해 관리 백오피스',
     period: '2025.05 — 2026.03',
-    role: '프론트엔드 — 동적 메뉴, 권한 훅, 조직 선택 모달',
+    role: '프론트엔드, 동적 메뉴, 권한 훅, 조직 선택 모달',
     oneLiner: '서버에서 내려주는 메뉴로 사이드바를 그렸습니다.\n주소로 들어오는 화면도 한 번 더 막았습니다.',
     homeLine: '권한 훅 ~90개 파일 · 조직 모달 ~50개 화면',
     stack: ['Next.js', 'TypeScript', 'React Query', 'Ant Design'],
@@ -80,9 +80,9 @@ export const WORKS: WorkItem[] = [
     slug: 'sites',
     label: 'SITES',
     labelEyebrow: 'SEO GEO AEO',
-    title: 'SITES — 기업·브랜드 웹 7종',
+    title: '기업·브랜드 웹 7종',
     period: '2026.01 — 2026.08',
-    role: '프론트엔드 — 공개 웹 7종, 다국어, SEO, 문의 연결',
+    role: '프론트엔드, 공개 웹 7종, 다국어, SEO, 문의 연결',
     oneLiner:
       '권한이 아니라, 검색에 잡히고 문의가 가는 일이 우선입니다.\n언어별 주소·문구·메타데이터는 같은 규칙으로 맞췄습니다.',
     homeLine: '크로플 · 감탄누수 · 빛자루 · 고야차트 · 탑애드 · 현중고차 · 시하디자인',
@@ -156,9 +156,9 @@ export const WORKS: WorkItem[] = [
   {
     slug: 'alleo',
     label: 'ALLEO',
-    title: 'ALLEO — AI 검색 최적화 · 콘텐츠 자동화 SaaS',
+    title: 'AI 검색 최적화 · 콘텐츠 자동화 SaaS',
     period: '2026.04 — 2026.08',
-    role: '프론트엔드 — 소개 웹, 블로그, 관리자, 사용자 콘솔',
+    role: '프론트엔드, 소개 웹, 블로그, 관리자, 사용자 콘솔',
     oneLiner:
       '소개 웹·블로그·관리자·콘솔을 한 흐름으로 이어 붙였습니다.\n느릴 때는 감으로 지우지 않고, 요청 횟수부터 봤습니다.',
     homeLine: '같은 요청 1,532 → 33',
@@ -237,7 +237,7 @@ export const WORKS: WorkItem[] = [
   {
     slug: 'useme',
     label: 'USEME',
-    title: 'useMe — 토이프로젝트 어필·체험',
+    title: '토이프로젝트 어필·체험',
     period: '2026.09 — 현재',
     status: '진행 중',
     role: '기획·UI·기능·인프라',
@@ -274,7 +274,7 @@ export const WORKS: WorkItem[] = [
   {
     slug: 'isle',
     label: 'ISLE',
-    title: '모이섬 — Three.js 소셜 마을',
+    title: '모이섬 Three.js 소셜 마을',
     period: '2026.09 — 현재',
     status: '진행 중',
     role: '기획부터 구현까지',

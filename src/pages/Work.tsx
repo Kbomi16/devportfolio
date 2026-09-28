@@ -284,7 +284,7 @@ function PagerCard({
         {work.label}
       </Display>
       <p className="mt-3 max-w-[36ch] font-kr text-[15px] leading-[1.55] font-semibold">
-        {work.title.replace(`${work.label} — `, '')}
+        {work.title}
       </p>
       <Label className="mt-4 text-muted">{work.period}</Label>
       <Label className="mt-6 text-ink-2">{isNext ? 'OPEN CASE →' : '← OPEN CASE'}</Label>
