@@ -1,15 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="useMe logo">
-  <rect width="600" height="800" fill="#0a0a0b"/>
   <rect x="90" y="210" width="420" height="250" rx="36" fill="#16141f"/>
   <rect x="122" y="246" width="150" height="16" rx="8" fill="#f2f0eb" opacity="0.2"/>
   <rect x="122" y="280" width="220" height="12" rx="6" fill="#f2f0eb" opacity="0.12"/>
   <rect x="122" y="308" width="180" height="12" rx="6" fill="#f2f0eb" opacity="0.12"/>
   <text x="300" y="530" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="700"><tspan fill="#f2f0eb">use</tspan><tspan fill="#8b6cff">Me</tspan><tspan fill="#f2f0eb">()</tspan></text>
-  <rect y="560" width="600" height="240" fill="url(#fade)"/>
-  <defs>
-    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a0b" stop-opacity="0"/>
-      <stop offset="70%" stop-color="#0a0a0b"/>
-    </linearGradient>
-  </defs>
 </svg>

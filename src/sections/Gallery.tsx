@@ -171,7 +171,7 @@ function SlideCard({
       <img
         src={work.thumb.src}
         alt=""
-        className="absolute inset-0 size-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+        className="absolute inset-0 size-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
         draggable={false}
       />
       <span className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">

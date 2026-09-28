@@ -1,5 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Sites illustration">
-  <rect width="600" height="800" fill="#0a0a0b"/>
   <g transform="translate(70 210) rotate(-8)">
     <rect width="300" height="210" rx="24" fill="#1b1b20"/>
     <rect width="300" height="40" rx="24" fill="#26262c"/>
@@ -23,11 +22,4 @@
     <rect x="22" y="28" width="120" height="14" rx="7" fill="#8ec5ff"/>
     <rect x="22" y="56" width="90" height="10" rx="5" fill="#f2f0eb" opacity="0.45"/>
   </g>
-  <rect y="560" width="600" height="240" fill="url(#fade)"/>
-  <defs>
-    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a0b" stop-opacity="0"/>
-      <stop offset="70%" stop-color="#0a0a0b"/>
-    </linearGradient>
-  </defs>
 </svg>

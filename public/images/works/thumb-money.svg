@@ -1,15 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Wallet logo">
-  <rect width="600" height="800" fill="#0a0a0b"/>
   <circle cx="430" cy="210" r="36" fill="#dafd55"/>
   <rect x="168" y="200" width="264" height="264" rx="68" fill="#4f46e5"/>
   <rect x="224" y="292" width="152" height="108" rx="18" fill="none" stroke="#ffffff" stroke-width="12"/>
   <path d="M224 318h152" fill="none" stroke="#ffffff" stroke-width="12"/>
   <rect x="328" y="328" width="36" height="26" rx="8" fill="#ffffff"/>
-  <rect y="560" width="600" height="240" fill="url(#fade)"/>
-  <defs>
-    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a0b" stop-opacity="0"/>
-      <stop offset="70%" stop-color="#0a0a0b"/>
-    </linearGradient>
-  </defs>
 </svg>

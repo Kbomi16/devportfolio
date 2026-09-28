@@ -1,16 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" role="img" aria-label="Island illustration">
-  <rect width="600" height="800" fill="#0a0a0b"/>
   <ellipse cx="300" cy="470" rx="230" ry="130" fill="#143028"/>
   <path d="M70 470a230 130 0 0 1 460 0" fill="#3ee86a"/>
   <path d="M120 450c40-70 90-110 150-120 70 8 130 60 180 130" fill="#7dff57"/>
   <rect x="262" y="300" width="84" height="70" rx="8" fill="#f2f0eb"/>
   <path d="M248 308 L304 246 L360 308" fill="#dafd55"/>
   <rect x="292" y="332" width="22" height="38" rx="4" fill="#0a0a0b"/>
-  <rect y="560" width="600" height="240" fill="url(#fade)"/>
-  <defs>
-    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#0a0a0b" stop-opacity="0"/>
-      <stop offset="70%" stop-color="#0a0a0b"/>
-    </linearGradient>
-  </defs>
 </svg>
