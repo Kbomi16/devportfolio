@@ -18,6 +18,7 @@ import { cn } from '../lib/cn'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 import { revealOnce } from '../lib/reveal'
+import { outboundLinkProps } from '../lib/outboundLink'
 import { getLenis, useLenis } from '../lib/useLenis'
 
 /** /work/:slug — 읽기 우선 케이스 스터디 (3D 없음) */
@@ -420,7 +421,7 @@ function EntryPreview({ entry }: { entry: WorkEntry }) {
           <a
             href={entry.url}
             target="_blank"
-            rel="noreferrer"
+            {...outboundLinkProps(entry.url)}
             className="mt-3 inline-block font-ui text-[11px] font-medium tracking-[0.12em] text-dark-ink/55 uppercase transition-colors duration-500 hover:text-neon"
           >
             열기 ↗

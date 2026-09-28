@@ -7,6 +7,7 @@ import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
+import { outboundLinkProps } from '../lib/outboundLink'
 import { revealOnce } from '../lib/reveal'
 
 const RESUME_URL =
@@ -58,10 +59,10 @@ export default function Close() {
         </Display>
         <div data-rv className="mt-5 flex flex-wrap gap-3">
           <Pill href="mailto:bomi2172@gmail.com">bomi2172@gmail.com</Pill>
-          <Pill href="https://github.com/Kbomi16" target="_blank" rel="noreferrer">
+          <Pill href="https://github.com/Kbomi16" target="_blank" {...outboundLinkProps('https://github.com/Kbomi16')}>
             GitHub
           </Pill>
-          <Pill href={RESUME_URL} target="_blank" rel="noreferrer">
+          <Pill href={RESUME_URL} target="_blank" {...outboundLinkProps(RESUME_URL)}>
             Resume
           </Pill>
         </div>

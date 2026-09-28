@@ -7,6 +7,7 @@ import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
+import { outboundLinkProps } from '../lib/outboundLink'
 
 const SKILLS_URL = 'https://github.com/Kbomi16/ai-skills'
 
@@ -141,7 +142,7 @@ export default function Pilot() {
         </div>
 
         <div data-outro className="flex shrink-0 flex-wrap items-center gap-4">
-          <Pill href={SKILLS_URL} target="_blank" rel="noreferrer">
+          <Pill href={SKILLS_URL} target="_blank" {...outboundLinkProps(SKILLS_URL)}>
             반복 규칙은 스킬 파일로 → GitHub
           </Pill>
           <Label className="text-muted max-md:hidden">FE-STYLE · SEO-AUDIT · GIT SUMMARY</Label>

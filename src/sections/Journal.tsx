@@ -5,6 +5,7 @@ import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
+import { outboundLinkProps } from '../lib/outboundLink'
 
 const POSTS = [
   { title: 'BFF로 토큰을 감싸는 구조', url: 'https://bori-note.tistory.com/' },
@@ -84,7 +85,7 @@ export default function Journal() {
               className="group flex items-center justify-between gap-4 py-[18px] font-semibold"
               href={post.url}
               target="_blank"
-              rel="noreferrer"
+              {...outboundLinkProps(post.url)}
             >
               <span className="group-hover:underline group-hover:decoration-neon group-hover:underline-offset-[5px]">
                 {post.title}
