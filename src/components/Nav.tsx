@@ -5,11 +5,11 @@ import { scrollToId, scrollToTop } from '../lib/useLenis'
 
 const LINKS: { label: string; id: string; line: string }[] = [
   { label: '소개', id: 'about', line: 'w-[52px]' },
-  { label: '작업', id: 'work', line: 'w-[42px]' },
-  { label: '명단', id: 'roster', line: 'w-[32px]' },
-  { label: 'AI', id: 'pilot', line: 'w-[26px]' },
-  { label: '기록', id: 'journal', line: 'w-[18px]' },
-  { label: '연락', id: 'contact', line: 'w-[12px]' },
+  { label: '프로젝트', id: 'work', line: 'w-[44px]' },
+  { label: '일하는 방식', id: 'roster', line: 'w-[36px]' },
+  { label: 'AI WORKFLOW', id: 'pilot', line: 'w-[28px]' },
+  { label: 'blog', id: 'journal', line: 'w-[20px]' },
+  { label: 'contact', id: 'contact', line: 'w-[12px]' },
 ]
 
 const handleMarkClick = () => scrollToTop()
