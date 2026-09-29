@@ -113,13 +113,10 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
         </ul>
       </motion.div>
 
-      <div className="relative z-20 mx-auto flex w-full max-w-[1200px] flex-col items-center gap-4">
+      <div className="relative z-20 mx-auto mt-24 flex w-full max-w-[1200px] flex-col items-center gap-4">
         <p className="mx-auto max-w-[min(100%,28rem)] text-center" aria-live="polite">
           <Label className="text-muted">{`0${active + 1} / 0${total}`}</Label>
           <span className="mt-1 block font-kr text-[15px] font-semibold">{current.title}</span>
-          <span className="mt-2 block font-kr text-[14px] leading-[1.55] whitespace-pre-line text-ink-2">
-            {current.oneLiner}
-          </span>
         </p>
         <div className="flex gap-2">
           <MagneticButton
