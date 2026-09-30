@@ -7,6 +7,8 @@ export type WorkShot = {
   src: string
   alt: string
   caption: string
+  /** 가로로 긴 구조도. 두 칸을 쓴다. */
+  wide?: boolean
 }
 
 export type WorkEntry = {
@@ -21,41 +23,9 @@ export type WorkDecision = {
   problem: string
   choice: string
   result: string
+  /** 해당 섹션 제목 바로 아래에 둘 구조도 */
+  shots?: WorkShot[]
 }
-
-export type FlowBox = {
-  kind: 'box'
-  text: string
-  hint?: string
-}
-
-export type FlowChoice = {
-  kind: 'choice'
-  question: string
-  noLabel: string
-  no: FlowBox
-  yesLabel: string
-  yes: FlowBox[]
-}
-
-export type WorkFlow =
-  | {
-      variant: 'path'
-      title: string
-      summary: string
-      aside?: string
-      steps: Array<FlowBox | FlowChoice>
-    }
-  | {
-      variant: 'isle'
-      title: string
-      summary: string
-    }
-  | {
-      variant: 'alleoArch'
-      title: string
-      summary: string
-    }
 
 export type WorkItem = {
   slug: 'tcc' | 'sites' | 'alleo' | 'money' | 'useme' | 'isle'
@@ -72,14 +42,14 @@ export type WorkItem = {
   /** 홈 라벨 밑줄 — 결과 숫자 한 줄 */
   homeLine: string
   stack: string[]
-  /** 갤러리 카드 호버 썸네일. 상세 히어로·로고·2D 일러스트 */
+  /** 갤러리 카드와 상세 히어로에 쓰는 가로 썸네일 */
   thumb: { src: string; alt: string }
-  shots?: WorkShot[]
   stats?: WorkStat[]
   entries?: WorkEntry[]
-  flow: WorkFlow
   decisions: WorkDecision[]
   links: { label: string; url: string }[]
+  /** 배포 링크 옆 체험용 로그인 (Notion 케이스 노트와 동일) */
+  testAccount?: { email: string; password: string }
 }
 
 export const WORKS: WorkItem[] = [
@@ -87,41 +57,20 @@ export const WORKS: WorkItem[] = [
     slug: 'tcc',
     label: 'BACKOFFICE',
     title: '중대재해 관리 백오피스',
-    period: '2025.05 — 2026.03',
-    role: '프론트엔드, 동적 메뉴, 권한 훅, 조직 선택 모달',
+    period: '2025.05 — 2026.02',
+    role: '프론트엔드, 동적 메뉴, 권한 훅, 조직 선택 모달, 테이블 CRUD',
     oneLiner: '사이드바를 숨겨도 주소로 치면 화면이 열렸습니다.\n메뉴와 버튼 권한을 서버 기준으로 바꿨습니다.',
     homeLine: '권한 훅 ~90개 파일 · 조직 모달 ~50개 화면',
-    stack: ['Next.js', 'TypeScript', 'React Query', 'Ant Design'],
+    stack: ['Next.js Pages Router', 'TypeScript', 'React Query', 'Jotai', 'Axios', 'Ant Design', 'Styled Components'],
     thumb: {
-      src: '/images/works/thumb-tcc.svg',
-      alt: '백오피스 일러스트. 사이드바와 자물쇠.',
+      src: '/images/works/thumb-tcc.png',
+      alt: '중대재해 관리 백오피스. 사이드바와 차트, 목록 화면.',
     },
     stats: [
       { value: '90', label: '권한 훅 재사용 파일' },
       { value: '50', label: '조직 선택 모달 화면' },
       { value: '0', label: '메뉴 변경 시 재배포' },
     ],
-    flow: {
-      variant: 'path',
-      title: '주소로 들어올 때',
-      summary:
-        '사이드바에서 메뉴를 숨겨도 주소로 들어올 수 있습니다. 서버 메뉴에서 그 주소의 menuId를 찾고, 권한이 없으면 화면을 열지 않습니다. 권한이 있으면 화면을 연 뒤, 수정·승인 버튼은 기능 코드로 가립니다.',
-      steps: [
-        { kind: 'box', text: '주소로 페이지 진입' },
-        { kind: 'box', text: '서버 메뉴에서 menuId 찾기', hint: 'menuTree' },
-        {
-          kind: 'choice',
-          question: '이 메뉴\n권한이 있나?',
-          noLabel: '없음',
-          no: { kind: 'box', text: '에러 후 다른 화면으로' },
-          yesLabel: '있음',
-          yes: [
-            { kind: 'box', text: '화면을 연다' },
-            { kind: 'box', text: '버튼은 기능 코드로 가린다', hint: '수정 · 승인 · 삭제' },
-          ],
-        },
-      ],
-    },
     decisions: [
       {
         title: '메뉴와 주소 접근',
@@ -130,6 +79,14 @@ export const WORKS: WorkItem[] = [
         choice:
           '서버가 내려주는 menuTree로 사이드바를 그립니다. 들어온 주소와 맞는 menuId를 찾아 권한 API에 묻고, 없으면 에러 후 다른 화면으로 보냅니다.',
         result: '메뉴 구조는 서버 설정만으로 바뀝니다. 주소로 직접 들어오는 접근도 같은 기준으로 막습니다.',
+        shots: [
+          {
+            src: '/images/works/tcc-menu.png',
+            alt: '동적 메뉴 흐름. 하드코딩과 URL 직접 접근을 menuTree와 권한 검증으로 바꾸는 구조도.',
+            caption: '서버 menuTree로 메뉴를 그리고, 주소로 들어올 때는 menuId로 다시 검증합니다.',
+            wide: true,
+          },
+        ],
       },
       {
         title: '버튼 권한',
@@ -146,6 +103,14 @@ export const WORKS: WorkItem[] = [
         choice:
           '공통 모달에 선택 규칙을 props로 넘깁니다. 일반·안전보건, 한 명·여러 명, 조직만, 하위 포함 여부를 모달이 계산하고, 검색해도 맞는 노드의 부모는 남깁니다.',
         result: '약 50개 화면이 같은 모달을 씁니다.',
+        shots: [
+          {
+            src: '/images/works/tcc-org.png',
+            alt: '조직 선택 모달 공통화 구조도. 공통 모달, props 정책, 부모 트리 유지.',
+            caption: '조직 선택은 공통 모달 하나. 유형·방식·범위는 props로 나누고, 검색해도 부모 트리는 남깁니다.',
+            wide: true,
+          },
+        ],
       },
     ],
     links: [
@@ -163,75 +128,57 @@ export const WORKS: WorkItem[] = [
     period: '2026.01 — 2026.08',
     role: '프론트엔드, 공개 웹 7종, 다국어, SEO, 문의 연결',
     oneLiner:
-      '일곱 공개 웹의 우선순위는 검색과 문의였습니다.\n언어별 주소·문구·메타데이터는 같은 규칙으로 맞췄습니다.',
+      '공개 웹 7종의 우선순위는 검색 노출과 문의 전환이었습니다.\n다국어·SEO·인터랙션·문의를 리드 전환형으로 맞췄습니다.',
     homeLine: '크로플 · 감탄누수 · 빛자루 · 고야차트 · 탑애드 · 현중고차 · 시하디자인',
-    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'next-intl', 'Solapi', 'GSAP'],
+    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'next-intl', 'GSAP', 'Motion', 'Solapi'],
     thumb: {
-      src: '/images/works/thumb-sites.svg',
-      alt: '기업 웹 일러스트. 겹친 브라우저 창.',
+      src: '/images/works/thumb-sites.png',
+      alt: '크로플 기업 웹 첫 화면. 외주는 그만, 팀처럼 개발.',
     },
     entries: [
       {
         name: '크로플',
-        note: '4개 국어 URL(/kr · /us · /jp · /cn), Metadata, 커피챗 Solapi',
+        note: 'IT 아웃소싱 공식 웹. 4개 국어 URL·메타, 커피챗 Solapi',
         url: 'https://www.kroffle.com/kr',
         image: { src: '/images/works/site-kroffle.jpg', alt: '크로플 공유 이미지. 내부 팀처럼 일하는 IT 개발 파트너.' },
       },
       {
         name: '감탄누수',
-        note: '지역 랜딩, JSON-LD, 견적 접수 시 관리자 LMS + 신청자 확인 SMS',
+        note: '지역 페이지, JSON-LD, 견적 SMS',
         url: 'https://gamtannusu.com',
         image: { src: '/images/works/site-gamtan.jpg', alt: '감탄누수 공유 이미지. 전국 누수탐지·배관수리.' },
       },
       {
         name: '요셉씨의 빛자루',
-        note: '견적·파트너십 문의 폼, Solapi 문자 발송',
+        note: '견적·파트너십 문의 폼',
         url: 'https://joecbroom-web.pages.dev/',
         image: { src: '/images/works/site-bitzaru.jpg', alt: '요셉씨의 빛자루클린 공유 이미지.' },
       },
       {
         name: '고야차트',
-        note: '상담 문의 폼과 Solapi 문자 발송',
+        note: '상담 문의 Solapi',
         url: 'https://exproject.work',
         image: { src: '/images/works/site-goya.jpg', alt: '고야차트 공유 이미지. AI 기반 시세 방향성 시그널.' },
       },
       {
         name: '탑애드컴퍼니',
-        note: 'SEO · GEO · AEO, JSON-LD, 전화 상담 전환',
+        note: 'SEO·GEO·AEO, JSON-LD, 전화 상담',
         url: 'https://www.toplawyermarketing.com',
         image: { src: '/images/works/site-topad.jpg', alt: '탑애드컴퍼니 공유 이미지.' },
       },
       {
         name: '현중고차',
-        note: '검색에 잡히고 문의로 이어지는 공개 웹',
+        note: '중고차 구매 상담, 딜러 브랜드 웹',
         url: 'https://hyunjoongcar.com/',
         image: { src: '/images/works/site-hyunjoong.jpg', alt: '현중고차 공유 이미지. 책 쓰는 딜러, 차 파는 작가.' },
       },
       {
         name: '시하디자인',
-        note: '검색에 잡히고 문의로 이어지는 공개 웹',
+        note: '3M 단열필름 시공, 지점·견적',
         url: 'https://sihadesign.com/',
         image: { src: '/images/works/site-siha.jpg', alt: '시하디자인 공유 이미지. 3M 공식대리점.' },
       },
     ],
-    flow: {
-      variant: 'path',
-      title: '방문에서 문의까지',
-      summary:
-        '언어 주소로 들어오면 그 언어의 문구, 제목, canonical을 같이 맞춥니다. 문의 폼이 있는 사이트는 제출이 Solapi를 통해 담당자 문자까지 이어지고, 없는 사이트는 검색용 구조화 데이터로 노출합니다.',
-      steps: [
-        { kind: 'box', text: '언어 주소로 입장', hint: '/kr · /us · /jp · /cn' },
-        { kind: 'box', text: '그 언어의 문구·제목·canonical' },
-        {
-          kind: 'choice',
-          question: '문의 폼이\n있나?',
-          noLabel: '없음',
-          no: { kind: 'box', text: '검색용 구조화 데이터', hint: 'JSON-LD' },
-          yesLabel: '있음',
-          yes: [{ kind: 'box', text: '제출하면 담당자에게 문자', hint: 'Solapi' }],
-        },
-      ],
-    },
     decisions: [
       {
         title: '언어가 섞이지 않게',
@@ -248,6 +195,18 @@ export const WORKS: WorkItem[] = [
         choice:
           '언어·페이지별 title, description, Open Graph, canonical을 만들고, sitemap에 언어별 대체 URL과 x-default를 넣었습니다. 회사·FAQ·서비스는 JSON-LD로 적습니다.',
         result: '검색엔진이 언어별 URL의 관계와 대표 페이지를 구분할 기반이 있습니다.',
+        shots: [
+          {
+            src: '/images/works/sites-sitemap.png',
+            alt: '크로플 sitemap. 언어별 URL과 hreflang alternate, x-default.',
+            caption: '언어별 URL에 alternate와 x-default를 넣어, 같은 글의 대표 페이지를 구분합니다.',
+          },
+          {
+            src: '/images/works/sites-meta.png',
+            alt: 'Google 리치 결과 테스트. 지역 업체, 회사, 리뷰 스니펫이 감지된 화면.',
+            caption: '회사·지역 업체·리뷰 스니펫이 리치 결과에 잡히도록 구조화 데이터를 맞췄습니다.',
+          },
+        ],
       },
       {
         title: '문의와 작업 나누기',
@@ -273,50 +232,38 @@ export const WORKS: WorkItem[] = [
     label: 'ALLEO',
     title: 'AI 검색 최적화 · 콘텐츠 자동화 SaaS',
     period: '2026.04 — 2026.08',
-    role: '프론트엔드, 소개 웹, 블로그, 관리자, 사용자 콘솔',
+    role: '프론트엔드·일부 API, 소개 웹, 공개 블로그, 사용자 콘솔, 관리자',
     oneLiner:
-      '분석에서 SNS 발행까지 한 콘솔에서 이어집니다.\n같은 요청 1,532번을 33번으로 줄였습니다.',
-    homeLine: '같은 요청 1,532 → 33',
+      '검색·AI 노출 진단부터 블로그, SNS 발행까지 이어집니다.\n소개 웹·블로그·콘솔·관리자를 나눠 만들었습니다.',
+    homeLine: '분석 → 추적 → SNS 발행',
     stack: [
       'Next.js 16',
       'React 19',
+      'TypeScript',
       'TanStack Query',
       'Zustand',
-      'BFF (Route Handler)',
-      'OpenNext + Cloudflare Workers',
+      'Tailwind CSS 4',
+      'NestJS',
+      'Cloudflare',
     ],
     thumb: {
-      src: '/images/works/thumb-alleo.svg',
-      alt: 'alleo 로고',
+      src: '/images/works/thumb-alleo.png',
+      alt: 'alleo 소개 화면. AI 검색에 브랜드가 먼저 나오도록 진단하는 입력창.',
     },
-    stats: [
-      { value: '1,532', label: '줄이기 전, 같은 요청' },
-      { value: '33', label: '묶은 뒤' },
-    ],
     entries: [
       { name: 'intro', note: '소개 웹 · 다국어', url: 'https://alleo.pro' },
       { name: 'blog', note: '사용자 커스텀 블로그', url: 'https://alleo.blog' },
       { name: 'wiki', note: '도움말 문서', url: 'https://alleo.wiki' },
       { name: 'console', note: '분석 · SNS OAuth', url: 'https://console.alleo.pro' },
     ],
-    flow: {
-      variant: 'alleoArch',
-      title: '앱이 API 서버로 모이는 구조',
-      summary:
-        'Next.js 프론트엔드 4개(intro · blog · console · admin)가 각각 /console · /blog · /admin API로 aleo-server에 붙습니다. D1·R2, Firebase, Anthropic·SNS·Toss 같은 외부 연동은 서버 뒤에서 처리합니다.',
-    },
     decisions: [
       {
-        title: '앱을 나눠 작업',
-        problem: '소개 웹, 블로그, 사용자 콘솔, 관리자, API가 한 폴더에 있으면 소개 문구를 고치다 콘솔 맥락이 끊깁니다.',
-        choice: '앱마다 작업 공간을 나눴습니다. 소개 웹, 공개 블로그, 사용자 콘솔과 분석·SNS·관리자 API 일부를 맡았습니다.',
-        result: '앱 경계가 분명해져, 소개와 콘솔을 서로 다른 맥락으로 진행할 수 있습니다.',
-      },
-      {
-        title: '같은 요청을 줄이기',
-        problem: '같은 화면을 열 때마다 세션 조회가 반복됐습니다. 어디를 지울지는 감으로만 보였습니다.',
-        choice: '요청 횟수부터 셌습니다. 세션 조회를 묶고, 필요 없는 미리 불러오기를 끊었습니다.',
-        result: '같은 길이 1,532번이던 요청이 33번이 됐습니다.',
+        title: '사이트 분석과 노출 추적',
+        problem:
+          '사이트가 검색과 AI에 어떻게 보이는지 한눈에 보기 어려웠습니다. 분석과 추적이 흩어지면 다음 행동으로 이어지지 않습니다.',
+        choice:
+          '점수, 개선 포인트, 리포트 목록과 차트로 분석 화면을 만들었습니다. AI 추천 추적, 경쟁사, 키워드 기회를 같은 흐름에 두고, 리포트가 없으면 추적 질문을 제한했습니다.',
+        result: '분석하고, 고칠 점을 보고, 그다음 추적하는 순서로 콘솔을 쓰게 됩니다.',
       },
       {
         title: 'SNS 계정 연결',
@@ -325,6 +272,30 @@ export const WORKS: WorkItem[] = [
         choice:
           '채널별 OAuth를 시작하고, 등록된 콜백에서 code와 state를 확인한 뒤 계정을 연결합니다. 끝나면 연동 화면으로 돌아와 성공과 실패를 보여 줍니다. 글 본문과 AI 초안은 협업으로 진행했고, 연동 화면과 연결 흐름을 맡았습니다.',
         result: '소셜 로그인 후 콘솔에서 연결 완료를 확인합니다. 이후 업로드는 연결된 채널 기준으로 진행합니다.',
+        shots: [
+          {
+            src: '/images/works/alleo-sns.png',
+            alt: 'SNS 연동 구조도. OAuth 시작, 콜백의 code·state 확인, 연동 화면 복귀.',
+            caption: '채널별 OAuth 뒤 등록된 콜백으로 돌아와, 연동 화면에서 성공과 실패를 보여 줍니다.',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '공개 웹과 운영',
+        problem:
+          '소개 웹과 고객 블로그는 검색엔진과 AI 크롤러가 구조를 읽어야 합니다. 사용자, 구독, 쿠폰, 문의는 운영자가 한곳에서 봐야 합니다.',
+        choice:
+          '페이지별 메타데이터, Open Graph, Sitemap, JSON-LD를 두고 IndexNow로 색인을 요청합니다. 한국어·영어·일본어·중국어 주소와 메타데이터는 같은 규칙으로 맞추고, 관리자에서는 사용자·결제·문의를 조회합니다.',
+        result: '공개 채널과 운영 도구가 한 제품 흐름으로 이어집니다.',
+        shots: [
+          {
+            src: '/images/works/alleo-public.png',
+            alt: '공개 웹과 운영 도구 구조도. 메타데이터, IndexNow, 다국어, 관리자 조회.',
+            caption: '소개 웹·블로그는 검색과 AI가 읽게 두고, 사용자·결제·문의는 관리자에서 봅니다.',
+            wide: true,
+          },
+        ],
       },
     ],
     links: [
@@ -343,30 +314,10 @@ export const WORKS: WorkItem[] = [
     role: '기획·UI·기능·배포·운영',
     oneLiner: '기록은 짧게, 할부와 구독은 매달 다시 적지 않게.\n직접 쓰면서 기능을 더하는 가계부입니다.',
     homeLine: '직접 쓰며 운영 · PWA',
-    stack: ['Next.js', 'TypeScript', 'Tailwind', 'Zustand', 'Firebase', 'PWA'],
+    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'Zustand', 'Firebase', 'PWA'],
     thumb: {
-      src: '/images/works/thumb-money.svg',
-      alt: '내 돈 어디갔지 지갑 로고',
-    },
-    flow: {
-      variant: 'path',
-      title: '지출이 기록되는 방식',
-      summary:
-        '한 번 쓰는 지출은 그 날짜의 달력과 리스트에만 남습니다. 할부와 반복 지출은 기간 동안 매달 반영되고, 마이페이지에서 중단할 수 있습니다.',
-      steps: [
-        { kind: 'box', text: '지출을 적는다' },
-        {
-          kind: 'choice',
-          question: '한 번인가,\n매달인가?',
-          noLabel: '한 번',
-          no: { kind: 'box', text: '그 날짜의 달력·리스트' },
-          yesLabel: '할부 · 반복',
-          yes: [
-            { kind: 'box', text: '기간 동안 매달 반영' },
-            { kind: 'box', text: '마이페이지에서 중단' },
-          ],
-        },
-      ],
+      src: '/images/works/thumb-money.png',
+      alt: '내 돈 어디갔지 대시보드. 이번 달 수입·지출과 달력 옆 차트.',
     },
     decisions: [
       {
@@ -395,6 +346,7 @@ export const WORKS: WorkItem[] = [
       { label: '배포', url: 'https://where-is-my-money-track-expenses.vercel.app/' },
       { label: 'GitHub', url: 'https://github.com/Kbomi16/where-is-my-money' },
     ],
+    testAccount: { email: 'whereismymoney@test.com', password: 'Abcd1234' },
   },
   {
     slug: 'useme',
@@ -403,38 +355,12 @@ export const WORKS: WorkItem[] = [
     period: '2026.09 — 현재',
     status: '진행 중',
     role: '기획·UI·기능·인프라',
-    oneLiner: '토이프로젝트를 카드로 공유하고,\n써 본 사람이 피드백을 남기는 고리입니다.',
+    oneLiner: '토이프로젝트를 어필 카드로 바꿔 공유하고,\n써 본 사람이 피드백을 남기는 플랫폼입니다.',
     homeLine: '공개 웹 · 운영 콘솔',
     stack: ['Next.js', 'TypeScript', 'Tailwind', 'TanStack Query', 'Zustand', 'Supabase'],
     thumb: {
-      src: '/images/works/thumb-useme.svg',
-      alt: 'useMe 로고',
-    },
-    shots: [
-      {
-        src: '/images/works/useme-project.png',
-        alt: 'useMe 프로젝트 카드. 왜, 뭘, 얼마나 세 칸과 써 보기 버튼.',
-        caption: '어필 3칸. 왜 만들었는지, 무엇을 쓰는지, 얼마나 걸렸는지.',
-      },
-      {
-        src: '/images/works/useme-comments.png',
-        alt: 'useMe 받은 피드백. 피드백, 질문, 버그, 응원으로 나뉜 댓글.',
-        caption: '체험 뒤 남기는 반응. 피드백·질문·버그·응원.',
-      },
-    ],
-    flow: {
-      variant: 'path',
-      title: '한 바퀴',
-      summary:
-        '프로젝트를 등록하고 어필 3칸으로 공유하면, 도착한 사람이 써 보고 피드백을 남깁니다. 그다음 등록으로 다시 돌아옵니다.',
-      aside: '크레딧과 티어는 이 고리 밖에 둡니다. 랜딩과 홍보 버튼에는 섞지 않습니다.',
-      steps: [
-        { kind: 'box', text: '프로젝트 등록' },
-        { kind: 'box', text: '어필 3칸', hint: '왜 · 뭘 · 얼마나' },
-        { kind: 'box', text: '홍보팩으로 공유' },
-        { kind: 'box', text: '체험하고 피드백' },
-        { kind: 'box', text: '다음 등록' },
-      ],
+      src: '/images/works/thumb-useme.png',
+      alt: 'useMe 첫 화면. 링크만 보내지 말고, 써 보라고 해요.',
     },
     decisions: [
       {
@@ -444,6 +370,18 @@ export const WORKS: WorkItem[] = [
         choice:
           '등록, 어필 3칸, 홍보팩, 공유, 체험과 반응, 다음 등록을 하나의 고리로 고정했습니다. 크레딧과 티어는 마이페이지에만 두고, 랜딩과 홍보 버튼에는 섞지 않습니다.',
         result: '둘러보기, 프로젝트 카드, 소셜 로그인까지 화면 단위로 올리는 중입니다.',
+        shots: [
+          {
+            src: '/images/works/useme-project.png',
+            alt: 'useMe 프로젝트 카드. 왜, 뭘, 얼마나 세 칸과 써 보기 버튼.',
+            caption: '어필 3칸. 왜 만들었는지, 무엇을 쓰는지, 얼마나 걸렸는지.',
+          },
+          {
+            src: '/images/works/useme-comments.png',
+            alt: 'useMe 받은 피드백. 피드백, 질문, 버그, 응원으로 나뉜 댓글.',
+            caption: '체험 뒤 남기는 반응. 피드백·질문·버그·응원.',
+          },
+        ],
       },
       {
         title: '공개 웹과 운영 콘솔',
@@ -465,18 +403,12 @@ export const WORKS: WorkItem[] = [
     period: '2026.09 — 현재',
     status: '진행 중',
     role: '기획부터 구현까지',
-    oneLiner: '가까이 있는 주민에게만 말이 닿습니다.\n멀어지면 답은 오지 않습니다.',
+    oneLiner: '이름을 고르고 들어와, 가까이 있는 주민에게만 말이 닿습니다.\n멀어지면 답은 오지 않습니다.',
     homeLine: '걷기 → 만나기 → 말하기',
     stack: ['Three.js', 'React Three Fiber', 'Vite', 'TypeScript', 'Socket.IO'],
     thumb: {
-      src: '/images/works/thumb-isle.svg',
-      alt: '모이섬 일러스트. 언덕 위의 집.',
-    },
-    flow: {
-      variant: 'isle',
-      title: '말에 답이 오는 조건',
-      summary:
-        '채팅을 보내면 내 말풍선과 로그는 항상 남습니다. CHAT_RANGE 안에서 가장 가까운 주민이 있을 때만 잠시 뒤 답을 검토하고, 그때도 아직 가까이 있으면 말풍선과 로그에 답을 남깁니다. 멀어졌으면 답은 생략합니다.',
+      src: '/images/works/thumb-isle.png',
+      alt: '모이섬 입장 화면. 캐릭터를 고르고 이름과 직군을 적은 뒤 섬으로 들어갑니다.',
     },
     decisions: [
       {

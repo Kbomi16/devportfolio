@@ -3,7 +3,6 @@ import { motion, useReducedMotion, type PanInfo } from 'motion/react'
 import Display from '../components/common/Display'
 import Label from '../components/common/Label'
 import MagneticButton from '../components/common/MagneticButton'
-import CardMark from './CardMark'
 import { WORKS, type WorkItem } from '../content/works'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
@@ -91,7 +90,7 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
             return (
               <motion.li
                 key={work.slug}
-                className="absolute top-[4%] left-1/2 w-[220px] -ml-[110px] origin-[50%_280%] sm:w-[250px] sm:-ml-[125px] lg:w-[280px] lg:-ml-[140px]"
+                className="absolute top-[8%] left-1/2 w-[240px] -ml-[120px] origin-[50%_220%] sm:w-[280px] sm:-ml-[140px] lg:w-[320px] lg:-ml-[160px]"
                 style={{ zIndex: 10 - Math.abs(offset), pointerEvents: isVisible ? 'auto' : 'none' }}
                 initial={false}
                 animate={{ rotate: offset * STEP_DEG, opacity: isVisible ? 1 : 0 }}
@@ -113,7 +112,7 @@ export default function Gallery({ onOpenWork }: GalleryProps) {
         </ul>
       </motion.div>
 
-      <div className="relative z-20 mx-auto mt-24 flex w-full max-w-[1200px] flex-col items-center gap-4">
+      <div className="relative z-20 mx-auto mt-8 flex w-full max-w-[1200px] flex-col items-center gap-4 md:mt-6">
         <p className="mx-auto max-w-[min(100%,28rem)] text-center" aria-live="polite">
           <Label className="text-muted">{`0${active + 1} / 0${total}`}</Label>
           <span className="mt-1 block font-kr text-[15px] font-semibold">{current.title}</span>
@@ -161,17 +160,16 @@ function SlideCard({
       type="button"
       tabIndex={tabIndex}
       aria-label={isActive ? `${work.title} 케이스 스터디 열기` : `${work.title} 보기`}
-      className="group relative block aspect-[3/4] w-full overflow-hidden rounded-xl !bg-dark-ground text-left !text-dark-ink shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
+      className="group relative block w-full overflow-hidden rounded-xl !bg-[#f4f0e8] text-left !text-dark-ink shadow-[0_18px_40px_rgba(0,0,0,0.18)]"
       onClick={handleClick}
     >
-      <CardMark slug={work.slug} />
       <img
         src={work.thumb.src}
         alt=""
-        className="absolute inset-0 size-full object-contain opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+        className="aspect-[8/5] w-full object-cover"
         draggable={false}
       />
-      <span className="absolute inset-x-0 bottom-0 flex flex-col gap-2 p-4">
+      <span className="flex flex-col gap-1.5 bg-dark-ground p-3.5">
         <span className="flex items-center gap-2">
           <Label className="text-neon">{`0${index + 1}`}</Label>
           {work.status ? (

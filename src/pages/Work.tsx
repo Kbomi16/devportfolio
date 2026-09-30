@@ -13,7 +13,6 @@ import {
   type WorkShot,
   type WorkStat,
 } from '../content/works'
-import CaseFlow from '../sections/CaseFlow'
 import { cn } from '../lib/cn'
 import { gsap, ScrollTrigger, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
@@ -110,22 +109,13 @@ export default function Work() {
         <WorkTitleMark work={work} onMarkLoad={handleThumbLoad} />
         </div>
 
-        <section data-rv className="mt-2 mb-8 rounded-3xl border border-hairline px-4 py-8 sm:px-8">
-          <CaseFlow flow={work.flow} />
-        </section>
-
         {work.stats ? (
           <div className="max-w-[720px]">
             <Stats stats={work.stats} />
           </div>
         ) : null}
 
-        {work.shots ? <Shots shots={work.shots} /> : null}
-
-        <Decisions
-          decisions={work.decisions}
-          suppressTopRule={!work.stats && !work.shots}
-        />
+        <Decisions decisions={work.decisions} suppressTopRule={!work.stats} />
       </article>
       </div>
 
@@ -158,6 +148,7 @@ function Decisions({
           className={cn('grid gap-5 py-8', index === 0 && suppressTopRule && 'border-t-0')}
         >
           <h2 className="font-kr text-[18px] font-bold tracking-[-0.02em]">{item.title}</h2>
+          {item.shots?.length ? <DecisionShots shots={item.shots} /> : null}
           <div className="grid gap-6 sm:grid-cols-3">
             <div>
               <Label className="text-muted">문제</Label>
@@ -181,16 +172,7 @@ function Decisions({
 function WorkTitleMark({ work, onMarkLoad }: { work: WorkItem; onMarkLoad: () => void }) {
   return (
     <div data-rv className="relative mt-5 sm:mt-6">
-      <figure className="pointer-events-none absolute top-[-6%] right-[-2%] z-[1] w-[clamp(140px,38vw,440px)]">
-        <img
-          data-work-thumb
-          src={work.thumb.src}
-          alt={work.thumb.alt}
-          className="aspect-[3/4] w-full object-contain"
-          onLoad={onMarkLoad}
-        />
-      </figure>
-      <div className="relative z-[2] min-w-0 max-w-[42rem] pr-[min(36vw,11rem)] sm:max-w-[min(78%,46rem)] sm:pr-[min(40vw,14rem)] md:max-w-[min(88%,56rem)] md:pr-[min(34vw,17rem)]">
+      <div className="relative z-[2] min-w-0 max-w-[56rem]">
         <Label className="text-muted">{work.label}</Label>
         <Display
           as="h1"
@@ -215,7 +197,7 @@ function WorkTitleMark({ work, onMarkLoad }: { work: WorkItem; onMarkLoad: () =>
           {work.stack.join(' · ')}
         </Label>
         {work.links.length > 0 && !work.entries ? (
-          <div className="mb-8 mt-5 flex flex-wrap gap-3">
+          <div className="mb-8 mt-5 flex flex-wrap items-center gap-3">
             {work.links.map((link) => (
               <Pill
                 key={link.url}
@@ -227,9 +209,26 @@ function WorkTitleMark({ work, onMarkLoad }: { work: WorkItem; onMarkLoad: () =>
                 {link.label} ↗
               </Pill>
             ))}
+            {work.testAccount ? (
+              <span className="inline-flex max-w-full flex-wrap items-baseline gap-x-2 gap-y-1 rounded-full border border-hairline px-[18px] py-3">
+                <Label className="shrink-0">테스트 계정</Label>
+                <span className="text-[13px] leading-snug tabular-nums text-ink-2">
+                  {work.testAccount.email} / {work.testAccount.password}
+                </span>
+              </span>
+            ) : null}
           </div>
         ) : null}
       </div>
+      <figure className="mt-8 overflow-hidden rounded-2xl border border-hairline bg-[#f4f0e8]">
+        <img
+          data-work-thumb
+          src={work.thumb.src}
+          alt={work.thumb.alt}
+          className="aspect-[8/5] w-full object-cover object-top"
+          onLoad={onMarkLoad}
+        />
+      </figure>
     </div>
   )
 }
@@ -323,13 +322,33 @@ function PagerCard({
   )
 }
 
-function Shots({ shots }: { shots: WorkShot[] }) {
+function ShotCard({ shot, className }: { shot: WorkShot; className?: string }) {
   return (
-    <ul className="mt-2 mb-8 grid list-none grid-cols-2 gap-4 max-sm:grid-cols-1">
+    <figure
+      data-rv
+      className={cn('overflow-hidden rounded-2xl border border-hairline bg-white', className)}
+    >
+      <img
+        src={shot.src}
+        alt={shot.alt}
+        className={cn('w-full object-contain object-top', shot.wide ? 'max-h-[420px]' : 'aspect-[4/3]')}
+      />
+      <figcaption className="px-4 py-3 text-[13px] leading-[1.6] text-ink-2">{shot.caption}</figcaption>
+    </figure>
+  )
+}
+
+function DecisionShots({ shots }: { shots: WorkShot[] }) {
+  return (
+    <ul
+      className={cn(
+        'list-none grid gap-4',
+        shots.length > 1 ? 'grid-cols-2 max-sm:grid-cols-1' : 'grid-cols-1',
+      )}
+    >
       {shots.map((shot) => (
-        <li key={shot.src} data-rv className="overflow-hidden rounded-2xl border border-hairline bg-white">
-          <img src={shot.src} alt={shot.alt} className="aspect-[4/3] w-full object-contain object-top" />
-          <p className="px-4 py-3 text-[13px] leading-[1.6] text-ink-2">{shot.caption}</p>
+        <li key={shot.src} className={cn(shot.wide && shots.length > 1 && 'max-sm:col-span-1 sm:col-span-2')}>
+          <ShotCard shot={shot} />
         </li>
       ))}
     </ul>
