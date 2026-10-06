@@ -1,4 +1,5 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState, type MouseEvent } from 'react'
+import { createPortal } from 'react-dom'
 import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
@@ -8,6 +9,7 @@ import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
 import { prefersReducedMotion } from '../lib/motion'
 import { outboundLinkProps } from '../lib/outboundLink'
+import { getLenis } from '../lib/useLenis'
 
 const SKILLS_URL = 'https://github.com/Kbomi16/ai-skills'
 
@@ -65,6 +67,8 @@ const PROTOCOL: ProtocolStep[] = [
 
 /** CH4.5 — AI 워크플로. 핀 + 스크럽으로 카드가 아래에서 올라와 이전 카드 위에 쌓인다. */
 export default function Pilot() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
   const sectionRef = useRef<HTMLElement>(null)
 
   useGSAP(
@@ -106,6 +110,35 @@ export default function Pilot() {
     { scope: sectionRef },
   )
 
+  const handleOpen = (index: number) => {
+    setOpenIndex(index)
+  }
+  const handleClose = () => {
+    setOpenIndex(null)
+  }
+
+  useEffect(() => {
+    if (openIndex === null) return
+
+    const lenis = getLenis()
+    const previousOverflow = document.body.style.overflow
+    lenis?.stop()
+    document.body.style.overflow = 'hidden'
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpenIndex(null)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      lenis?.start()
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [openIndex])
+
+  const openStep = openIndex === null ? null : PROTOCOL[openIndex]
+
   return (
     <section
       ref={sectionRef}
@@ -136,7 +169,7 @@ export default function Pilot() {
         >
           <ol className="relative h-full min-h-[inherit] list-none motion-reduce:h-auto">
             {PROTOCOL.map((step, index) => (
-              <ProtocolCard key={step.no} step={step} index={index} />
+              <ProtocolCard key={step.no} step={step} index={index} onOpen={handleOpen} />
             ))}
           </ol>
         </div>
@@ -148,11 +181,24 @@ export default function Pilot() {
           <Label className="text-muted max-md:hidden">FE-STYLE · SEO-AUDIT · GIT SUMMARY</Label>
         </div>
       </div>
+      {openStep ? <ShotOverlay step={openStep} onClose={handleClose} /> : null}
     </section>
   )
 }
 
-function ProtocolCard({ step, index }: { step: ProtocolStep; index: number }) {
+function ProtocolCard({
+  step,
+  index,
+  onOpen,
+}: {
+  step: ProtocolStep
+  index: number
+  onOpen: (index: number) => void
+}) {
+  const handleOpen = () => {
+    onOpen(index)
+  }
+
   return (
     <Hairline
       as="li"
@@ -171,14 +217,67 @@ function ProtocolCard({ step, index }: { step: ProtocolStep; index: number }) {
           {step.kr}
         </p>
       </div>
-      <div className="flex min-h-[140px] min-w-0 items-center justify-center border-hairline bg-black/40 p-3 max-lg:max-h-[28vh] lg:h-full lg:border-l lg:p-4">
+      <button
+        type="button"
+        aria-label={`${step.en} 이미지 크게 보기`}
+        className="flex min-h-[140px] min-w-0 items-center justify-center border-hairline bg-black/40 p-3 max-lg:max-h-[28vh] lg:h-full lg:border-l lg:p-4"
+        onClick={handleOpen}
+      >
         <img
           src={step.shot}
           alt={step.alt}
-          className="max-h-full max-w-full object-contain"
+          className="pointer-events-none max-h-full max-w-full object-contain"
           decoding="async"
         />
-      </div>
+      </button>
     </Hairline>
+  )
+}
+
+function ShotOverlay({ step, onClose }: { step: ProtocolStep; onClose: () => void }) {
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  const handleBackdropClick = () => {
+    onClose()
+  }
+
+  const handleCloseClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation()
+    onClose()
+  }
+
+  const handleImageClick = (event: MouseEvent<HTMLImageElement>) => {
+    event.stopPropagation()
+  }
+
+  useEffect(() => {
+    closeRef.current?.focus()
+  }, [])
+
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={step.alt}
+      className="shot-overlay fixed inset-0 z-[80] flex items-center justify-center bg-dark-ground/90 p-[var(--pad)]"
+      onClick={handleBackdropClick}
+    >
+      <button
+        ref={closeRef}
+        type="button"
+        className="absolute top-[var(--pad)] right-[var(--pad)] font-ui text-[12px] tracking-[0.14em] text-dark-ink"
+        onClick={handleCloseClick}
+      >
+        닫기
+      </button>
+      <img
+        src={step.shot}
+        alt={step.alt}
+        className="max-h-[86vh] max-w-[min(92vw,1100px)] object-contain"
+        decoding="async"
+        onClick={handleImageClick}
+      />
+    </div>,
+    document.body,
   )
 }

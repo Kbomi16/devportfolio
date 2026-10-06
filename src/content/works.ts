@@ -42,8 +42,10 @@ export type WorkItem = {
   /** 홈 라벨 밑줄 — 결과 숫자 한 줄 */
   homeLine: string
   stack: string[]
-  /** 갤러리 카드와 상세 히어로에 쓰는 가로 썸네일 */
+  /** 상세 히어로에 쓰는 가로 썸네일 */
   thumb: { src: string; alt: string }
+  /** 갤러리 카드에 올리는 As-Is / To-Be. 없으면 thumb */
+  compare?: { src: string; alt: string }
   stats?: WorkStat[]
   entries?: WorkEntry[]
   decisions: WorkDecision[]
@@ -63,8 +65,12 @@ export const WORKS: WorkItem[] = [
     homeLine: '권한 훅 ~90개 파일 · 조직 모달 ~50개 화면',
     stack: ['Next.js Pages Router', 'TypeScript', 'React Query', 'Jotai', 'Axios', 'Ant Design', 'Styled Components'],
     thumb: {
-      src: '/images/works/thumb-tcc.png',
+      src: '/images/works/card-tcc.png',
       alt: '중대재해 관리 백오피스. 사이드바와 차트, 목록 화면.',
+    },
+    compare: {
+      src: '/images/works/backoffice-1-v2.png',
+      alt: 'As-Is / To-Be. 하드코딩 메뉴와 URL 직접 접근을 서버 menuTree와 menuId 권한 검증으로 바꾼 흐름.',
     },
     stats: [
       { value: '90', label: '권한 훅 재사용 파일' },
@@ -81,7 +87,7 @@ export const WORKS: WorkItem[] = [
         result: '메뉴 구조는 서버 설정만으로 바뀝니다. 주소로 직접 들어오는 접근도 같은 기준으로 막습니다.',
         shots: [
           {
-            src: '/images/works/tcc-menu.png',
+            src: '/images/works/backoffice-1-v2.png',
             alt: '동적 메뉴 흐름. 하드코딩과 URL 직접 접근을 menuTree와 권한 검증으로 바꾸는 구조도.',
             caption: '서버 menuTree로 메뉴를 그리고, 주소로 들어올 때는 menuId로 다시 검증합니다.',
             wide: true,
@@ -95,6 +101,14 @@ export const WORKS: WorkItem[] = [
         choice:
           '화면은 기능 코드만 훅에 넘깁니다. 훅이 서버 권한을 조회하고 버튼 노출과 실행을 가립니다. 같은 코드는 React Query 캐시를 씁니다.',
         result: '같은 훅을 약 90개 파일에서 씁니다. 정책이 바뀌면 훅과 권한 코드만 보면 됩니다.',
+        shots: [
+          {
+            src: '/images/works/backoffice-2-v2.png',
+            alt: 'As-Is / To-Be. 화면마다 흩어진 권한 체크를 func_code 훅 하나로 모은 흐름.',
+            caption: '화면은 기능 코드만 넘기고, 버튼 노출과 실행은 같은 훅이 가립니다.',
+            wide: true,
+          },
+        ],
       },
       {
         title: '조직·사람 선택',
@@ -105,7 +119,7 @@ export const WORKS: WorkItem[] = [
         result: '약 50개 화면이 같은 모달을 씁니다.',
         shots: [
           {
-            src: '/images/works/tcc-org.png',
+            src: '/images/works/backoffice-3-v2.png',
             alt: '조직 선택 모달 공통화 구조도. 공통 모달, props 정책, 부모 트리 유지.',
             caption: '조직 선택은 공통 모달 하나. 유형·방식·범위는 props로 나누고, 검색해도 부모 트리는 남깁니다.',
             wide: true,
@@ -132,8 +146,12 @@ export const WORKS: WorkItem[] = [
     homeLine: '크로플 · 감탄누수 · 빛자루 · 고야차트 · 탑애드 · 현중고차 · 시하디자인',
     stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'next-intl', 'GSAP', 'Motion', 'Solapi'],
     thumb: {
-      src: '/images/works/thumb-sites.png',
+      src: '/images/works/card-sites.png',
       alt: '크로플 기업 웹 첫 화면. 외주는 그만, 팀처럼 개발.',
+    },
+    compare: {
+      src: '/images/works/brandweb-1-v2.png',
+      alt: 'As-Is / To-Be. 문구만 번역하던 다국어를 URL·본문·메타데이터가 같은 locale 규칙을 보게 바꾼 흐름.',
     },
     entries: [
       {
@@ -187,6 +205,14 @@ export const WORKS: WorkItem[] = [
         choice:
           'next-intl로 한국어·영어·일본어·중국어를 관리하고 URL을 /kr · /us · /jp · /cn으로 나눴습니다. 링크는 현재 언어를 유지하고, 본문과 메타데이터는 같은 번역 파일을 봅니다.',
         result: '페이지를 옮겨도 고른 언어가 유지됩니다. 문구를 고칠 때 컴포넌트를 직접 열지 않습니다.',
+        shots: [
+          {
+            src: '/images/works/brandweb-1-v2.png',
+            alt: 'As-Is / To-Be. next-intl locale로 URL, 문구, 메타데이터를 연결한 흐름.',
+            caption: '언어별 URL과 본문, 메타데이터가 같은 locale 규칙을 봅니다.',
+            wide: true,
+          },
+        ],
       },
       {
         title: '검색과 AI가 읽게',
@@ -196,6 +222,12 @@ export const WORKS: WorkItem[] = [
           '언어·페이지별 title, description, Open Graph, canonical을 만들고, sitemap에 언어별 대체 URL과 x-default를 넣었습니다. 회사·FAQ·서비스는 JSON-LD로 적습니다.',
         result: '검색엔진이 언어별 URL의 관계와 대표 페이지를 구분할 기반이 있습니다.',
         shots: [
+          {
+            src: '/images/works/brandweb-2-v2.png',
+            alt: 'As-Is / To-Be. Metadata, sitemap, robots, JSON-LD로 검색과 AI가 읽게 한 흐름.',
+            caption: '언어별 대표 URL과 구조화 데이터로 검색엔진·AI가 페이지 관계를 구분합니다.',
+            wide: true,
+          },
           {
             src: '/images/works/sites-sitemap.png',
             alt: '크로플 sitemap. 언어별 URL과 hreflang alternate, x-default.',
@@ -215,6 +247,14 @@ export const WORKS: WorkItem[] = [
         choice:
           '문의 폼이 있는 사이트는 Solapi로 담당자에게 문자를 보냅니다. 사이트마다 git worktree로 작업 폴더를 나눴습니다.',
         result: '공개 웹 7종입니다. 문의가 있는 사이트는 제출이 담당자 문자까지 이어집니다.',
+        shots: [
+          {
+            src: '/images/works/brandweb-3-v2.png',
+            alt: 'As-Is / To-Be. 사이트·기능 단위 git worktree와 Cursor 역할 분리.',
+            caption: '사이트마다 작업 폴더를 나눠, 한 사이트를 고칠 때 다른 사이트 맥락이 섞이지 않게 했습니다.',
+            wide: true,
+          },
+        ],
       },
     ],
     links: [
@@ -231,7 +271,7 @@ export const WORKS: WorkItem[] = [
     slug: 'alleo',
     label: 'ALLEO',
     title: 'AI 검색 최적화 · 콘텐츠 자동화 SaaS',
-    period: '2026.04 — 2026.08',
+    period: '2026.04 — 현재',
     role: '프론트엔드·일부 API, 소개 웹, 공개 블로그, 사용자 콘솔, 관리자',
     oneLiner:
       '검색·AI 노출 진단부터 블로그, SNS 발행까지 이어집니다.\n소개 웹·블로그·콘솔·관리자를 나눠 만들었습니다.',
@@ -247,8 +287,12 @@ export const WORKS: WorkItem[] = [
       'Cloudflare',
     ],
     thumb: {
-      src: '/images/works/thumb-alleo.png',
+      src: '/images/works/card-alleo.png',
       alt: 'alleo 소개 화면. AI 검색에 브랜드가 먼저 나오도록 진단하는 입력창.',
+    },
+    compare: {
+      src: '/images/works/alleo-1-v2.png',
+      alt: 'As-Is / To-Be. 흩어진 분석을 리포트, 개선 포인트, AI 추천 추적 순서로 이은 흐름.',
     },
     entries: [
       { name: 'intro', note: '소개 웹 · 다국어', url: 'https://alleo.pro' },
@@ -264,6 +308,14 @@ export const WORKS: WorkItem[] = [
         choice:
           '점수, 개선 포인트, 리포트 목록과 차트로 분석 화면을 만들었습니다. AI 추천 추적, 경쟁사, 키워드 기회를 같은 흐름에 두고, 리포트가 없으면 추적 질문을 제한했습니다.',
         result: '분석하고, 고칠 점을 보고, 그다음 추적하는 순서로 콘솔을 쓰게 됩니다.',
+        shots: [
+          {
+            src: '/images/works/alleo-1-v2.png',
+            alt: 'As-Is / To-Be. 분석 리포트에서 개선 포인트, AI 추천 추적으로 이어지는 흐름.',
+            caption: '리포트가 없으면 추적을 제한해, 진단 다음에 추적하게 했습니다.',
+            wide: true,
+          },
+        ],
       },
       {
         title: 'SNS 계정 연결',
@@ -274,7 +326,7 @@ export const WORKS: WorkItem[] = [
         result: '소셜 로그인 후 콘솔에서 연결 완료를 확인합니다. 이후 업로드는 연결된 채널 기준으로 진행합니다.',
         shots: [
           {
-            src: '/images/works/alleo-sns.png',
+            src: '/images/works/alleo-2-v2.png',
             alt: 'SNS 연동 구조도. OAuth 시작, 콜백의 code·state 확인, 연동 화면 복귀.',
             caption: '채널별 OAuth 뒤 등록된 콜백으로 돌아와, 연동 화면에서 성공과 실패를 보여 줍니다.',
             wide: true,
@@ -282,17 +334,17 @@ export const WORKS: WorkItem[] = [
         ],
       },
       {
-        title: '공개 웹과 운영',
+        title: '구축 사례의 검색 성과',
         problem:
-          '소개 웹과 고객 블로그는 검색엔진과 AI 크롤러가 구조를 읽어야 합니다. 사용자, 구독, 쿠폰, 문의는 운영자가 한곳에서 봐야 합니다.',
+          '영업할 때 검색에 잘 나온다는 말을 근거 없이 설명해야 했습니다. 성과는 Search Console과 네이버 서치어드바이저에 흩어져 있고, 네이버는 사이트 성과를 조회하는 공개 API가 없습니다.',
         choice:
-          '페이지별 메타데이터, Open Graph, Sitemap, JSON-LD를 두고 IndexNow로 색인을 요청합니다. 한국어·영어·일본어·중국어 주소와 메타데이터는 같은 규칙으로 맞추고, 관리자에서는 사용자·결제·문의를 조회합니다.',
-        result: '공개 채널과 운영 도구가 한 제품 흐름으로 이어집니다.',
+          '영업용 마케팅 사이트를 만들고 사례마다 검색 성과를 보여 줍니다. Search Console 데이터는 D1에 저장하고, 네이버는 서치어드바이저 데이터를 시드로 넣습니다. 키워드 순위는 진행 중인 작업을 재사용하고, 화면은 3초 간격으로 폴링합니다.',
+        result: '영업 담당이 말 대신 사례별 순위와 성과 차트를 링크로 보여 줍니다.',
         shots: [
           {
-            src: '/images/works/alleo-public.png',
-            alt: '공개 웹과 운영 도구 구조도. 메타데이터, IndexNow, 다국어, 관리자 조회.',
-            caption: '소개 웹·블로그는 검색과 AI가 읽게 두고, 사용자·결제·문의는 관리자에서 봅니다.',
+            src: '/images/works/alleo-3-v3.png',
+            alt: 'As-Is / To-Be. 키워드 순위 검사를 재사용하고 Google·네이버를 동시에 조회한 뒤 폴링하는 흐름.',
+            caption: '같은 순위 검사는 다시 만들지 않고, 화면은 끝날 때까지 폴링합니다.',
             wide: true,
           },
         ],
@@ -316,8 +368,12 @@ export const WORKS: WorkItem[] = [
     homeLine: '직접 쓰며 운영 · PWA',
     stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'Zustand', 'Firebase', 'PWA'],
     thumb: {
-      src: '/images/works/thumb-money.png',
-      alt: '내 돈 어디갔지 대시보드. 이번 달 수입·지출과 달력 옆 차트.',
+      src: '/images/works/card-money.png',
+      alt: '내 돈 어디갔지 대시보드. 이번 달 수입·지출과 월 비교 차트.',
+    },
+    compare: {
+      src: '/images/works/moneywhere-1-v2.png',
+      alt: 'As-Is / To-Be. 단건 기록을 대시보드·달력·리스트와 Firebase 저장으로 바꾼 흐름.',
     },
     decisions: [
       {
@@ -326,6 +382,14 @@ export const WORKS: WorkItem[] = [
         choice:
           '이번 달 요약을 두고 달력과 리스트를 바꿔 보게 했습니다. 로그인 후 Firestore에 거래를 저장하고, 통계에서 뺄 수도 있습니다.',
         result: '기록, 확인, 수정이 짧은 경로로 이어집니다.',
+        shots: [
+          {
+            src: '/images/works/moneywhere-1-v2.png',
+            alt: 'As-Is / To-Be. 대시보드, 달력·리스트, Firebase 로그인과 저장 흐름.',
+            caption: '요약, 달력, 리스트로 보고, 기록은 Firebase에 저장합니다.',
+            wide: true,
+          },
+        ],
       },
       {
         title: '할부와 반복 지출',
@@ -333,6 +397,14 @@ export const WORKS: WorkItem[] = [
         choice:
           '할부는 총액과 기간을 나눠 월 지출로 넣습니다. 반복 지출은 기간을 정한 뒤 마이페이지에서 중단할 수 있고, 중단 전에 한 번 더 확인합니다.',
         result: '출시 뒤에 직접 쓰면서 할부, 반복 지출, 결제 수단을 더했습니다.',
+        shots: [
+          {
+            src: '/images/works/moneywhere-2-v2.png',
+            alt: 'As-Is / To-Be. 할부와 반복 지출을 등록하고 마이페이지에서 중단하는 흐름.',
+            caption: '할부는 월 지출로 나누고, 반복 지출은 마이페이지에서 중단합니다.',
+            wide: true,
+          },
+        ],
       },
       {
         title: '휴대폰에서 바로 적기',
@@ -340,6 +412,14 @@ export const WORKS: WorkItem[] = [
         choice:
           'PWA로 홈 화면 추가를 지원하고 라이트·다크 모드를 넣었습니다. 인증과 저장은 Firebase로 두어 별도 서버 없이 배포까지 이었습니다.',
         result: '스마트폰에서 앱처럼 설치해 씁니다. 피드백 채널을 열어 두고 직접 쓰면서 고치고 있습니다.',
+        shots: [
+          {
+            src: '/images/works/moneywhere-3-v2.png',
+            alt: 'As-Is / To-Be. PWA 홈 화면 추가와 라이트·다크 모드.',
+            caption: '홈 화면에 추가해 앱처럼 쓰고, 라이트·다크 모드를 바꿉니다.',
+            wide: true,
+          },
+        ],
       },
     ],
     links: [
@@ -359,7 +439,7 @@ export const WORKS: WorkItem[] = [
     homeLine: '공개 웹 · 운영 콘솔',
     stack: ['Next.js', 'TypeScript', 'Tailwind', 'TanStack Query', 'Zustand', 'Supabase'],
     thumb: {
-      src: '/images/works/thumb-useme.png',
+      src: '/images/works/card-useme.png',
       alt: 'useMe 첫 화면. 링크만 보내지 말고, 써 보라고 해요.',
     },
     decisions: [
@@ -407,7 +487,7 @@ export const WORKS: WorkItem[] = [
     homeLine: '걷기 → 만나기 → 말하기',
     stack: ['Three.js', 'React Three Fiber', 'Vite', 'TypeScript', 'Socket.IO'],
     thumb: {
-      src: '/images/works/thumb-isle.png',
+      src: '/images/works/card-isle.png',
       alt: '모이섬 입장 화면. 캐릭터를 고르고 이름과 직군을 적은 뒤 섬으로 들어갑니다.',
     },
     decisions: [

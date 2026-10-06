@@ -128,6 +128,25 @@ button {
   }
 }
 
+@keyframes shot-overlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.shot-overlay {
+  animation: shot-overlay 0.28s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shot-overlay {
+    animation: none;
+  }
+}
+
 .neon-cursor {
   position: fixed;
   top: 0;

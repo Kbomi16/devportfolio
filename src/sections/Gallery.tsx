@@ -164,9 +164,12 @@ function SlideCard({
       onClick={handleClick}
     >
       <img
-        src={work.thumb.src}
-        alt=""
-        className="aspect-[8/5] w-full object-cover"
+        src={(work.compare ?? work.thumb).src}
+        alt={work.compare ? work.compare.alt : ''}
+        className={cn(
+          'w-full bg-[#f4f0e8]',
+          work.compare ? 'aspect-[21/10] object-contain' : 'aspect-[8/5] object-cover',
+        )}
         draggable={false}
       />
       <span className="flex flex-col gap-1.5 bg-dark-ground p-3.5">
