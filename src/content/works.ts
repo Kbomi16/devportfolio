@@ -138,16 +138,27 @@ export const WORKS: WorkItem[] = [
     slug: 'sites',
     label: 'SITES',
     labelEyebrow: 'SEO GEO AEO',
-    title: '기업·브랜드 웹 7종',
-    period: '2026.01 — 2026.08',
-    role: '프론트엔드, 공개 웹 7종, 다국어, SEO, 문의 연결',
+    title: '기업·브랜드 웹 9종',
+    period: '2026.01 — 2026.10',
+    role: '프론트엔드, 공개 웹 9종, 다국어, SEO, 문의 연결',
     oneLiner:
-      '공개 웹 7종의 우선순위는 검색 노출과 문의 전환이었습니다.\n다국어·SEO·인터랙션·문의를 리드 전환형으로 맞췄습니다.',
-    homeLine: '크로플 · 감탄누수 · 빛자루 · 고야차트 · 탑애드 · 현중고차 · 시하디자인',
-    stack: ['Next.js 16', 'React 19', 'TypeScript', 'Tailwind CSS 4', 'shadcn/ui', 'next-intl', 'GSAP', 'Motion', 'Solapi'],
+      '기업·브랜드 웹 9종.\n다국어, 검색 노출, 문의 접수까지 사이트마다 다르게 붙였습니다.',
+    homeLine: '크로플 · 하나리더투어 · 홈앤힐 · 감탄누수 외 5',
+    stack: [
+      'Next.js 16',
+      'React 19',
+      'TypeScript',
+      'Tailwind CSS 4',
+      'shadcn/ui',
+      'next-intl',
+      'GSAP',
+      'Motion',
+      'Solapi',
+      'Cloudflare',
+    ],
     thumb: {
       src: '/images/works/card-sites.png',
-      alt: '크로플 기업 웹 첫 화면. 외주는 그만, 팀처럼 개발.',
+      alt: '기업 웹 카드. 크로플, 하나리더투어, 홈앤힐 첫 화면.',
     },
     compare: {
       src: '/images/works/brandweb-1-v2.png',
@@ -159,6 +170,24 @@ export const WORKS: WorkItem[] = [
         note: 'IT 아웃소싱 공식 웹. 4개 국어 URL·메타, 커피챗 Solapi',
         url: 'https://www.kroffle.com/kr',
         image: { src: '/images/works/site-kroffle.jpg', alt: '크로플 공유 이미지. 내부 팀처럼 일하는 IT 개발 파트너.' },
+      },
+      {
+        name: '하나리더투어',
+        note: '사회적기업 여행사 공개 웹·관리자. D1·R2 공유, 관리자는 Cloudflare Access',
+        url: 'https://hana-web.alleo.workers.dev/',
+        image: {
+          src: '/images/works/site-hana.jpg',
+          alt: '하나리더투어 공유 이미지. 사회적기업, 국내여행·전세버스·양평힐링센터.',
+        },
+      },
+      {
+        name: '홈앤힐',
+        note: '가구 브랜드 웹. 소파·식탁·침대·수납장',
+        url: 'https://homeandheal-web.alleo.workers.dev/ko',
+        image: {
+          src: '/images/works/site-homeandheal.jpg',
+          alt: '홈앤힐 로고. Home&Heal.',
+        },
       },
       {
         name: '감탄누수',
@@ -243,10 +272,10 @@ export const WORKS: WorkItem[] = [
       {
         title: '문의와 작업 나누기',
         problem:
-          '문의가 폼에만 쌓이면 담당자가 바로 받지 못합니다. 사이트 7개가 비슷한 시기에 돌아가 브랜치와 작업 맥락이 섞였습니다.',
+          '문의가 폼에만 쌓이면 담당자가 바로 받지 못합니다. 사이트 9개가 비슷한 시기에 돌아가 브랜치와 작업 맥락이 섞였습니다.',
         choice:
-          '문의 폼이 있는 사이트는 Solapi로 담당자에게 문자를 보냅니다. 사이트마다 git worktree로 작업 폴더를 나눴습니다.',
-        result: '공개 웹 7종입니다. 문의가 있는 사이트는 제출이 담당자 문자까지 이어집니다.',
+          '크로플·감탄누수·고야차트는 Solapi로 담당자에게 문자를 보냅니다. 사이트마다 git worktree로 작업 폴더를 나눴습니다.',
+        result: '공개 웹 9종입니다. 문의가 있는 사이트는 제출이 담당자 알림까지 이어집니다.',
         shots: [
           {
             src: '/images/works/brandweb-3-v2.png',
@@ -256,9 +285,32 @@ export const WORKS: WorkItem[] = [
           },
         ],
       },
+      {
+        title: '공개 웹과 관리자를 같이',
+        problem:
+          '하나리더투어는 공개 웹과 관리자가 상품·문의·이미지를 같이 써야 했습니다. 관리자에는 고객 연락처가 보여, 정해진 담당자만 들어가야 했습니다.',
+        choice:
+          '두 앱이 Cloudflare D1과 R2를 공유합니다. 관리자 로그인은 직접 만들지 않고, Cloudflare Access로 허용한 이메일만 인증 코드를 받아 들어오게 했습니다.',
+        result: '짧은 일정에도 연락처가 있는 화면은 먼저 닫아 두었습니다. 담당자가 바뀌면 허용 목록만 고칩니다.',
+        shots: [
+          {
+            src: '/images/works/brandweb-4-v2.png',
+            alt: 'As-Is / To-Be. 하나 공개 웹과 관리자가 D1·R2를 공유하고 Access로 관리자를 닫는 구조.',
+            caption: '공개 웹과 관리자가 데이터와 이미지를 공유하고, 관리자는 허용 이메일만 들어옵니다.',
+            wide: true,
+          },
+          {
+            src: '/images/works/hana-admin-dashboard.png',
+            alt: '하나리더투어 관리자 대시보드. 읽지 않은 문의, 상품, 힐링센터, 공지 수.',
+            caption: '관리자에서 문의 확인부터 상품·힐링센터·공지 등록까지 처리합니다.',
+          },
+        ],
+      },
     ],
     links: [
       { label: '크로플', url: 'https://www.kroffle.com/kr' },
+      { label: '하나리더투어', url: 'https://hana-web.alleo.workers.dev/' },
+      { label: '홈앤힐', url: 'https://homeandheal-web.alleo.workers.dev/ko' },
       { label: '감탄누수', url: 'https://gamtannusu.com' },
       { label: '요셉씨의 빛자루', url: 'https://joecbroom-web.pages.dev/' },
       { label: '고야차트', url: 'https://exproject.work' },
@@ -436,7 +488,7 @@ export const WORKS: WorkItem[] = [
     status: '진행 중',
     role: '기획·UI·기능·인프라',
     oneLiner: '토이프로젝트를 어필 카드로 바꿔 공유하고,\n써 본 사람이 피드백을 남기는 플랫폼입니다.',
-    homeLine: '공개 웹 · 운영 콘솔',
+    homeLine: '어필 카드 · 체험 · 피드백',
     stack: ['Next.js', 'TypeScript', 'Tailwind', 'TanStack Query', 'Zustand', 'Supabase'],
     thumb: {
       src: '/images/works/card-useme.png',
