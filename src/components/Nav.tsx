@@ -1,5 +1,6 @@
 import Label from './common/Label'
 import Pill from './common/Pill'
+import { MAILTO } from '../content/contact'
 import { cn } from '../lib/cn'
 import { scrollToId, scrollToTop } from '../lib/useLenis'
 
@@ -57,7 +58,7 @@ export default function Nav() {
         >
           KIM BOMI
         </button>
-        <Pill className="border-white/40 hover:border-white" href="mailto:bomi2172@gmail.com">
+        <Pill className="border-white/40 hover:border-white" href={MAILTO}>
           contact me
         </Pill>
       </nav>

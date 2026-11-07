@@ -31,6 +31,11 @@
   --nav-h: 58px;
   --pad: clamp(24px, 3.5vw, 40px);
 
+  /* 액센트 — 흑백 + 네온만 (2026-11-04 확정) */
+  --neon: #d1fe17;
+  /* 카드 이미지 바탕 (기존 #f4f0e8 승격) */
+  --card-ground: #f4f0e8;
+
   /* 네온 커서 링 (NeonCursorRing) — Higgsfield accent #d1fe17 */
   --cursor-neon-line: rgba(209, 254, 23, 0.55);
   --cursor-neon-fill: rgba(209, 254, 23, 0.07);
@@ -48,6 +53,8 @@
   --color-ground: var(--ground);
   --color-ink: var(--ink);
   --color-hairline: var(--hairline);
+  --color-neon: var(--neon);
+  --color-card-ground: var(--card-ground);
   --font-display: var(--font-display);
   --font-ui: var(--font-ui);
   --font-kr: var(--font-kr);
@@ -128,25 +135,6 @@ button {
   }
 }
 
-@keyframes shot-overlay {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.shot-overlay {
-  animation: shot-overlay 0.28s ease-out both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .shot-overlay {
-    animation: none;
-  }
-}
-
 .neon-cursor {
   position: fixed;
   top: 0;
@@ -187,4 +175,34 @@ button {
   border-radius: 50%;
   border: 1px solid var(--cursor-neon-line);
   background: var(--cursor-neon-fill);
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.neon-cursor__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--dark-ground);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.neon-cursor--label .neon-cursor__visual {
+  transform: scale(2.1);
+}
+
+.neon-cursor--label .neon-cursor__ring {
+  border-color: var(--neon);
+  background: var(--neon);
+}
+
+.neon-cursor--label .neon-cursor__label {
+  opacity: 1;
 }
