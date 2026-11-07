@@ -3,39 +3,41 @@ import Display from '../components/common/Display'
 import Label from '../components/common/Label'
 import Pill from '../components/common/Pill'
 import Hairline from '../components/common/Hairline'
+import { CONTACT_LINKS, EMAIL } from '../content/contact'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
-import { prefersReducedMotion } from '../lib/motion'
+import { matchMediaPreset } from '../lib/media'
 import { outboundLinkProps } from '../lib/outboundLink'
 import { revealOnce } from '../lib/reveal'
-
-const RESUME_URL =
-  'https://volcano-fisherman-e31.notion.site/31a3307fa7e6803cb79de92068674178'
+import SceneSlot from '../scene/SceneSlot'
 
 /** CH6 — 다시 검정. 컨택트 + 크롭 워드마크(스크럽 패럴랙스) */
 export default function Close() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useGSAP(
-    (context) => {
-      if (prefersReducedMotion()) return
-      revealOnce((context.selector?.('[data-rv]') ?? []) as HTMLElement[])
+    () => {
+      const mm = matchMediaPreset(({ motion }) => {
+        if (!motion) return
+        revealOnce(gsap.utils.toArray<HTMLElement>('[data-rv]'))
 
-      gsap.fromTo(
-        '[data-close-mark]',
-        { yPercent: 36 },
-        {
-          yPercent: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top bottom',
-            end: 'bottom bottom',
-            scrub: true,
+        gsap.fromTo(
+          '[data-close-mark]',
+          { yPercent: 36 },
+          {
+            yPercent: 0,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top bottom',
+              end: 'bottom bottom',
+              scrub: true,
+            },
           },
-        },
-      )
+        )
+      })
+      return () => mm.revert()
     },
     { scope: sectionRef },
   )
@@ -57,14 +59,18 @@ export default function Close() {
         >
           Contact
         </Display>
-        <div data-rv className="mt-5 flex flex-wrap gap-3">
-          <Pill href="mailto:bomi2172@gmail.com">bomi2172@gmail.com</Pill>
-          <Pill href="https://github.com/Kbomi16" target="_blank" {...outboundLinkProps('https://github.com/Kbomi16')}>
-            GitHub
-          </Pill>
-          <Pill href={RESUME_URL} target="_blank" {...outboundLinkProps(RESUME_URL)}>
-            Resume
-          </Pill>
+        <div data-rv className="mt-5 flex flex-wrap gap-4 py-2">
+          {CONTACT_LINKS.map((link) => (
+            <Pill
+              key={link.href}
+              strength={0.4}
+              href={link.href}
+              target={link.external ? '_blank' : undefined}
+              {...outboundLinkProps(link.href)}
+            >
+              {link.label}
+            </Pill>
+          ))}
         </div>
       </div>
 
@@ -73,8 +79,14 @@ export default function Close() {
         className="mb-[clamp(90px,16vw,240px)] flex justify-between py-4 text-muted"
       >
         <Label>© 2026 KIM BOMI</Label>
-        <Label>bomi2172@gmail.com</Label>
+        <Label>{EMAIL}</Label>
       </Hairline>
+
+      <SceneSlot
+        object={{ kind: 'contact' }}
+        fallbackSrc="/images/3d/contact.webp"
+        className="absolute bottom-[clamp(110px,18vw,280px)] left-1/2 h-[clamp(160px,22vw,320px)] w-[min(90vw,760px)] -translate-x-1/2"
+      />
 
       <Display
         data-close-mark

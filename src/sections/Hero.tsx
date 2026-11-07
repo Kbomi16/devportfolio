@@ -1,13 +1,14 @@
 import { useRef, useState } from 'react'
 import Display from '../components/common/Display'
 import Label from '../components/common/Label'
+import { HERO_IMAGE, HERO_VIDEO_SRC } from '../content/about'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
-import { gsap, useGSAP } from '../lib/gsapSetup'
+import { gsap, SplitText, useGSAP } from '../lib/gsapSetup'
+import { HERO_PIN, setHeroProgress } from '../lib/hero'
+import { MEDIA } from '../lib/media'
 import { prefersReducedMotion } from '../lib/motion'
-
-const VIDEO_SRC = '/video/hero.mp4'
-const IMAGE_SRC = '/images/bomi-landing.jpg'
+import SceneSlot from '../scene/SceneSlot'
 
 /**
  * HERO (CH1+CH2 통합) — 단일 핀 타임라인으로 끊김 없이 연결:
@@ -49,6 +50,7 @@ export default function Hero() {
       // duration은 메타데이터 로드 후 lazily 읽는다 — 핀은 마운트 즉시 생성되어
       // 트리거 순서·레이아웃이 흔들리지 않는다 (구간 튐 방지)
       const scrubState = { t: 0 }
+      const nameSplit = SplitText.create('[data-hero-name]', { type: 'chars', mask: 'chars' })
 
       // ! 2. 섹션을 pin하고, 스크롤 진행도가 타임라인 progress가 된다.
       const tl = gsap.timeline({
@@ -56,7 +58,7 @@ export default function Hero() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=2000%',
+          end: window.matchMedia(MEDIA.mobile).matches ? HERO_PIN.mobile : HERO_PIN.desktop,
           pin: true,
           scrub: 0.4,
           anticipatePin: 1,
@@ -100,9 +102,18 @@ export default function Hero() {
           { y: 0, opacity: 1, duration: 0.09, stagger: 0.025 },
           0.88,
         )
+        .fromTo(
+          nameSplit.chars,
+          { yPercent: 110 },
+          { yPercent: 0, duration: 0.1, stagger: 0.012, ease: 'expo.out' },
+          0.88,
+        )
         .fromTo('[data-hero-float]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08, stagger: 0.03 }, 0.94)
         // 홀드 — 마우스 패럴랙스 무대
         .to({}, { duration: 0.1 }, 1.02)
+
+      tl.eventCallback('onUpdate', () => setHeroProgress(tl.progress()))
+      return () => setHeroProgress(0)
     },
     { scope: sectionRef, dependencies: [mode], revertOnUpdate: true },
   )
@@ -119,8 +130,8 @@ export default function Hero() {
           'absolute inset-0 size-full object-cover',
           fadingOut && 'opacity-0 transition-opacity duration-500 ease-linear',
         )}
-        src={VIDEO_SRC}
-        poster={IMAGE_SRC}
+        src={HERO_VIDEO_SRC}
+        poster={HERO_IMAGE.src}
         muted
         playsInline
         preload="auto"
@@ -152,8 +163,8 @@ export default function Hero() {
         >
           <img
             className="size-full object-cover will-change-transform select-none [-webkit-user-drag:none] [transform:translate3d(calc(var(--mx)*-16px),calc(var(--my)*-10px),0)_scale(1.06)] motion-reduce:will-change-auto motion-reduce:[transform:scale(1.02)]"
-            src={IMAGE_SRC}
-            alt="웅크린 자세로 정면을 응시하는 3D 바이닐 피규어 — 포트폴리오 표지"
+            src={HERO_IMAGE.src}
+            alt={HERO_IMAGE.alt}
           />
           <div
             className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_45%,transparent_55%,rgba(0,0,0,0.55)_100%)]"
@@ -165,14 +176,20 @@ export default function Hero() {
           />
         </div>
 
+        <SceneSlot
+          object={{ kind: 'hero' }}
+          fallbackSrc="/images/3d/hero.webp"
+          className="absolute top-[calc(var(--nav-h)+2vh)] right-[calc(var(--pad)+2vw)] z-[3] size-[clamp(140px,14vw,220px)] max-md:top-[calc(var(--nav-h)+16px)] max-md:right-[var(--pad)] max-md:size-[120px]"
+        />
+
         <div className="absolute top-1/2 right-[var(--pad)] z-[3] flex -translate-y-1/2 flex-col items-end gap-2.5 text-right text-dark-ink will-change-transform [transform:translate3d(calc(var(--mx)*26px),calc(var(--my)*14px),0)] max-md:top-auto max-md:right-auto max-md:bottom-[calc(var(--pad)+44px)] max-md:left-[var(--pad)] max-md:items-start max-md:translate-none max-md:text-left motion-reduce:will-change-auto motion-reduce:[transform:none]">
           <Label data-hero-copy className="text-dark-ink/60">
             FRONTEND
           </Label>
           <div className="will-change-transform [transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*8px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]">
             <Display
-              as="h1"
-              data-hero-copy
+            as="h1"
+            data-hero-name
               className="text-[clamp(56px,9vw,150px)] leading-[0.94] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]"
             >
               KIM BOMI

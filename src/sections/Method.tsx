@@ -2,117 +2,74 @@ import { useRef, type ReactNode } from 'react'
 import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
+import { HISTORY, type HistoryRow } from '../content/history'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
-import { gsap, useGSAP } from '../lib/gsapSetup'
-import { prefersReducedMotion } from '../lib/motion'
+import { gsap, SplitText, useGSAP } from '../lib/gsapSetup'
+import { matchMediaPreset } from '../lib/media'
+import SceneSlot from '../scene/SceneSlot'
 
-type IndexRow = {
-  tag: string
-  name: string
-  meta: string
-  note: string
-}
-
-const INDEX: IndexRow[] = [
-  {
-    tag: 'NOW',
-    name: '주식회사 크로플 · Frontend Developer',
-    meta: '2025.05 —',
-    note:
-      '중대재해 관리 백오피스 FE.\n메뉴·권한·조직 선택을 공통 구조로 묶었습니다.\n\n공개 웹 9종.\n다국어 주소, 검색, 문의까지 같은 규칙으로 맞췄습니다.\n\nAlleo AI SaaS.\n분석부터 글·발행까지 이어지는 콘솔 프론트를 맡았습니다.',
-  },
-  {
-    tag: 'CAMP',
-    name: '코드잇 프론트엔드 부트캠프 · 팀장',
-    meta: '2024.03 — 08',
-    note: '팀장으로 스크럼 회의를 진행하고, 리뷰만 보는 시간을 따로 두어 리뷰가 끊기지 않게 했습니다.',
-  },
-  {
-    tag: 'DEGREE',
-    name: '명지전문대학교 전공심화',
-    meta: '2023.03 — 2024.02',
-    note: '정보통신공학과 전공심화 과정. 학점 4.00 / 4.50.',
-  },
-  {
-    tag: 'DEGREE',
-    name: '명지전문대학 정보통신공학과',
-    meta: '2020.03 — 2023.02',
-    note: '정보통신공학과 졸업. 학점 3.76 / 4.50.',
-  },
-  {
-    tag: 'AWARD',
-    name: '학습 포트폴리오 공모전 「보미의 갓생 라이프」 은상',
-    meta: '2023.07',
-    note: '「보미의 갓생 라이프」. 투두 앱으로 일과를 나눠, 자격증을 따고 멘토링까지 시간을 알차게 쓴 학습 기록입니다.',
-  },
-  {
-    tag: 'AWARD',
-    name: '학과 캡스톤 디자인 대회 은상 · 향수 추천 쇼핑몰',
-    meta: '2023.12',
-    note: 'Fumease. 키워드 색으로 취향을 고르면 OpenAI가 향수를 추천하고, 그 결과에서 바로 살 수 있게 만든 쇼핑몰입니다.',
-  },
-  {
-    tag: 'CERT',
-    name: '정보처리산업기사',
-    meta: '2022.11',
-    note: '한국산업인력공단 · 최종합격.',
-  },
-  {
-    tag: 'LEAD',
-    name: '정보통신공학과 학생회장',
-    meta: '2022.03 — 12',
-    note: '명지전문대학교 정보통신공학과 학생회장.',
-  },
-  {
-    tag: 'TUTOR',
-    name: '명지튜터링 · 인터넷 프로그래밍 튜터',
-    meta: '2021.09 — 12',
-    note: '신입생 대상 HTML/CSS, 웹 기초를 맡았습니다.',
-  },
-]
-
-/** CH4 — 핀 + 스크럽 인덱스. 스테이트먼트가 먼저 열리고, 이력 행이 스크롤에 맞춰 한 줄씩 쌓인다. */
+/** CH4 — 스테이트먼트는 단어 마스크 리빌, 이력 행은 서로 다른 깊이로 스크럽되며 올라온다 (pin 없음). */
 export default function Method() {
   const sectionRef = useRef<HTMLElement>(null)
 
   useGSAP(
-    (context) => {
-      if (prefersReducedMotion()) return
+    () => {
+      const mm = matchMediaPreset(({ motion, desktop }) => {
+        if (!motion) return
 
-      const statement = context.selector?.('[data-statement]')?.[0] as HTMLElement | undefined
-      const rows = (context.selector?.('[data-row]') ?? []) as HTMLElement[]
-      const fill = context.selector?.('[data-mark-fill]')?.[0] as HTMLElement | undefined
-      const text = context.selector?.('[data-mark-text]')?.[0] as HTMLElement | undefined
+        const words = gsap.utils
+          .toArray<HTMLElement>('[data-split-words]')
+          .flatMap((el) => SplitText.create(el, { type: 'words', mask: 'words', aria: 'none' }).words)
 
-      gsap.set(rows, { autoAlpha: 0, y: 26 })
-      if (fill) gsap.set(fill, { scaleX: 0, transformOrigin: 'left center' })
-      if (text) gsap.set(text, { clipPath: 'inset(0 100% 0 0)' })
+        gsap.from(words, {
+          yPercent: 110,
+          stagger: 0.05,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '[data-statement]',
+            start: 'top 85%',
+            end: 'top 45%',
+            scrub: 0.6,
+          },
+        })
 
-      const tl = gsap.timeline({
-        defaults: { ease: 'power2.out' },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=240%',
-          pin: true,
-          scrub: 0.5,
-          anticipatePin: 1,
-        },
+        gsap
+          .timeline({
+            scrollTrigger: {
+              trigger: '[data-statement]',
+              start: 'top 60%',
+              end: 'top 25%',
+              scrub: 0.6,
+            },
+          })
+          .fromTo(
+            '[data-mark-fill]',
+            { scaleX: 0 },
+            { scaleX: 1, ease: 'power3.inOut', transformOrigin: 'left center' },
+          )
+          .fromTo(
+            '[data-mark-text]',
+            { clipPath: 'inset(0 100% 0 0)' },
+            { clipPath: 'inset(0 0% 0 0)', ease: 'power3.out' },
+            '-=0.2',
+          )
+
+        const depths = desktop ? [24, 48, 72] : [20]
+        gsap.utils.toArray<HTMLElement>('[data-row]').forEach((row, index) => {
+          gsap.fromTo(
+            row,
+            { y: depths[index % depths.length], autoAlpha: 0 },
+            {
+              y: 0,
+              autoAlpha: 1,
+              ease: 'none',
+              scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 62%', scrub: 0.6 },
+            },
+          )
+        })
       })
-
-      if (statement) tl.from(statement, { y: 48, opacity: 0, duration: 0.7 })
-      if (fill && text) {
-        tl.to(fill, { scaleX: 1, duration: 0.5, ease: 'power3.inOut' }).to(
-          text,
-          { clipPath: 'inset(0 0% 0 0)', duration: 0.45, ease: 'power3.out' },
-          '-=0.2',
-        )
-      }
-      rows.forEach((row) => {
-        tl.to(row, { autoAlpha: 1, y: 0, duration: 0.4 }, '+=0.14')
-      })
-      tl.to({}, { duration: 0.5 })
+      return () => mm.revert()
     },
     { scope: sectionRef },
   )
@@ -120,17 +77,18 @@ export default function Method() {
   return (
     <section
       ref={sectionRef}
-      className={cn(
-        ground.light,
-        'relative flex h-screen flex-col justify-center gap-[4.5vh] overflow-hidden px-[var(--pad)]',
-        'motion-reduce:h-auto motion-reduce:overflow-visible motion-reduce:py-[16vh]',
-      )}
+      className={cn(ground.light, 'relative flex flex-col gap-[6vh] px-[var(--pad)] py-[16vh]')}
       id="roster"
     >
+      <SceneSlot
+        object={{ kind: 'memo' }}
+        fallbackSrc="/images/3d/workflow-memo.webp"
+        className="absolute top-[12vh] right-[var(--pad)] size-[clamp(96px,10vw,160px)] max-md:size-[72px]"
+      />
       <div data-statement className="mx-auto w-full max-w-[1200px]">
         <Label className="text-muted">일하는 방식</Label>
         <p className="mt-3 max-w-[16em] font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
-          잘 모르는 걸 만나면 일단 적고,
+          <span data-split-words>잘 모르는 걸 만나면 일단 적고,</span>
           <br />
           <MarkedPhrase>
             <span
@@ -140,7 +98,7 @@ export default function Method() {
               다시 꺼낼 수 있는 형태
             </span>
           </MarkedPhrase>
-          로 남깁니다.
+          <span data-split-words>로 남깁니다.</span>
         </p>
         <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
           나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다.
@@ -150,7 +108,7 @@ export default function Method() {
       </div>
 
       <ul className="mx-auto w-full max-w-[1200px] list-none">
-        {INDEX.map((row) => (
+        {HISTORY.map((row) => (
           <IndexItem key={`${row.tag}-${row.name}`} row={row} />
         ))}
       </ul>
@@ -158,7 +116,7 @@ export default function Method() {
   )
 }
 
-function IndexItem({ row }: { row: IndexRow }) {
+function IndexItem({ row }: { row: HistoryRow }) {
   return (
     <Hairline
       as="li"

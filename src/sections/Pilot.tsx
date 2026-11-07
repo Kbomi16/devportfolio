@@ -1,143 +1,86 @@
-import { useEffect, useRef, useState, type MouseEvent } from 'react'
-import { createPortal } from 'react-dom'
+import { useRef, useState } from 'react'
 import Display from '../components/common/Display'
+import FlipLightbox from '../components/common/FlipLightbox'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import Pill from '../components/common/Pill'
+import { PROTOCOL, SKILLS_URL, type ProtocolStep } from '../content/workflow'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
 import { gsap, useGSAP } from '../lib/gsapSetup'
-import { prefersReducedMotion } from '../lib/motion'
+import { matchMediaPreset } from '../lib/media'
 import { outboundLinkProps } from '../lib/outboundLink'
-import { getLenis } from '../lib/useLenis'
+import SceneSlot from '../scene/SceneSlot'
 
-const SKILLS_URL = 'https://github.com/Kbomi16/ai-skills'
+type OpenShot = { index: number; origin: HTMLImageElement }
 
-type ProtocolStep = {
-  no: string
-  en: string
-  kr: string
-  shot: string
-  alt: string
-  fit: 'cover' | 'contain'
-}
-
-const PROTOCOL: ProtocolStep[] = [
-  {
-    no: '01',
-    en: 'RULES FIRST',
-    kr: '시키기 전에 쓰는 스킬 파일과 지금 구조를 먼저 넘깁니다.\n규칙 없이 맡기면 파일 위치부터 같은 이유로 여러 번 고치게 됩니다.',
-    shot: '/images/pilot/01-rules-first.png',
-    alt: 'GitHub에 올려 둔 FE-STYLE 스킬 파일. 시키기 전에 넘기는 규칙이다.',
-    fit: 'contain',
-  },
-  {
-    no: '02',
-    en: 'SPLIT WORKTREES',
-    kr: '사이트가 여러 개면 작업 폴더부터 나눕니다.\n기업·브랜드 웹을 한 창에서 고치면 문구와 기능이 섞여, git worktree로 사이트마다 엽니다.',
-    shot: '/images/pilot/02-worktrees.png',
-    alt: '기업·브랜드 웹을 사이트마다 폴더와 Cursor 창으로 나눈 git worktree.',
-    fit: 'contain',
-  },
-  {
-    no: '03',
-    en: 'ONE SESSION, ONE JOB',
-    kr: '기획 → 구현 → 검수. 한 세션에는 한 가지만 맡깁니다.\n한꺼번에 시키면 어디까지가 맞는지 볼 수 없습니다.',
-    shot: '/images/pilot/03-session.png',
-    alt: '기획 PLAN, 구현 BUILD, 검수 CHECK를 한 세션에 한 가지씩 나눈 순서.',
-    fit: 'contain',
-  },
-  {
-    no: '04',
-    en: 'FLOW BEFORE PROMPT',
-    kr: '기능을 들으면 상태·화면·API 흐름을 먼저 그려 보고, 그다음 맡깁니다.\n나온 결과가 맞는지는 제가 보고, 공부한 건 글로 남깁니다.',
-    shot: '/images/pilot/04-flow.png',
-    alt: 'Alleo에서 사이트 분석이 끝나야 글을 만들고 블로그와 SNS로 이어지는 화면 흐름.',
-    fit: 'contain',
-  },
-  {
-    no: '05',
-    en: 'VERIFY & WRITE',
-    kr: 'AI 속도에 맞춰 만들되, 확인과 기록은 제 몫입니다.\n혼자 작업할 때도 이 루틴이 있어, 같은 수정을 반복하지 않습니다.',
-    shot: '/images/pilot/05-write.png',
-    alt: '헤맸던 지점을 다시 꺼내 보도록 남긴 개발 블로그, 보리의 FE 개발 노트.',
-    fit: 'contain',
-  },
-]
-
-/** CH4.5 — AI 워크플로. 핀 + 스크럽으로 카드가 아래에서 올라와 이전 카드 위에 쌓인다. */
+/** CH4.5 — AI 워크플로. 핀 + 스크럽으로 카드가 아래에서 올라오고, 이전 카드는 줄어들며 어두워진다. */
 export default function Pilot() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [openShot, setOpenShot] = useState<OpenShot | null>(null)
 
   const sectionRef = useRef<HTMLElement>(null)
 
   useGSAP(
-    (context) => {
-      if (prefersReducedMotion()) return
+    () => {
+      const mm = matchMediaPreset(({ motion, mobile }) => {
+        if (!motion) return
 
-      const head = context.selector?.('[data-head]')?.[0] as HTMLElement | undefined
-      const stack = context.selector?.('[data-stack]')?.[0] as HTMLElement | undefined
-      const lines = (context.selector?.('[data-line]') ?? []) as HTMLElement[]
-      const outro = context.selector?.('[data-outro]')?.[0] as HTMLElement | undefined
-      const travel = stack?.offsetHeight ?? 360
+        const stack = sectionRef.current?.querySelector<HTMLElement>('[data-stack]')
+        const lines = gsap.utils.toArray<HTMLElement>('[data-line]')
+        const travel = stack?.offsetHeight ?? 360
 
-      gsap.set(lines, { y: travel })
-      if (outro) gsap.set(outro, { autoAlpha: 0, y: 16 })
+        gsap.set(lines, { y: travel })
+        gsap.set('[data-outro]', { autoAlpha: 0, y: 16 })
 
-      const tl = gsap.timeline({
-        defaults: { ease: 'power2.out' },
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=320%',
-          pin: true,
-          scrub: 0.5,
-          anticipatePin: 1,
-        },
-      })
-
-      if (head) tl.from(head, { y: 48, opacity: 0, duration: 0.7 })
-      lines.forEach((line, i) => {
-        tl.set(line, { zIndex: i + 1 }, '+=0.2')
-        tl.to(line, { y: 0, duration: 0.55 }, '<')
-        lines.slice(0, i).forEach((prev, j) => {
-          tl.to(prev, { y: -((i - j) * 14), duration: 0.55 }, '<')
+        const tl = gsap.timeline({
+          defaults: { ease: 'power2.out' },
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: mobile ? '+=220%' : '+=320%',
+            pin: true,
+            scrub: 0.5,
+            anticipatePin: 1,
+          },
         })
+
+        tl.from('[data-head]', { y: 48, opacity: 0, duration: 0.7 })
+        lines.forEach((line, i) => {
+          tl.set(line, { zIndex: i + 1 }, '+=0.2')
+          tl.to(line, { y: 0, duration: 0.55 }, '<')
+          lines.slice(0, i).forEach((prev, j) => {
+            const depth = i - j
+            tl.to(
+              prev,
+              {
+                y: -(depth * 14),
+                scale: Math.max(0.84, 1 - depth * 0.08),
+                transformOrigin: '50% 0%',
+                duration: 0.55,
+              },
+              '<',
+            )
+            const dim = prev.querySelector('[data-dim]')
+            if (dim) tl.to(dim, { opacity: Math.min(depth * 0.3, 0.6), duration: 0.55 }, '<')
+          })
+        })
+        tl.to('[data-outro]', { autoAlpha: 1, y: 0, duration: 0.5 }, '+=0.2')
+        tl.to({}, { duration: 0.4 })
       })
-      if (outro) tl.to(outro, { autoAlpha: 1, y: 0, duration: 0.5 }, '+=0.2')
-      tl.to({}, { duration: 0.4 })
+      return () => mm.revert()
     },
     { scope: sectionRef },
   )
 
-  const handleOpen = (index: number) => {
-    setOpenIndex(index)
+  const handleOpen = (index: number, origin: HTMLImageElement) => {
+    setOpenShot({ index, origin })
   }
+
   const handleClose = () => {
-    setOpenIndex(null)
+    setOpenShot(null)
   }
 
-  useEffect(() => {
-    if (openIndex === null) return
-
-    const lenis = getLenis()
-    const previousOverflow = document.body.style.overflow
-    lenis?.stop()
-    document.body.style.overflow = 'hidden'
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setOpenIndex(null)
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => {
-      lenis?.start()
-      document.body.style.overflow = previousOverflow
-      window.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [openIndex])
-
-  const openStep = openIndex === null ? null : PROTOCOL[openIndex]
+  const openStep = openShot ? PROTOCOL[openShot.index] : null
 
   return (
     <section
@@ -149,6 +92,11 @@ export default function Pilot() {
       )}
       id="pilot"
     >
+      <SceneSlot
+        object={{ kind: 'cursor' }}
+        fallbackSrc="/images/3d/workflow-cursor.webp"
+        className="absolute top-[12vh] right-[var(--pad)] size-[clamp(96px,10vw,160px)] max-md:size-[72px]"
+      />
       <div className="mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col gap-3">
         <div data-head className="w-full">
           <Label className="text-muted">AI WORKFLOW · CURSOR</Label>
@@ -181,7 +129,14 @@ export default function Pilot() {
           <Label className="text-muted max-md:hidden">FE-STYLE · SEO-AUDIT · GIT SUMMARY</Label>
         </div>
       </div>
-      {openStep ? <ShotOverlay step={openStep} onClose={handleClose} /> : null}
+      {openShot && openStep ? (
+        <FlipLightbox
+          src={openStep.shot}
+          alt={openStep.alt}
+          origin={openShot.origin}
+          onClose={handleClose}
+        />
+      ) : null}
     </section>
   )
 }
@@ -193,10 +148,12 @@ function ProtocolCard({
 }: {
   step: ProtocolStep
   index: number
-  onOpen: (index: number) => void
+  onOpen: (index: number, origin: HTMLImageElement) => void
 }) {
+  const imageRef = useRef<HTMLImageElement>(null)
+
   const handleOpen = () => {
-    onOpen(index)
+    if (imageRef.current) onOpen(index, imageRef.current)
   }
 
   return (
@@ -206,6 +163,11 @@ function ProtocolCard({
       style={{ zIndex: index + 1 }}
       className="absolute inset-0 flex w-full flex-col gap-4 border border-hairline bg-dark-ground p-5 motion-reduce:static motion-reduce:inset-auto lg:grid lg:grid-cols-[minmax(300px,1fr)_minmax(220px,0.92fr)] lg:items-stretch lg:gap-5 lg:p-0"
     >
+      <span
+        data-dim
+        className="pointer-events-none absolute inset-0 z-[1] bg-black opacity-0"
+        aria-hidden
+      />
       <div className="min-w-0 lg:flex lg:flex-col lg:justify-center lg:py-7 lg:pr-4 lg:pl-6">
         <div className="flex flex-nowrap items-baseline gap-x-3">
           <Label className="shrink-0 text-muted">{step.no}</Label>
@@ -219,65 +181,20 @@ function ProtocolCard({
       </div>
       <button
         type="button"
+        data-cursor="view"
         aria-label={`${step.en} 이미지 크게 보기`}
         className="flex min-h-[140px] min-w-0 items-center justify-center border-hairline bg-black/40 p-3 max-lg:max-h-[28vh] lg:h-full lg:border-l lg:p-4"
         onClick={handleOpen}
       >
         <img
+          ref={imageRef}
           src={step.shot}
           alt={step.alt}
           className="pointer-events-none max-h-full max-w-full object-contain"
+          loading="lazy"
           decoding="async"
         />
       </button>
     </Hairline>
-  )
-}
-
-function ShotOverlay({ step, onClose }: { step: ProtocolStep; onClose: () => void }) {
-  const closeRef = useRef<HTMLButtonElement>(null)
-
-  const handleBackdropClick = () => {
-    onClose()
-  }
-
-  const handleCloseClick = (event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation()
-    onClose()
-  }
-
-  const handleImageClick = (event: MouseEvent<HTMLImageElement>) => {
-    event.stopPropagation()
-  }
-
-  useEffect(() => {
-    closeRef.current?.focus()
-  }, [])
-
-  return createPortal(
-    <div
-      role="dialog"
-      aria-modal="true"
-      aria-label={step.alt}
-      className="shot-overlay fixed inset-0 z-[80] flex items-center justify-center bg-dark-ground/90 p-[var(--pad)]"
-      onClick={handleBackdropClick}
-    >
-      <button
-        ref={closeRef}
-        type="button"
-        className="absolute top-[var(--pad)] right-[var(--pad)] font-ui text-[12px] tracking-[0.14em] text-dark-ink"
-        onClick={handleCloseClick}
-      >
-        닫기
-      </button>
-      <img
-        src={step.shot}
-        alt={step.alt}
-        className="max-h-[86vh] max-w-[min(92vw,1100px)] object-contain"
-        decoding="async"
-        onClick={handleImageClick}
-      />
-    </div>,
-    document.body,
   )
 }
