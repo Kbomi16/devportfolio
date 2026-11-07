@@ -8,16 +8,18 @@ export const PILL_CLASS =
 
 type PillProps<T extends ElementType = 'a'> = PolymorphicProps<T> & {
   strength?: number
+  innerStrength?: number
 }
 
 export default function Pill<T extends ElementType = 'a'>({
   as,
   className,
   strength = 0.32,
+  innerStrength,
   children,
   ...props
 }: PillProps<T>) {
-  const { zoneRef, targetRef } = useMagneticFollow(strength)
+  const { zoneRef, targetRef, innerRef } = useMagneticFollow(strength, innerStrength)
   const Comp = as ?? 'a'
 
   return (
@@ -31,7 +33,9 @@ export default function Pill<T extends ElementType = 'a'>({
         )}
         {...props}
       >
-        {children}
+        <span ref={innerRef} className="inline-flex items-center gap-2">
+          {children}
+        </span>
       </Comp>
     </div>
   )

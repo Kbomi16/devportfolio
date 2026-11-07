@@ -5,17 +5,19 @@ import { useMagneticFollow } from '../../lib/useMagneticFollow'
 
 type MagneticButtonProps<T extends ElementType = 'button'> = PolymorphicProps<T> & {
   strength?: number
+  innerStrength?: number
 }
 
-/** 마우스 위치에 따라 살짝 끌려가는 버튼·링크. zone은 inline-flex 래퍼. */
+/** 마우스 위치에 따라 버튼과 내부 텍스트가 다른 강도로 끌려간다. zone은 inline-flex 래퍼. */
 export default function MagneticButton<T extends ElementType = 'button'>({
   as,
   className,
   strength = 0.35,
+  innerStrength,
   children,
   ...props
 }: MagneticButtonProps<T>) {
-  const { zoneRef, targetRef } = useMagneticFollow(strength)
+  const { zoneRef, targetRef, innerRef } = useMagneticFollow(strength, innerStrength)
   const Comp = as ?? 'button'
   const isButton = Comp === 'button'
   const buttonType = isButton
@@ -33,7 +35,9 @@ export default function MagneticButton<T extends ElementType = 'button'>({
         {...props}
         {...(isButton ? { type: buttonType } : {})}
       >
-        {children}
+        <span ref={innerRef} className="inline-flex items-center justify-center">
+          {children}
+        </span>
       </Comp>
     </div>
   )
