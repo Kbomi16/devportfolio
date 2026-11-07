@@ -1,5 +1,10 @@
 import { useEffect } from 'react'
+import { invalidateScene } from './sceneBus'
 import { prefersReducedMotion } from './motion'
+
+const pointer = { x: 0, y: 0 }
+
+export const getPointer = (): { x: number; y: number } => pointer
 
 const publish = (x: number, y: number): void => {
   const root = document.documentElement
@@ -7,7 +12,7 @@ const publish = (x: number, y: number): void => {
   root.style.setProperty('--my', y.toFixed(4))
 }
 
-/** Home에서 1회 — 마우스 위치(-1~1)를 CSS 변수 --mx/--my로 발행 (패럴랙스용) */
+/** RootLayout에서 1회 — 마우스 위치(-1~1)를 --mx/--my와 getPointer()로 발행 */
 export const usePointer = (): void => {
   useEffect(() => {
     if (prefersReducedMotion()) {
@@ -16,7 +21,6 @@ export const usePointer = (): void => {
     }
 
     const target = { x: 0, y: 0 }
-    const cur = { x: 0, y: 0 }
     let raf = 0
 
     const handlePointerMove = (event: PointerEvent) => {
@@ -32,9 +36,14 @@ export const usePointer = (): void => {
     }
 
     const tick = () => {
-      cur.x += (target.x - cur.x) * 0.09
-      cur.y += (target.y - cur.y) * 0.09
-      publish(cur.x, cur.y)
+      const dx = target.x - pointer.x
+      const dy = target.y - pointer.y
+      if (Math.abs(dx) > 0.0001 || Math.abs(dy) > 0.0001) {
+        pointer.x += dx * 0.09
+        pointer.y += dy * 0.09
+        publish(pointer.x, pointer.y)
+        invalidateScene()
+      }
       raf = requestAnimationFrame(tick)
     }
 

@@ -1,51 +1,54 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from './gsapSetup'
-import { prefersReducedMotion } from './motion'
+import { MEDIA } from './media'
 
-/** zone 위 마우스 위치 → target x/y (GSAP). reduced-motion이면 no-op. */
-export const useMagneticFollow = (strength = 0.35) => {
+/** zone 위 마우스 → target(버튼)과 inner(텍스트)를 다른 강도로 끌어당김. fine pointer + motion에서만. */
+export const useMagneticFollow = <T extends HTMLElement = HTMLElement>(
+  strength = 0.35,
+  innerStrength = strength * 0.6,
+) => {
   const zoneRef = useRef<HTMLDivElement>(null)
-  const targetRef = useRef<HTMLElement>(null)
+  const targetRef = useRef<T>(null)
+  const innerRef = useRef<HTMLSpanElement>(null)
 
   useEffect(() => {
-    if (prefersReducedMotion()) return
-
+    const canMagnet =
+      window.matchMedia(MEDIA.motion).matches && window.matchMedia(MEDIA.finePointer).matches
     const zone = zoneRef.current
     const target = targetRef.current
-    if (!zone || !target) return
+    const inner = innerRef.current
+    if (!canMagnet || !zone || !target) return
+
+    const moving = inner ? [target, inner] : [target]
 
     const handleMouseMove = (event: MouseEvent) => {
       const rect = zone.getBoundingClientRect()
-      const x = gsap.utils.mapRange(
-        rect.left,
-        rect.right,
-        -rect.width / 2,
-        rect.width / 2,
-        event.clientX,
-      )
-      const y = gsap.utils.mapRange(
-        rect.top,
-        rect.bottom,
-        -rect.height / 2,
-        rect.height / 2,
-        event.clientY,
-      )
-
+      const x = event.clientX - (rect.left + rect.width / 2)
+      const y = event.clientY - (rect.top + rect.height / 2)
       gsap.to(target, {
         x: x * strength,
         y: y * strength,
-        duration: 0.4,
-        ease: 'power2.out',
+        duration: 0.45,
+        ease: 'power3.out',
         overwrite: true,
       })
+      if (inner) {
+        gsap.to(inner, {
+          x: x * innerStrength,
+          y: y * innerStrength,
+          duration: 0.45,
+          ease: 'power3.out',
+          overwrite: true,
+        })
+      }
     }
 
     const handleMouseLeave = () => {
-      gsap.to(target, {
+      gsap.to(moving, {
         x: 0,
         y: 0,
-        duration: 0.7,
-        ease: 'elastic.out(1, 0.4)',
+        duration: 1,
+        ease: 'elastic.out(1, 0.35)',
         overwrite: true,
       })
     }
@@ -56,9 +59,10 @@ export const useMagneticFollow = (strength = 0.35) => {
     return () => {
       zone.removeEventListener('mousemove', handleMouseMove)
       zone.removeEventListener('mouseleave', handleMouseLeave)
-      gsap.set(target, { x: 0, y: 0 })
+      gsap.killTweensOf(moving)
+      gsap.set(moving, { x: 0, y: 0 })
     }
-  }, [strength])
+  }, [strength, innerStrength])
 
-  return { zoneRef, targetRef }
+  return { zoneRef, targetRef, innerRef }
 }

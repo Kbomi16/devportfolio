@@ -1,24 +1,23 @@
 import { useEffect, type RefObject } from 'react'
+import { CURSOR_LABELS, cursorKindOf } from './cursor'
+import { MEDIA } from './media'
 import { prefersReducedMotion } from './motion'
 
 type UseCursorFollowOptions = {
   lerp?: number
+  labelRef?: RefObject<HTMLElement | null>
 }
 
 const canFollow = (): boolean =>
-  typeof window !== 'undefined' &&
-  window.matchMedia('(hover: hover) and (pointer: fine)').matches
+  typeof window !== 'undefined' && window.matchMedia(MEDIA.finePointer).matches
 
 const INTERACTIVE_SELECTOR =
   'a[href], button:not(:disabled), [role="button"], [role="link"], label, summary, select, input[type="button"], input[type="submit"], input[type="reset"], [tabindex]:not([tabindex="-1"])'
 
-const isHoverTargetAt = (x: number, y: number): boolean => {
-  const hit = document.elementFromPoint(x, y)
-  if (!(hit instanceof Element)) return false
+const isInteractive = (target: Element): boolean => {
+  if (target.closest(INTERACTIVE_SELECTOR)) return true
 
-  if (hit.closest(INTERACTIVE_SELECTOR)) return true
-
-  let node: Element | null = hit
+  let node: Element | null = target
   while (node && node !== document.documentElement) {
     if (node instanceof HTMLElement) {
       const cursor = getComputedStyle(node).cursor
@@ -29,15 +28,17 @@ const isHoverTargetAt = (x: number, y: number): boolean => {
   return false
 }
 
-/** fixed 오버레이를 client 좌표로 부드럽게 따라가게 함 (rAF lerp) */
+/** fixed 오버레이를 client 좌표로 부드럽게 따라가게 함 (rAF lerp) + data-cursor 라벨 */
 export const useCursorFollow = (
   ref: RefObject<HTMLElement | null>,
   options?: UseCursorFollowOptions,
 ): void => {
   const lerp = options?.lerp ?? 0.14
+  const labelRef = options?.labelRef
 
   useEffect(() => {
     const el = ref.current
+    const label = labelRef?.current ?? null
     if (!el || prefersReducedMotion() || !canFollow()) return
 
     let tx = window.innerWidth * 0.5
@@ -55,7 +56,6 @@ export const useCursorFollow = (
     const handlePointerMove = (event: PointerEvent) => {
       tx = event.clientX
       ty = event.clientY
-      el.classList.toggle('neon-cursor--pointer', isHoverTargetAt(tx, ty))
       if (!active) {
         cx = tx
         cy = ty
@@ -63,8 +63,16 @@ export const useCursorFollow = (
       }
     }
 
+    const handlePointerOver = (event: PointerEvent) => {
+      const hit = event.target instanceof Element ? event.target : null
+      const kind = cursorKindOf(hit)
+      el.classList.toggle('neon-cursor--pointer', hit ? isInteractive(hit) : false)
+      el.classList.toggle('neon-cursor--label', kind !== null)
+      if (label) label.textContent = kind ? CURSOR_LABELS[kind] : ''
+    }
+
     const handlePointerLeave = () => {
-      el.classList.remove('neon-cursor--pointer')
+      el.classList.remove('neon-cursor--pointer', 'neon-cursor--label')
       setVisible(false)
     }
 
@@ -77,13 +85,15 @@ export const useCursorFollow = (
 
     setVisible(false)
     window.addEventListener('pointermove', handlePointerMove, { passive: true })
-    window.addEventListener('pointerleave', handlePointerLeave)
+    window.addEventListener('pointerover', handlePointerOver, { passive: true })
+    document.documentElement.addEventListener('pointerleave', handlePointerLeave)
     raf = requestAnimationFrame(tick)
 
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('pointermove', handlePointerMove)
-      window.removeEventListener('pointerleave', handlePointerLeave)
+      window.removeEventListener('pointerover', handlePointerOver)
+      document.documentElement.removeEventListener('pointerleave', handlePointerLeave)
     }
-  }, [ref, lerp])
+  }, [ref, lerp, labelRef])
 }
