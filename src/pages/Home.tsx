@@ -1,62 +1,57 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
 import Nav from '../components/Nav'
 import Hero from '../sections/Hero'
+import Marquee from '../sections/Marquee'
 import Gallery from '../sections/Gallery'
 import Method from '../sections/Method'
 import Pilot from '../sections/Pilot'
 import Journal from '../sections/Journal'
 import Close from '../sections/Close'
-import { ScrollTrigger } from '../lib/gsapSetup'
-import { useLenis, getLenis } from '../lib/useLenis'
-import { usePointer } from '../lib/usePointer'
-import { cn } from '../lib/cn'
+import { workBySlug } from '../content/works'
+import { ScrollTrigger, useGSAP } from '../lib/gsapSetup'
+import { usePageTransition } from '../lib/pageTransition'
+import { refreshOnImageLoad } from '../lib/refreshOnImageLoad'
+import { scrollToY } from '../lib/useLenis'
 
 export default function Home() {
-  const [leaving, setLeaving] = useState(false)
+  const pageRef = useRef<HTMLElement>(null)
 
-  useLenis()
-  usePointer()
-  const navigate = useNavigate()
+  const { go } = usePageTransition()
 
-  // 갤러리 클릭: 스크롤 잠금 → 블랙 페이드 → 라우팅 (복귀용 위치 저장)
+  // 갤러리 클릭: 복귀용 위치 저장 → 커튼 → 라우팅
   const handleOpenWork = (slug: string) => {
-    if (leaving) return
-    setLeaving(true)
+    const work = workBySlug(slug)
+    if (!work) return
     sessionStorage.setItem('home-scroll', String(Math.round(window.scrollY)))
-    getLenis()?.stop()
-    setTimeout(() => navigate(`/work/${slug}`), 650)
+    go({ to: `/work/${slug}`, label: work.label })
   }
 
-  // 케이스 페이지에서 복귀 시 갤러리 위치 복원
+  useGSAP(() => refreshOnImageLoad(document), { scope: pageRef })
+
+  // 케이스 페이지에서 복귀 시 갤러리 위치 복원 (StrictMode 대응: rAF 안에서 키 제거)
   useEffect(() => {
-    const saved = sessionStorage.getItem('home-scroll')
-    if (saved === null) return
-    sessionStorage.removeItem('home-scroll')
-    requestAnimationFrame(() => {
+    if (sessionStorage.getItem('home-scroll') === null) return
+    const raf = requestAnimationFrame(() => {
+      const saved = sessionStorage.getItem('home-scroll')
+      sessionStorage.removeItem('home-scroll')
       ScrollTrigger.refresh()
-      window.scrollTo({ top: Number(saved), behavior: 'instant' })
+      if (saved !== null) scrollToY(Number(saved))
     })
+    return () => cancelAnimationFrame(raf)
   }, [])
 
   return (
     <>
       <Nav />
-      <main>
+      <main ref={pageRef}>
         <Hero />
+        <Marquee />
         <Gallery onOpenWork={handleOpenWork} />
         <Method />
         <Pilot />
         <Journal />
         <Close />
       </main>
-      <div
-        className={cn(
-          'pointer-events-none fixed inset-0 z-40 bg-dark-ground opacity-0 transition-opacity delay-100 duration-500 ease-linear',
-          leaving && 'pointer-events-auto opacity-100',
-        )}
-        aria-hidden
-      />
     </>
   )
 }
