@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
 import Nav from '../components/Nav'
 import Hero from '../sections/Hero'
-import Marquee from '../sections/Marquee'
 import Gallery from '../sections/Gallery'
 import Method from '../sections/Method'
 import Pilot from '../sections/Pilot'
@@ -45,7 +44,6 @@ export default function Home() {
       <Nav />
       <main ref={pageRef}>
         <Hero />
-        <Marquee />
         <Gallery onOpenWork={handleOpenWork} />
         <Method />
         <Pilot />
