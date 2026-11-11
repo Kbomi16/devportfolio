@@ -7,17 +7,13 @@ import { preloadAssets } from '../../lib/preload'
 import { lockScroll, unlockScroll } from '../../lib/useLenis'
 import { HELLO_PATH, HELLO_VIEWBOX } from './helloPath'
 
-type PreloaderMode = 'full' | 'short' | 'reduce'
+type PreloaderMode = 'full' | 'reduce'
 
-const SEEN_KEY = 'preloader-seen'
 const GREET_STEP = 0.12
 
-const pickMode = (): PreloaderMode => {
-  if (prefersReducedMotion()) return 'reduce'
-  return sessionStorage.getItem(SEEN_KEY) === '1' ? 'short' : 'full'
-}
+const pickMode = (): PreloaderMode => (prefersReducedMotion() ? 'reduce' : 'full')
 
-/** 세션 첫 진입 — hello 획 → 다국어 인사 → 곡선 커튼 퇴장. 재방문 0.6s, reduced-motion은 페이드. */
+/** 새로고침마다 hello 획 → 다국어 인사 → 곡선 커튼 퇴장. reduced-motion은 페이드. */
 export default function Preloader() {
   const [mode] = useState<PreloaderMode>(pickMode)
   const [visible, setVisible] = useState(true)
@@ -33,7 +29,6 @@ export default function Preloader() {
       lockScroll('preloader')
 
       const handleFinish = () => {
-        sessionStorage.setItem(SEEN_KEY, '1')
         unlockScroll('preloader')
         setVisible(false)
       }
@@ -53,13 +48,6 @@ export default function Preloader() {
             { scaleY: 1, duration: duration * 0.5, ease: 'power2.out' },
             '<',
           )
-
-      if (mode === 'short') {
-        gsap.set('[data-hello]', { autoAlpha: 0 })
-        gsap.set('[data-greet]:last-child', { autoAlpha: 1 })
-        exit(gsap.timeline({ onComplete: handleFinish }), 0.6)
-        return () => unlockScroll('preloader')
-      }
 
       const length = path.getTotalLength()
       gsap.set(path, { strokeDasharray: length, strokeDashoffset: length })
