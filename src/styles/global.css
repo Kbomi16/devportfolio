@@ -59,6 +59,7 @@
   --font-ui: var(--font-ui);
   --font-kr: var(--font-kr);
   --animate-hint-bob: hint-bob 2.2s ease-in-out infinite;
+  --animate-star: star-twinkle 3.2s ease-in-out infinite;
 }
 
 @keyframes hint-bob {
@@ -68,6 +69,16 @@
   }
   50% {
     translate: 0 6px;
+  }
+}
+
+@keyframes star-twinkle {
+  0%,
+  100% {
+    opacity: 0.22;
+  }
+  50% {
+    opacity: 1;
   }
 }
 
@@ -102,7 +113,7 @@ a {
 button {
   font: inherit;
   color: inherit;
-  background: none;
+  background-color: transparent;
   border: none;
   cursor: pointer;
 }
@@ -110,6 +121,64 @@ button {
 :focus-visible {
   outline: 1px solid var(--ink);
   outline-offset: 3px;
+}
+
+/* 히어로를 지나며 가운데 글자는 커지며 사라지고, 가장자리 글자는 먼저 꺼진다 */
+[data-hero-chrome] {
+  --hero-fade: 0;
+  --hero-scale: 1;
+}
+
+[data-hero-center] {
+  transform: scale(var(--hero-scale));
+  opacity: calc(1 - var(--hero-fade));
+}
+
+[data-hero-parallax='edge'] {
+  opacity: calc(1 - min(var(--hero-fade) * 1.7, 1));
+}
+
+/* 히어로 글자. --mx/--my는 -1~1. 가까운 글자일수록 마우스 반대로 더 밀린다 */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-hero-parallax] {
+    --hero-px: 0;
+    --hero-py: 0;
+    transform: translate3d(
+      calc(var(--mx) * var(--hero-px) * -1px),
+      calc(var(--my) * var(--hero-py) * -1px),
+      0
+    );
+  }
+
+  [data-hero-parallax='edge'] {
+    --hero-px: 10;
+    --hero-py: 6;
+  }
+
+  [data-hero-parallax='lead'] {
+    --hero-px: 16;
+    --hero-py: 10;
+  }
+
+  [data-hero-parallax='name'] {
+    --hero-px: 28;
+    --hero-py: 16;
+  }
+
+  [data-hero-parallax='ko'] {
+    --hero-px: 20;
+    --hero-py: 12;
+  }
+
+  [data-hero-parallax='en'] {
+    --hero-px: 14;
+    --hero-py: 8;
+  }
+
+  [data-hero-parallax='meta'] {
+    --hero-px: 11;
+    --hero-py: 7;
+  }
 }
 
 /* 1회성 리빌(.rv)은 GSAP gsap.from이 담당 — 기본 상태는 항상 보임(no-JS·reduced-motion 안전) */

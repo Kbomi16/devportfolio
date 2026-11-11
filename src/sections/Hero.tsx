@@ -1,121 +1,81 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, type RefObject } from 'react'
+import { createPortal } from 'react-dom'
 import Display from '../components/common/Display'
 import Label from '../components/common/Label'
-import { HERO_IMAGE, HERO_VIDEO_SRC } from '../content/about'
+import { canRender3D } from '../lib/can3D'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
-import { gsap, SplitText, useGSAP } from '../lib/gsapSetup'
-import { HERO_PIN, setHeroProgress } from '../lib/hero'
-import { MEDIA } from '../lib/media'
-import { prefersReducedMotion } from '../lib/motion'
+import { gsap, ScrollTrigger, SplitText, useGSAP } from '../lib/gsapSetup'
+import { HERO_PIN } from '../lib/hero'
+import { matchMediaPreset } from '../lib/media'
 import SceneSlot from '../scene/SceneSlot'
+import { heroTravelProgress } from '../scene/scrollProgress'
 
-/**
- * HERO (CH1+CH2 통합) — 단일 핀 타임라인으로 끊김 없이 연결:
- * 문 개폐(0–0.14) → 필름 스크럽(0.10–0.66) → 블랙 비트(0.66–0.78)
- * → 랜딩 크로스페이드(0.78–0.88) → 타이포 리빌(0.88–1.02) → 홀드.
- * 랜딩은 풀블리드 이미지 + 마우스(--mx/--my)에 따라 사진·하이라이트·타이포·플로팅
- * 라벨이 서로 다른 깊이로 움직인다 (zustand 홈 스타일, CSS calc 바인딩).
- * 폴백(auto): reduced-motion·영상 오류 → 문 열린 상태 + 1회 재생 후 랜딩 노출.
- */
+/** Hero — 좌우 복도의 도형이 스크롤에 앞으로 빨려 온다. 글자는 캔버스 위. */
 export default function Hero() {
-  const [mode, setMode] = useState<'scrub' | 'auto'>(() =>
-    prefersReducedMotion() ? 'auto' : 'scrub',
-  )
-  const [landed, setLanded] = useState(false)
-  const [fadingOut, setFadingOut] = useState(false)
+  const [sceneOn] = useState(canRender3D)
 
   const sectionRef = useRef<HTMLElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const chromeRef = useRef<HTMLDivElement>(null)
 
-  const handleEnded = () => {
-    if (mode === 'scrub') return
-    setFadingOut(true)
-    window.setTimeout(() => setLanded(true), 700)
-  }
-
-  const handleVideoError = () => {
-    setMode('auto')
-    setLanded(true)
-  }
-
-  // ! 1. 스크럽 모드 일때 스크롤 연동 애니메이션 시작
   useGSAP(
     () => {
-      if (mode !== 'scrub') return
-      const video = videoRef.current
-      if (!video) return
-      video.pause()
+      const mm = matchMediaPreset(({ motion, desktop }) => {
+        const applyChrome = () => {
+          const section = sectionRef.current
+          const chrome = chromeRef.current
+          if (!section || !chrome) return
+          const spacer = section.parentElement?.classList.contains('pin-spacer')
+            ? section.parentElement
+            : section
+          const rect = spacer.getBoundingClientRect()
+          const gone = rect.bottom <= 8 || rect.top >= window.innerHeight - 8
+          const pull = gone ? 1 : heroTravelProgress('#about')
+          const fade = gone ? 1 : Math.min(1, Math.max(0, (pull - 0.04) / 0.78))
+          chrome.style.setProperty('--hero-fade', fade.toFixed(4))
+          chrome.style.setProperty('--hero-scale', motion ? (1 + fade * 1.85).toFixed(4) : '1')
+          chrome.classList.toggle('invisible', gone || fade > 0.985)
+        }
 
-      // duration은 메타데이터 로드 후 lazily 읽는다 — 핀은 마운트 즉시 생성되어
-      // 트리거 순서·레이아웃이 흔들리지 않는다 (구간 튐 방지)
-      const scrubState = { t: 0 }
-      const nameSplit = SplitText.create('[data-hero-name]', { type: 'chars', mask: 'chars' })
-
-      // ! 2. 섹션을 pin하고, 스크롤 진행도가 타임라인 progress가 된다.
-      const tl = gsap.timeline({
-        defaults: { ease: 'none' },
-        scrollTrigger: {
+        ScrollTrigger.create({
           trigger: sectionRef.current,
-          start: 'top top',
-          end: window.matchMedia(MEDIA.mobile).matches ? HERO_PIN.mobile : HERO_PIN.desktop,
-          pin: true,
-          scrub: 0.4,
-          anticipatePin: 1,
-        },
-      })
+          start: 'top bottom',
+          end: 'bottom top',
+          onUpdate: applyChrome,
+          onToggle: applyChrome,
+        })
+        applyChrome()
 
-      // 문 열림 (0 – 0.14) — 역스크롤 시 다시 닫힌다
-      tl.to('[data-hero-panel="left"]', { xPercent: -110, duration: 0.14 }, 0)
-        .to('[data-hero-panel="right"]', { xPercent: 110, duration: 0.14 }, 0)
-        .to('[data-hero-bo]', { xPercent: -52, duration: 0.14 }, 0)
-        .to('[data-hero-mi]', { xPercent: 52, duration: 0.14 }, 0)
-        .to('[data-hero-mark]', { scale: 1.16, duration: 0.14 }, 0)
-        .to('[data-hero-dot="left"]', { x: '-46vw', y: '-42vh', duration: 0.14 }, 0)
-        .to('[data-hero-dot="right"]', { x: '46vw', y: '42vh', duration: 0.14 }, 0)
-        .to('[data-hero-chrome]', { opacity: 0, duration: 0.07 }, 0.04)
-        // 필름 스크럽 (0.10 – 0.66) — 스크롤이 곧 재생 헤드
-        // ! 타임라인 안의 객체 scrubState.t가 0→1로 보간되고, 
-        // ! onUpdate마다: video.currentTime = scrubState.t × video.duration
-        // ! 스크롤을 내리면 앞으로, 올리면 뒤로.
-        .to(
-          scrubState,
-          {
-            t: 1,
-            duration: 0.56,
-            onUpdate: () => {
-              const d = video.duration
-              if (Number.isFinite(d) && d > 0) video.currentTime = scrubState.t * d
-            },
+        if (!motion) return
+
+        const name = chromeRef.current?.querySelector('[data-hero-name]')
+        if (name instanceof HTMLElement) {
+          const nameSplit = SplitText.create(name, { type: 'chars', mask: 'chars' })
+          gsap.from(nameSplit.chars, {
+            yPercent: 110,
+            duration: 0.9,
+            stagger: 0.03,
+            ease: 'expo.out',
+          })
+        }
+
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: desktop ? HERO_PIN.desktop : HERO_PIN.mobile,
+            pin: true,
+            scrub: 0.45,
+            anticipatePin: 1,
+            onUpdate: applyChrome,
+            onLeave: applyChrome,
+            onEnterBack: applyChrome,
           },
-          0.1,
-        )
-        // 영상 끝 → 검정 비트 → 랜딩
-        .to('[data-hero-blackout]', { autoAlpha: 1, duration: 0.08 }, 0.66)
-        .to('[data-hero-bo], [data-hero-mi]', { autoAlpha: 0, duration: 0.08 }, 0.66)
-        .fromTo('[data-hero-landing]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12 }, 0.78)
-        .fromTo('[data-hero-landing-zoom]', { scale: 1.14 }, { scale: 1.02, duration: 0.26 }, 0.78)
-        // 이미지 위 타이포 리빌
-        .fromTo(
-          '[data-hero-copy]',
-          { y: 56, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.09, stagger: 0.025 },
-          0.88,
-        )
-        .fromTo(
-          nameSplit.chars,
-          { yPercent: 110 },
-          { yPercent: 0, duration: 0.1, stagger: 0.012, ease: 'expo.out' },
-          0.88,
-        )
-        .fromTo('[data-hero-float]', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.08, stagger: 0.03 }, 0.94)
-        // 홀드 — 마우스 패럴랙스 무대
-        .to({}, { duration: 0.1 }, 1.02)
-
-      tl.eventCallback('onUpdate', () => setHeroProgress(tl.progress()))
-      return () => setHeroProgress(0)
+        }).to({}, { duration: 1 })
+      })
+      return () => mm.revert()
     },
-    { scope: sectionRef, dependencies: [mode], revertOnUpdate: true },
+    { scope: sectionRef },
   )
 
   return (
@@ -124,169 +84,102 @@ export default function Hero() {
       className={cn(ground.dark, 'relative h-screen overflow-hidden bg-black')}
       id="about"
     >
-      <video
-        ref={videoRef}
-        className={cn(
-          'absolute inset-0 size-full object-cover',
-          fadingOut && 'opacity-0 transition-opacity duration-500 ease-linear',
-        )}
-        src={HERO_VIDEO_SRC}
-        poster={HERO_IMAGE.src}
-        muted
-        playsInline
-        preload="auto"
-        autoPlay={mode === 'auto'}
-        onEnded={handleEnded}
-        onError={handleVideoError}
-        aria-hidden
-      />
-
-      <div
-        data-hero-blackout
-        className="pointer-events-none absolute inset-0 z-[1] bg-black opacity-0"
-        aria-hidden
-      />
-
-      {/* 풀블리드 랜딩 — 레이어별 깊이가 다른 마우스 패럴랙스 */}
-      <div
-        data-hero-landing
-        className={cn(
-          'absolute inset-0 z-[2]',
-          landed
-            ? 'visible opacity-100 transition-opacity duration-[900ms] ease-linear'
-            : 'invisible opacity-0',
-        )}
-      >
-        <div
-          data-hero-landing-zoom
-          className="absolute inset-0 overflow-hidden will-change-transform"
-        >
-          <img
-            className="size-full object-cover will-change-transform select-none [-webkit-user-drag:none] [transform:translate3d(calc(var(--mx)*-16px),calc(var(--my)*-10px),0)_scale(1.06)] motion-reduce:will-change-auto motion-reduce:[transform:scale(1.02)]"
-            src={HERO_IMAGE.src}
-            alt={HERO_IMAGE.alt}
-          />
-          <div
-            className="absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_45%,transparent_55%,rgba(0,0,0,0.55)_100%)]"
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(560px_420px_at_calc(50%+var(--mx)*30%)_calc(40%+var(--my)*24%),rgba(242,240,235,0.14),transparent_60%)] mix-blend-soft-light motion-reduce:hidden"
-            aria-hidden
-          />
-        </div>
-
+      {sceneOn ? (
         <SceneSlot
           object={{ kind: 'hero' }}
-          fallbackSrc="/images/3d/hero.webp"
-          className="absolute top-[calc(var(--nav-h)+2vh)] right-[calc(var(--pad)+2vw)] z-[3] size-[clamp(140px,14vw,220px)] max-md:top-[calc(var(--nav-h)+16px)] max-md:right-[var(--pad)] max-md:size-[120px]"
+          fallbackSrc="/images/bomi-landing.jpg"
+          className="absolute inset-0"
         />
+      ) : (
+        <HeroShapeFallback />
+      )}
+      <HeroChrome chromeRef={chromeRef} />
+    </section>
+  )
+}
 
-        <div className="absolute top-1/2 right-[var(--pad)] z-[3] flex -translate-y-1/2 flex-col items-end gap-2.5 text-right text-dark-ink will-change-transform [transform:translate3d(calc(var(--mx)*26px),calc(var(--my)*14px),0)] max-md:top-auto max-md:right-auto max-md:bottom-[calc(var(--pad)+44px)] max-md:left-[var(--pad)] max-md:items-start max-md:translate-none max-md:text-left motion-reduce:will-change-auto motion-reduce:[transform:none]">
-          <Label data-hero-copy className="text-dark-ink/60">
-            FRONTEND
-          </Label>
-          <div className="will-change-transform [transform:translate3d(calc(var(--mx)*14px),calc(var(--my)*8px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]">
-            <Display
-            as="h1"
-            data-hero-name
-              className="text-[clamp(56px,9vw,150px)] leading-[0.94] [text-shadow:0_4px_60px_rgba(0,0,0,0.5)]"
-            >
-              KIM BOMI
-            </Display>
-          </div>
-          <p
-            data-hero-copy
-            className="text-[clamp(17px,1.8vw,24px)] font-bold tracking-[-0.01em]"
-          >
-            만들고, 남기고, 다시 꺼내는 메이커
-          </p>
-          <p
-            data-hero-copy
-            className="max-w-[36ch] font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72"
-          >
-            Make it. Leave it. Bring it back.
-          </p>
-          <Label data-hero-copy className="mt-2 text-ink-2">
-            DEVELOPER · SEOUL · 2026
-          </Label>
-        </div>
+function HeroChrome({ chromeRef }: { chromeRef: RefObject<HTMLDivElement | null> }) {
+  return createPortal(
+    <div ref={chromeRef} data-hero-chrome className="pointer-events-none fixed inset-0 z-[16]">
+      <div
+        className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_50%,transparent_18%,rgba(0,0,0,0.72)_100%)]"
+        aria-hidden
+      />
+      <Label data-hero-parallax="edge" className="absolute top-[calc(var(--nav-h)+14px)] left-[var(--pad)] text-ink-2">
+        KIM BOMI · FRONTEND
+      </Label>
+      <Label data-hero-parallax="edge" className="absolute top-[calc(var(--nav-h)+14px)] right-[var(--pad)] text-ink-2">
+        2026
+      </Label>
+      <Label
+        data-hero-parallax="edge"
+        className="absolute bottom-[var(--pad)] left-1/2 -translate-x-1/2 animate-hint-bob text-ink-2 motion-reduce:animate-none"
+      >
+        Scroll
+      </Label>
+      <Label data-hero-parallax="edge" className="absolute right-[var(--pad)] bottom-[var(--pad)] text-ink-2">
+        SEOUL
+      </Label>
 
-        <Label
-          data-hero-float
-          className="absolute top-[calc(var(--nav-h)+18rem)] left-[var(--pad)] z-[3] text-dark-ink/72 will-change-transform [transform:translate3d(calc(var(--mx)*-10px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
-          aria-hidden
-        >
-         YOU CAN HOVER NAV ↓
+      <div
+        data-hero-center
+        className="absolute inset-0 flex origin-center flex-col items-center justify-center px-[var(--pad)] text-center text-dark-ink"
+      >
+        <Label data-hero-copy data-hero-parallax="lead" className="text-dark-ink/60">
+          FRONTEND
         </Label>
-        <Label
-          data-hero-float
-          className="absolute bottom-[var(--pad)] left-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*30px),calc(var(--my)*-18px),0)] max-md:hidden motion-reduce:will-change-auto motion-reduce:[transform:none]"
-          aria-hidden
+        <Display
+          as="h1"
+          data-hero-name
+          data-hero-parallax="name"
+          className="mt-2 max-w-[92vw] text-[clamp(40px,9.2vw,140px)] leading-[0.9] [text-shadow:0_8px_60px_rgba(0,0,0,0.55)]"
         >
-          ↓ SCROLL
-        </Label>
-        <Label
-          data-hero-float
-          className="absolute right-[var(--pad)] bottom-[var(--pad)] z-[3] text-dark-ink/55 will-change-transform [transform:translate3d(calc(var(--mx)*-34px),calc(var(--my)*-20px),0)] motion-reduce:will-change-auto motion-reduce:[transform:none]"
-          aria-hidden
-        >
-          MAKER KIMBOMI
+          KIM BOMI
+        </Display>
+        <p data-hero-copy data-hero-parallax="ko" className="mt-4 text-[clamp(16px,1.8vw,24px)] font-bold tracking-[-0.01em]">
+          만들고, 남기고, 다시 꺼내는 메이커
+        </p>
+        <p data-hero-copy data-hero-parallax="en" className="mt-1 font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72">
+          Make it. Leave it. Bring it back.
+        </p>
+        <Label data-hero-copy data-hero-parallax="meta" className="mt-3 text-ink-2">
+          DEVELOPER · SEOUL · 2026
         </Label>
       </div>
 
-      {/* 검은 문 (최상단 레이어) */}
-      {mode !== 'auto' && (
-        <div className="pointer-events-none absolute inset-0 z-[4] text-dark-ink" aria-hidden>
-          <div
-            data-hero-panel="left"
-            className="absolute inset-y-0 left-0 w-[50.5vw] border-r border-hairline-on-dark bg-dark-ground will-change-transform"
-          />
-          <div
-            data-hero-panel="right"
-            className="absolute inset-y-0 right-0 w-[50.5vw] border-l border-hairline-on-dark bg-dark-ground will-change-transform"
-          />
+      <Label
+        data-hero-parallax="edge"
+        className="absolute top-[calc(var(--nav-h)+18rem)] left-[var(--pad)] text-dark-ink/72 max-md:hidden"
+        aria-hidden
+      >
+        YOU CAN HOVER NAV ↓
+      </Label>
+      <Label
+        data-hero-parallax="edge"
+        className="absolute right-[var(--pad)] bottom-[calc(var(--pad)+28px)] text-dark-ink/55"
+        aria-hidden
+      >
+        MAKER KIMBOMI
+      </Label>
+    </div>,
+    document.body,
+  )
+}
 
-          <span
-            data-hero-dot="left"
-            className="absolute top-1/2 left-[calc(50%-16px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform"
-          />
-          <span
-            data-hero-dot="right"
-            className="absolute top-1/2 left-[calc(50%+12px)] size-1 rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] will-change-transform"
-          />
+function HeroShapeFallback() {
+  const marks = [
+    'left-[8%] top-[22%] size-16 rounded-2xl',
+    'left-[14%] top-[58%] size-10 rounded-full',
+    'right-[10%] top-[28%] size-20 rounded-full',
+    'right-[16%] bottom-[24%] size-12 rounded-2xl',
+    'left-[28%] bottom-[18%] size-8 rounded-full',
+  ]
 
-          <Display
-            data-hero-mark
-            className="absolute inset-0 flex items-center justify-center text-[clamp(64px,13vw,190px)] tracking-[0.01em] will-change-transform"
-          >
-            <span data-hero-bo className="inline-block will-change-transform">
-              BO
-            </span>
-            <span data-hero-mi className="inline-block will-change-transform">
-              MI.
-            </span>
-          </Display>
-
-          <div data-hero-chrome>
-            <Label className="absolute top-[calc(var(--nav-h)+14px)] left-[var(--pad)] text-ink-2">
-              KIM BOMI · FRONTEND
-            </Label>
-            <Label className="absolute top-[calc(var(--nav-h)+14px)] right-[var(--pad)] text-ink-2">
-              2026
-            </Label>
-            <Label className="absolute bottom-[var(--pad)] left-[var(--pad)] text-ink-2">
-              KROFFLE
-            </Label>
-            <Label className="absolute right-[var(--pad)] bottom-[var(--pad)] text-ink-2">
-              SEOUL
-            </Label>
-            <Label className="absolute bottom-[var(--pad)] left-1/2 -translate-x-1/2 animate-hint-bob text-ink-2 motion-reduce:animate-none">
-              Scroll
-            </Label>
-          </div>
-        </div>
-      )}
-    </section>
+  return (
+    <div className="pointer-events-none absolute inset-0" aria-hidden>
+      {marks.map((mark) => (
+        <span key={mark} className={cn('absolute border border-dark-ink/20 bg-dark-ink/10', mark)} />
+      ))}
+    </div>
   )
 }

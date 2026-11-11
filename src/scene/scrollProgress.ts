@@ -22,3 +22,11 @@ export const leaveProgress = (selector: string): number => {
   if (!rect || rect.height === 0) return 0
   return MathUtils.clamp(-rect.top / rect.height, 0, 1)
 }
+
+/** 핀이 시작돼 섹션이 화면을 벗어날 때까지. 히어로 빨림과 글자 퇴장에 쓴다 */
+export const heroTravelProgress = (selector: string): number => {
+  const rect = measureOf(selector)
+  if (!rect) return 0
+  const travel = Math.max(rect.height - window.innerHeight, window.innerHeight * 0.85)
+  return MathUtils.clamp(-rect.top / travel, 0, 1)
+}

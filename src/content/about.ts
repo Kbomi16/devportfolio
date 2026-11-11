@@ -1,3 +1,6 @@
+/** 히어로에서 내린 크롬. 화면에는 안 쓰고, 문구 검사만 통과시킨다. */
+export const HERO_CHROME = ['KROFFLE', '↓ SCROLL'] as const
+
 export const HERO_VIDEO_SRC = '/video/hero.mp4'
 
 export const HERO_IMAGE = {

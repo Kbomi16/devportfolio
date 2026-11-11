@@ -21,7 +21,7 @@ export default function SlotView({ object }: SlotViewProps) {
         {object.kind === 'distort' ? (
           <DistortPlane src={object.src} fit={object.fit} hover={object.hover} onReady={object.onReady} />
         ) : (
-          <Stage>
+          <Stage fov={object.kind === 'hero' ? 52 : 30} shadow={object.kind !== 'hero'}>
             <DecorMesh object={object} />
           </Stage>
         )}
