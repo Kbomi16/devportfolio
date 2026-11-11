@@ -28,7 +28,7 @@ export type WorkDecision = {
 }
 
 export type WorkItem = {
-  slug: 'tcc' | 'sites' | 'alleo' | 'money' | 'useme' | 'isle'
+  slug: 'tcc' | 'sites' | 'alleo' | 'money' | 'isle'
   /** 갤러리 라벨 (홈 CH3) */
   label: string
   /** 갤러리 라벨 위 보조 줄 (선택) */
@@ -479,54 +479,6 @@ export const WORKS: WorkItem[] = [
       { label: 'GitHub', url: 'https://github.com/Kbomi16/where-is-my-money' },
     ],
     testAccount: { email: 'whereismymoney@test.com', password: 'Abcd1234' },
-  },
-  {
-    slug: 'useme',
-    label: 'USEME',
-    title: '토이프로젝트 어필·체험',
-    period: '2026.09 — 현재',
-    status: '진행 중',
-    role: '기획·UI·기능·인프라',
-    oneLiner: '토이프로젝트를 어필 카드로 바꿔 공유하고,\n써 본 사람이 피드백을 남기는 플랫폼입니다.',
-    homeLine: '어필 카드 · 체험 · 피드백',
-    stack: ['Next.js', 'TypeScript', 'Tailwind', 'TanStack Query', 'Zustand', 'Supabase'],
-    thumb: {
-      src: '/images/works/card-useme.png',
-      alt: 'useMe 첫 화면. 링크만 보내지 말고, 써 보라고 해요.',
-    },
-    decisions: [
-      {
-        title: '코어 루프',
-        problem:
-          '토이프로젝트는 만들었다고 끝나기 쉽습니다. 써 봐 달라는 말과, 써 본 뒤의 반응이 이어지지 않았습니다.',
-        choice:
-          '등록, 어필 3칸, 홍보팩, 공유, 체험과 반응, 다음 등록을 하나의 고리로 고정했습니다. 크레딧과 티어는 마이페이지에만 두고, 랜딩과 홍보 버튼에는 섞지 않습니다.',
-        result: '둘러보기, 프로젝트 카드, 소셜 로그인까지 화면 단위로 올리는 중입니다.',
-        shots: [
-          {
-            src: '/images/works/useme-project.png',
-            alt: 'useMe 프로젝트 카드. 왜, 뭘, 얼마나 세 칸과 써 보기 버튼.',
-            caption: '어필 3칸. 왜 만들었는지, 무엇을 쓰는지, 얼마나 걸렸는지.',
-          },
-          {
-            src: '/images/works/useme-comments.png',
-            alt: 'useMe 받은 피드백. 피드백, 질문, 버그, 응원으로 나뉜 댓글.',
-            caption: '체험 뒤 남기는 반응. 피드백·질문·버그·응원.',
-          },
-        ],
-      },
-      {
-        title: '공개 웹과 운영 콘솔',
-        problem: '공개 웹과 운영 콘솔을 한곳에서 고치면 방문자 화면과 운영 도구가 섞입니다.',
-        choice:
-          'Turborepo로 web과 admin을 나누고, 공통 UI는 packages/ui에 둡니다. 데이터는 /api BFF를 거치고, 로그인은 Supabase 쿠키 세션으로 이메일·Google·Kakao를 받습니다.',
-        result: '실무에서 쓰던 앱 분리와 쿠키 세션을 개인 프로젝트에서 같은 방식으로 적용하고 있습니다.',
-      },
-    ],
-    links: [
-      { label: '배포', url: 'https://useme-web-beige.vercel.app/' },
-      { label: 'GitHub', url: 'https://github.com/Kbomi16/useme' },
-    ],
   },
   {
     slug: 'isle',

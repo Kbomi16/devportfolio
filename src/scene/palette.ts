@@ -19,6 +19,5 @@ export const CASE_TONES: Record<WorkItem['slug'], { base: Tone; accent: Tone }> 
   sites: { base: 'ink', accent: 'neon' },
   alleo: { base: 'neon', accent: 'ground' },
   money: { base: 'ink', accent: 'ground' },
-  useme: { base: 'neon', accent: 'ink' },
   isle: { base: 'mid', accent: 'neon' },
 }
