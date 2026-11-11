@@ -1,6 +1,5 @@
 import { useRef, type ReactNode } from 'react'
 import Display from '../components/common/Display'
-import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import { HISTORY, type HistoryRow } from '../content/history'
 import { cn } from '../lib/cn'
@@ -9,7 +8,7 @@ import { gsap, SplitText, useGSAP } from '../lib/gsapSetup'
 import { matchMediaPreset } from '../lib/media'
 import SceneSlot from '../scene/SceneSlot'
 
-/** CH4 — 스테이트먼트는 단어 마스크 리빌, 이력 행은 서로 다른 깊이로 스크럽되며 올라온다 (pin 없음). */
+/** CH4 — 스테이트먼트 리빌 + 이력 벤토 그리드. */
 export default function Method() {
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -55,16 +54,28 @@ export default function Method() {
             '-=0.2',
           )
 
-        const depths = desktop ? [24, 48, 72] : [20]
-        gsap.utils.toArray<HTMLElement>('[data-row]').forEach((row, index) => {
+        const reach = desktop ? 140 : 64
+        gsap.utils.toArray<HTMLElement>('[data-row]').forEach((row) => {
+          const x = Number(row.dataset.x)
+          const y = Number(row.dataset.y)
+          const rotation = Number(row.dataset.r)
+          const fromAxis = (value: number) => value - Math.sign(value || 1) * reach
+
           gsap.fromTo(
             row,
-            { y: depths[index % depths.length], autoAlpha: 0 },
+            { x: fromAxis(x), y: fromAxis(y), rotation: rotation * 3, autoAlpha: 0 },
             {
-              y: 0,
+              x,
+              y,
+              rotation,
               autoAlpha: 1,
               ease: 'none',
-              scrollTrigger: { trigger: row, start: 'top bottom', end: 'top 62%', scrub: 0.6 },
+              scrollTrigger: {
+                trigger: '[data-roster-grid]',
+                start: 'top 96%',
+                end: 'top 68%',
+                scrub: 0.6,
+              },
             },
           )
         })
@@ -107,38 +118,67 @@ export default function Method() {
         </p>
       </div>
 
-      <ul className="mx-auto w-full max-w-[1200px] list-none">
-        {HISTORY.map((row) => (
-          <IndexItem key={`${row.tag}-${row.name}`} row={row} />
+      <ul
+        data-roster-grid
+        className="mx-auto grid w-full max-w-[1200px] list-none grid-cols-1 items-start gap-4 sm:grid-cols-2 lg:grid-cols-12"
+      >
+        {HISTORY.map((row, index) => (
+          <IndexItem key={`${row.tag}-${row.name}`} row={row} gather={GATHER[index]} />
         ))}
       </ul>
     </section>
   )
 }
 
-function IndexItem({ row }: { row: HistoryRow }) {
+type Gather = { x: number; y: number; r: number }
+
+/** 멈춘 자리. 바깥쪽은 스크롤 동안 이 방향으로 들어와 겹친다. */
+const GATHER: Gather[] = [
+  { x: 12, y: 10, r: -1.4 },
+  { x: -14, y: 8, r: 1.4 },
+  { x: -10, y: 6, r: 1.1 },
+  { x: -12, y: -6, r: -1.4 },
+  { x: 10, y: -12, r: -1.1 },
+  { x: 6, y: -10, r: 1.2 },
+  { x: -8, y: -8, r: 1.4 },
+  { x: -12, y: -10, r: -1 },
+  { x: 12, y: -12, r: 0.8 },
+]
+
+const ITEM_SPAN: Record<HistoryRow['tag'], string> = {
+  NOW: 'sm:col-span-2 lg:col-span-7',
+  CAMP: 'sm:col-span-2 lg:col-span-5',
+  DEGREE: 'sm:col-span-2 lg:col-span-6',
+  AWARD: 'sm:col-span-2 lg:col-span-6',
+  CERT: 'lg:col-span-4',
+  LEAD: 'lg:col-span-4',
+  TUTOR: 'sm:col-span-2 lg:col-span-4',
+}
+
+function IndexItem({ row, gather }: { row: HistoryRow; gather: Gather }) {
   return (
-    <Hairline
-      as="li"
+    <li
       data-row
+      data-x={gather.x}
+      data-y={gather.y}
+      data-r={gather.r}
       tabIndex={0}
-      className="group grid grid-cols-[96px_1fr_auto] items-start gap-x-[16px] py-[10px] outline-none focus-visible:bg-ink/[0.03] max-md:grid-cols-[64px_1fr] max-md:gap-x-3"
+      style={{ transform: `translate(${gather.x}px, ${gather.y}px) rotate(${gather.r}deg)` }}
+      className={cn(
+        ITEM_SPAN[row.tag],
+        'group flex flex-col gap-4 rounded-xl border border-hairline bg-light-ground p-5 outline-none',
+        'hover:border-light-ink focus-visible:border-light-ink',
+      )}
     >
-      <Label className="pt-[3px] text-muted">{row.tag}</Label>
-      <div>
-        <Display className="font-kr text-[clamp(14px,1.5vw,21px)] font-bold tracking-[-0.01em]">
-          {row.name}
-        </Display>
-        <p className="grid grid-rows-[0fr] overflow-hidden transition-[grid-template-rows] duration-300 ease-out group-hover:grid-rows-[1fr] group-focus:grid-rows-[1fr] motion-reduce:transition-none">
-          <span className="min-h-0 overflow-hidden">
-            <span className="mt-1.5 block max-w-[48ch] whitespace-pre-line font-ui text-[12.5px] leading-[1.6] text-ink-2">
-              {row.note}
-            </span>
-          </span>
-        </p>
+      <div className="flex items-start justify-between gap-3">
+        <Label className="text-muted">{row.tag}</Label>
+        <Label className="shrink-0 whitespace-nowrap text-muted">{row.meta}</Label>
       </div>
-      <Label className="pt-[3px] text-muted max-md:col-start-2">{row.meta}</Label>
-    </Hairline>
+      <Display className="font-kr text-[clamp(16px,1.5vw,22px)] leading-[1.3] font-bold tracking-[-0.01em]">
+        {row.name}
+      </Display>
+      <p className="whitespace-pre-line font-ui text-[12.5px] leading-[1.65] text-ink-2">{row.note}</p>
+    </li>
   )
 }
 
