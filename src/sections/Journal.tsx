@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import Display from '../components/common/Display'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
 import { POSTS } from '../content/posts'
@@ -50,24 +51,33 @@ export default function Journal() {
       className={cn(ground.light, 'relative flex flex-col justify-center px-[var(--pad)] py-[18vh]')}
       id="journal"
     >
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col">
-        <Label data-head className="text-muted">
-          JOURNAL · 100+
-        </Label>
-        <h2 className="mt-3 font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
-          <span data-head-line className="block">
-            적어두면,
-          </span>
-          <span data-head-line className="block">
-            다음이 짧아집니다.
-          </span>
-        </h2>
-        <p data-head className="max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
-          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다.
-          <br />
-          거창한 나눔보다, 다음에 제가 다시 읽는 메모에 가깝습니다.
-        </p>
-        <ul data-rows className="mt-3 list-none">
+      <div className="mx-auto grid w-full max-w-[1200px] items-start gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:pt-6">
+        <div>
+          <Label data-head className="text-muted">
+            JOURNAL · 100+
+          </Label>
+          <Display
+            data-head
+            className="mt-4 block text-[clamp(72px,14vw,180px)] leading-[0.82] text-light-ink"
+            aria-hidden
+          >
+            100+
+          </Display>
+          <h2 className="mt-5 font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
+            <span data-head-line className="block">
+              적어두면,
+            </span>
+            <span data-head-line className="block">
+              다음이 짧아집니다.
+            </span>
+          </h2>
+          <p data-head className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
+            나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다.
+            <br />
+            거창한 나눔보다, 다음에 제가 다시 읽는 메모에 가깝습니다.
+          </p>
+        </div>
+        <ul data-rows className="list-none">
           {POSTS.map((post) => (
             <li key={post.title} data-row>
               <Hairline
