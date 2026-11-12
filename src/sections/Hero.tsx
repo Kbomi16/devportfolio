@@ -37,6 +37,7 @@ export default function Hero() {
           chrome.classList.toggle('invisible', gone || fade > 0.985)
         }
 
+        ScrollTrigger.addEventListener('refresh', applyChrome)
         ScrollTrigger.create({
           trigger: sectionRef.current,
           start: 'top bottom',
@@ -46,7 +47,7 @@ export default function Hero() {
         })
         applyChrome()
 
-        if (!motion) return
+        if (!motion) return () => ScrollTrigger.removeEventListener('refresh', applyChrome)
 
         const name = chromeRef.current?.querySelector('[data-hero-name]')
         if (name instanceof HTMLElement) {
@@ -72,6 +73,8 @@ export default function Hero() {
             onEnterBack: applyChrome,
           },
         }).to({}, { duration: 1 })
+
+        return () => ScrollTrigger.removeEventListener('refresh', applyChrome)
       })
       return () => mm.revert()
     },

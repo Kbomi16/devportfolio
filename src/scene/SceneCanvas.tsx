@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Canvas, type RootState } from '@react-three/fiber'
+import { Canvas, useFrame, useThree, type RootState } from '@react-three/fiber'
 import { View } from '@react-three/drei'
 import { invalidateScene, setSceneInvalidator } from '../lib/sceneBus'
 import { onScroll } from '../lib/useLenis'
@@ -31,7 +31,20 @@ export default function SceneCanvas() {
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       onCreated={handleCreated}
     >
+      <ClearFrame />
       <View.Port />
     </Canvas>
   )
+}
+
+/** 화면 밖으로 나간 View는 이전 픽셀을 지우지 않는다. 그리기 전에 버퍼를 비운다 */
+function ClearFrame() {
+  const gl = useThree((state) => state.gl)
+
+  useFrame(() => {
+    gl.setScissorTest(false)
+    gl.clear(true, true)
+  }, -1)
+
+  return null
 }
