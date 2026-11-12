@@ -19,17 +19,32 @@ export const TUNNEL_STATIONS: TunnelStation[] = [
   { slug: 'isle', side: -1, variant: 1 },
 ]
 
-/** 복도 좌우 벽. 월드 좌표라 가까워질수록 화면 밖으로 빠진다 */
-export const TUNNEL_LANE = 2.55
+/** 복도 좌우. 제목 바깥, 화면 안에 들어오게 둔 월드 좌표 */
+export const TUNNEL_LANE = 3.35
 
-/** 다음 도형이 확연히 작아지도록 벌린 간격 */
-export const TUNNEL_GAP = 4.4
+/** 첫 쌍 뒤의 간격. 시작 화면에는 두 개만 보이게 */
+export const TUNNEL_GAP = 8.8
 
-/** 가까운 도형이 카드처럼 크게 보이게 */
-export const TUNNEL_SCALE = 2.35
+/** 뒤에 따라오는 도형 */
+export const TUNNEL_SCALE = 2.05
 
-/** 첫 쌍이 이미 가까이 있는 시작 */
-export const TUNNEL_START = 0.35
+/** 처음 둘. 글자 밴드 밖, 위·아래에 서는 크기 */
+export const TUNNEL_OPEN_SCALE = 1.86
+
+/** 처음 둘만 글자 위·아래로 갈라 놓는다. 나머지는 복도 높이 */
+export const openingOffset = (index: number): { x: number; y: number } | null => {
+  if (index === 0) return { x: -3.28, y: 1.52 }
+  if (index === 1) return { x: 3.32, y: -1.64 }
+  return null
+}
+
+/** 이 거리보다 멀면 시작 화면에서 숨긴다 */
+export const TUNNEL_SHOW = 12.2
+
+export const TUNNEL_START = 0.15
 
 /** 마지막 도형이 카메라 뒤를 지나는 끝 */
-export const TUNNEL_END = TUNNEL_GAP * (TUNNEL_STATIONS.length - 1) + 9
+export const TUNNEL_END = TUNNEL_GAP * (TUNNEL_STATIONS.length - 1) + 8
+
+/** 처음 둘은 같은 깊이, 나머지는 한 칸씩 뒤로 */
+export const stationDepth = (index: number): number => (index < 2 ? 0 : (index - 1) * TUNNEL_GAP)

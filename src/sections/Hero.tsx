@@ -33,7 +33,7 @@ export default function Hero() {
           const pull = gone ? 1 : heroTravelProgress('#about')
           const fade = gone ? 1 : Math.min(1, Math.max(0, (pull - 0.04) / 0.78))
           chrome.style.setProperty('--hero-fade', fade.toFixed(4))
-          chrome.style.setProperty('--hero-scale', motion ? (1 + fade * 1.85).toFixed(4) : '1')
+          chrome.style.setProperty('--hero-scale', motion ? (1 + fade * 0.18).toFixed(4) : '1')
           chrome.classList.toggle('invisible', gone || fade > 0.985)
         }
 
@@ -108,61 +108,28 @@ function HeroChrome({ chromeRef }: { chromeRef: RefObject<HTMLDivElement | null>
         className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_50%,transparent_18%,rgba(0,0,0,0.72)_100%)]"
         aria-hidden
       />
-      <Label data-hero-parallax="edge" className="absolute top-[calc(var(--nav-h)+14px)] left-[var(--pad)] text-ink-2">
-        KIM BOMI · FRONTEND
-      </Label>
-      <Label data-hero-parallax="edge" className="absolute top-[calc(var(--nav-h)+14px)] right-[var(--pad)] text-ink-2">
-        2026
-      </Label>
+      <div
+        data-hero-center
+        className="absolute inset-0 flex origin-center flex-col items-center justify-center px-[var(--pad)] text-center text-dark-ink"
+      >
+        <Display
+          as="h1"
+          data-hero-name
+          data-hero-parallax="name"
+          className="max-w-[92vw] text-[clamp(48px,10vw,156px)] leading-[0.88] [text-shadow:0_10px_70px_rgba(0,0,0,0.45)]"
+        >
+          KIM BOMI
+        </Display>
+        <p data-hero-copy data-hero-parallax="ko" className="mt-5 text-[clamp(15px,1.5vw,20px)] font-medium tracking-[-0.01em] text-dark-ink/80">
+          만들고, 남기고, 다시 꺼내는 메이커
+        </p>
+      </div>
+
       <Label
         data-hero-parallax="edge"
         className="absolute bottom-[var(--pad)] left-1/2 -translate-x-1/2 animate-hint-bob text-ink-2 motion-reduce:animate-none"
       >
         Scroll
-      </Label>
-      <Label data-hero-parallax="edge" className="absolute right-[var(--pad)] bottom-[var(--pad)] text-ink-2">
-        SEOUL
-      </Label>
-
-      <div
-        data-hero-center
-        className="absolute inset-0 flex origin-center flex-col items-center justify-center px-[var(--pad)] text-center text-dark-ink"
-      >
-        <Label data-hero-copy data-hero-parallax="lead" className="text-dark-ink/60">
-          FRONTEND
-        </Label>
-        <Display
-          as="h1"
-          data-hero-name
-          data-hero-parallax="name"
-          className="mt-2 max-w-[92vw] text-[clamp(40px,9.2vw,140px)] leading-[0.9] [text-shadow:0_8px_60px_rgba(0,0,0,0.55)]"
-        >
-          KIM BOMI
-        </Display>
-        <p data-hero-copy data-hero-parallax="ko" className="mt-4 text-[clamp(16px,1.8vw,24px)] font-bold tracking-[-0.01em]">
-          만들고, 남기고, 다시 꺼내는 메이커
-        </p>
-        <p data-hero-copy data-hero-parallax="en" className="mt-1 font-ui text-[clamp(13px,1.2vw,16px)] text-dark-ink/72">
-          Make it. Leave it. Bring it back.
-        </p>
-        <Label data-hero-copy data-hero-parallax="meta" className="mt-3 text-ink-2">
-          DEVELOPER · SEOUL · 2026
-        </Label>
-      </div>
-
-      <Label
-        data-hero-parallax="edge"
-        className="absolute top-[calc(var(--nav-h)+18rem)] left-[var(--pad)] text-dark-ink/72 max-md:hidden"
-        aria-hidden
-      >
-        YOU CAN HOVER NAV ↓
-      </Label>
-      <Label
-        data-hero-parallax="edge"
-        className="absolute right-[var(--pad)] bottom-[calc(var(--pad)+28px)] text-dark-ink/55"
-        aria-hidden
-      >
-        MAKER KIMBOMI
       </Label>
     </div>,
     document.body,
