@@ -5,10 +5,11 @@ type StageProps = {
   children: ReactNode
   fov?: number
   shadow?: boolean
+  ring?: [number, number, number]
 }
 
 /** 카메라·조명·소프트 그림자. 외부 HDR 없이 Lightformer 환경광만 쓴다 */
-export default function Stage({ children, fov = 30, shadow = true }: StageProps) {
+export default function Stage({ children, fov = 30, shadow = true, ring = [-3, 0, 2] }: StageProps) {
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0, 7]} fov={fov} />
@@ -16,7 +17,7 @@ export default function Stage({ children, fov = 30, shadow = true }: StageProps)
       <directionalLight position={[3, 5, 4]} intensity={1.4} />
       <Environment resolution={128}>
         <Lightformer form="rect" intensity={2} position={[0, 3, 2]} scale={[6, 2, 1]} />
-        <Lightformer form="ring" intensity={1.2} position={[-3, 0, 2]} scale={2} />
+        <Lightformer form="ring" intensity={1.2} position={ring} scale={2} />
         <Lightformer form="rect" intensity={0.8} position={[3, -1, 1]} scale={[2, 4, 1]} />
       </Environment>
       {children}

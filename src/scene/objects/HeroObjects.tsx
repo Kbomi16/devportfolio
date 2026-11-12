@@ -51,7 +51,7 @@ export default function HeroObjects() {
             openingOffset(index)?.y ?? 0.08,
             -stationDepth(index),
           ]}
-          rotation={[0.04, station.side * -0.2, 0]}
+          rotation={[0.02, station.side * (index < 2 ? -0.06 : -0.2), 0]}
           scale={index < 2 ? TUNNEL_OPEN_SCALE : TUNNEL_SCALE}
         >
           <StationMark station={station} />
@@ -75,8 +75,8 @@ function TccLock() {
       <RoundedBox args={[0.78, 0.68, 0.22]} radius={0.14} smoothness={4}>
         <GlossyMaterial tone="mid" />
       </RoundedBox>
-      <mesh position={[0, 0.3, 0]}>
-        <torusGeometry args={[0.22, 0.058, 16, 28, Math.PI]} />
+      <mesh position={[0, 0.2, 0]}>
+        <torusGeometry args={[0.24, 0.058, 16, 28, Math.PI]} />
         <GlossyMaterial tone="neon" />
       </mesh>
     </group>
