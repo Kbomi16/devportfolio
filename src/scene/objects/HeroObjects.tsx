@@ -66,7 +66,8 @@ function StationMark({ station }: { station: TunnelStation }) {
   if (station.slug === 'sites') return station.variant === 0 ? <SitesWindow /> : <SitesStack />
   if (station.slug === 'alleo') return <AlleoSearch />
   if (station.slug === 'money') return station.variant === 0 ? <MoneyWallet /> : <MoneyBars />
-  return station.variant === 0 ? <IsleIsland /> : <IsleHouse />
+  if (station.slug === 'useme') return station.variant === 0 ? <UsemeCard /> : <UsemePack />
+  return null
 }
 
 function TccLock() {
@@ -177,31 +178,28 @@ function MoneyBars() {
   )
 }
 
-function IsleIsland() {
+function UsemeCard() {
   return (
     <group>
-      <mesh position={[0, -0.16, 0]} scale={[1.35, 0.22, 1]}>
-        <sphereGeometry args={[0.55, 28, 16]} />
+      <RoundedBox args={[0.86, 1.12, 0.08]} radius={0.08} smoothness={3} position={[-0.08, 0.06, -0.06]} rotation={[0.08, -0.18, -0.06]}>
         <GlossyMaterial tone="mid" />
-      </mesh>
-      <mesh position={[0.08, 0.28, 0]}>
-        <coneGeometry args={[0.36, 0.62, 20]} />
+      </RoundedBox>
+      <RoundedBox args={[0.86, 1.12, 0.08]} radius={0.08} smoothness={3} position={[0.1, -0.04, 0.06]}>
         <GlossyMaterial tone="neon" />
-      </mesh>
+      </RoundedBox>
     </group>
   )
 }
 
-function IsleHouse() {
+function UsemePack() {
   return (
     <group>
-      <RoundedBox args={[0.72, 0.48, 0.46]} radius={0.04} smoothness={2} position={[0, -0.06, 0]}>
-        <GlossyMaterial tone="ink" />
+      <RoundedBox args={[1.02, 0.7, 0.08]} radius={0.07} smoothness={3} position={[0, 0.16, -0.08]} rotation={[0.1, 0.16, 0]}>
+        <GlossyMaterial tone="mid" />
       </RoundedBox>
-      <mesh position={[0, 0.32, 0]}>
-        <coneGeometry args={[0.52, 0.34, 4]} />
+      <RoundedBox args={[1.02, 0.7, 0.08]} radius={0.07} smoothness={3} position={[0.05, -0.14, 0.06]}>
         <GlossyMaterial tone="neon" />
-      </mesh>
+      </RoundedBox>
     </group>
   )
 }

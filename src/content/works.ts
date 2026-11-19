@@ -28,7 +28,7 @@ export type WorkDecision = {
 }
 
 export type WorkItem = {
-  slug: 'tcc' | 'sites' | 'alleo' | 'money' | 'isle'
+  slug: 'tcc' | 'sites' | 'alleo' | 'money' | 'useme'
   /** 갤러리 라벨 (홈 CH3) */
   label: string
   /** 갤러리 라벨 위 보조 줄 (선택) */
@@ -502,49 +502,62 @@ export const WORKS: WorkItem[] = [
     ],
   },
   {
-    slug: 'isle',
-    label: 'ISLE',
-    title: '모이섬 Three.js 소셜 마을',
+    slug: 'useme',
+    label: 'USEME',
+    title: 'useMe',
     period: '2026.09 — 현재',
     status: '진행 중',
-    role: '기획부터 구현까지',
-    oneLiner: '이름을 고르고 들어와, 가까이 있는 주민에게만 말이 닿습니다.\n멀어지면 답은 오지 않습니다.',
-    homeLine: '걷기 → 만나기 → 말하기',
-    stack: ['Three.js', 'React Three Fiber', 'Vite', 'TypeScript', 'Socket.IO'],
+    role: '기획·UI·기능·인프라 전 과정 단독 진행',
+    oneLiner:
+      '토이프로젝트를 어필 카드로 공유하고, 직접 써 보며 피드백합니다.\n등록에서 다음 등록까지 코어 루프 하나가 도는 것을 목표로 만들고 있습니다.',
+    homeLine: '등록 → 어필 → 체험 → 피드백',
+    stack: [
+      'Next.js App Router',
+      'TypeScript',
+      'Turborepo',
+      'Tailwind CSS 4',
+      'shadcn/ui',
+      'TanStack Query',
+      'Zustand',
+      'Supabase',
+    ],
     thumb: {
-      src: '/images/works/card-isle.png',
-      alt: '모이섬 입장 화면. 캐릭터를 고르고 이름과 직군을 적은 뒤 섬으로 들어갑니다.',
+      src: '/images/works/card-useme.png',
+      alt: 'useMe 카드. 토이프로젝트 어필·체험 플랫폼.',
     },
     decisions: [
       {
-        title: '만들지 않을 것',
+        title: '코어 루프를 먼저',
         problem:
-          '포트폴리오를 건물로 늘어놓으면 다른 사람이 들어와 말하는 경험은 없습니다. 그래픽이나 전투를 목표로 잡으면 범위가 걷잡을 수 없습니다.',
+          '기능을 많이 넣으면 등록부터 다음 등록까지 한 바퀴가 도는지 확인하기 어려워집니다.',
         choice:
-          '게임은 만들지 않습니다. 전투, 점수, 퀘스트는 빼 두고, 한 방문의 성공을 말하고 방을 만져 볼 수 있는가로 고정했습니다.',
-        result: '1차 고리는 걷기, 만나기, 말입니다. WASD로 움직이고, 가까워지면 / 로 입력창이 열립니다.',
+          '등록, 어필 3칸, 홍보팩, 공유·스포트라이트, 체험·반응, 크레딧을 거쳐 다음 등록으로 돌아오는 코어 루프 하나가 제대로 도는 것을 목표로 잡았습니다.',
+        result:
+          'Must 범위는 프로젝트 프로필, 어필력 게이지, 홍보팩, 24h 스포트라이트, 디스커버입니다. 랜딩과 앱 화면, 소셜 로그인을 브랜치 단위로 올리고 있습니다.',
       },
       {
-        title: '답이 오는 조건',
+        title: '앱 경계를 직접 설계',
         problem:
-          '멀리 있는 주민까지 대답하면 마을이 아니라 채팅창이 됩니다. 말을 건 뒤에 걸어가면, 이미 없는 사람에게 답이 뜨는 것도 어색합니다.',
+          '실무(Alleo)에서 쓰던 멀티 앱 분리를 개인 프로젝트에 옮기려면, 앱 경계와 세션을 처음부터 정해야 했습니다.',
         choice:
-          '전송하면 내 말풍선과 로그는 바로 남깁니다. 답은 위 흐름처럼, 범위 안에 있고 잠시 뒤에도 가까이 있을 때만 남깁니다.',
-        result: '대화는 옆에 있는 사람에게만 생깁니다. 로그에는 실제로 오간 말만 쌓입니다.',
+          'Turborepo로 공개 웹(web)과 운영 콘솔(admin)을 나누고 공통 UI는 packages/ui로 분리했습니다. Supabase 쿠키 세션으로 Email·Google·Kakao 로그인을 붙이고, /api BFF를 구성했습니다.',
+        result: '앱 경계, BFF, 쿠키 세션을 처음부터 직접 정해 보는 중입니다.',
       },
       {
-        title: '익숙하지 않은 축',
-        problem: '카메라, 이동, 실시간 동기화는 웹에서 덜 익숙한 축입니다. 한 번에 본 프로젝트에 넣으면 원인 찾기가 어렵습니다.',
+        title: '리텐션은 마이페이지에만',
+        problem:
+          '크레딧·티어 같은 장치를 랜딩이나 홍보팩 버튼에 섞으면, 코어 루프와 다른 목적이 한 화면에 겹칩니다.',
         choice:
-          '놀이터에서 카메라와 이동을 먼저 확인하고, 검증된 것만 본 프로젝트로 옮깁니다. 접속자, 대화, 방 상태는 Socket.IO로 맞춥니다.',
-        result: '클레이 비율 캐릭터와 로우폴리 낮 마을 톤은 잡아 둔 상태이고, 말하기 고리를 붙이는 중입니다.',
+          '크레딧·티어 같은 리텐션 장치는 마이페이지에만 두고, 랜딩·홍보팩 CTA에는 섞지 않는 것을 기획 원칙으로 정했습니다.',
+        result: '기능을 늘리기보다 코어 루프가 먼저 도는지 확인하는 순서로 진행하고 있습니다.',
       },
     ],
     links: [
-      { label: '배포', url: 'https://moi-isle.vercel.app/' },
-      { label: 'GitHub', url: 'https://github.com/Kbomi16/moi-isle' },
+      { label: '배포', url: 'https://useme-web-beige.vercel.app/' },
+      { label: 'GitHub', url: 'https://github.com/Kbomi16/useme' },
     ],
   },
+
 ]
 
 export const workBySlug = (slug: string | undefined): WorkItem | undefined =>

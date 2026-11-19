@@ -12,11 +12,11 @@ export const TUNNEL_STATIONS: TunnelStation[] = [
   { slug: 'sites', side: 1, variant: 0 },
   { slug: 'alleo', side: -1, variant: 0 },
   { slug: 'money', side: 1, variant: 0 },
-  { slug: 'isle', side: -1, variant: 0 },
+  { slug: 'useme', side: -1, variant: 0 },
   { slug: 'tcc', side: 1, variant: 1 },
   { slug: 'sites', side: -1, variant: 1 },
   { slug: 'money', side: 1, variant: 1 },
-  { slug: 'isle', side: -1, variant: 1 },
+  { slug: 'useme', side: -1, variant: 1 },
 ]
 
 /** 복도 좌우. 제목 바깥, 화면 안에 들어오게 둔 월드 좌표 */
