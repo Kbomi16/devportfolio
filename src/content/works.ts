@@ -138,12 +138,12 @@ export const WORKS: WorkItem[] = [
     slug: 'sites',
     label: 'SITES',
     labelEyebrow: 'SEO GEO AEO',
-    title: '기업·브랜드 웹 9종',
+    title: '기업·브랜드 웹 10종',
     period: '2026.01 — 2026.10',
-    role: '프론트엔드, 공개 웹 9종, 다국어, SEO, 문의 연결',
+    role: '프론트엔드, 공개 웹 10종, 다국어, SEO, 문의 연결',
     oneLiner:
-      '기업·브랜드 웹 9종.\n다국어, 검색 노출, 문의 접수까지 사이트마다 다르게 붙였습니다.',
-    homeLine: '크로플 · 하나리더투어 · 홈앤힐 · 감탄누수 외 5',
+      '기업·브랜드 웹 10종.\n다국어, 검색 노출, 문의 접수까지 사이트마다 다르게 붙였습니다.',
+    homeLine: '크로플 · 하나리더투어 · 홈앤힐 · 감탄누수 외',
     stack: [
       'Next.js 16',
       'React 19',
@@ -174,7 +174,7 @@ export const WORKS: WorkItem[] = [
       {
         name: '하나리더투어',
         note: '사회적기업 여행사 공개 웹·관리자. D1·R2 공유, 관리자는 Cloudflare Access',
-        url: 'https://hana-web.alleo.workers.dev/',
+        url: 'https://hanaleadertour.or.kr',
         image: {
           src: '/images/works/site-hana.jpg',
           alt: '하나리더투어 공유 이미지. 사회적기업, 국내여행·전세버스·양평힐링센터.',
@@ -183,7 +183,6 @@ export const WORKS: WorkItem[] = [
       {
         name: '홈앤힐',
         note: '가구 브랜드 웹. 소파·식탁·침대·수납장',
-        url: 'https://homeandheal-web.alleo.workers.dev/ko',
         image: {
           src: '/images/works/site-homeandheal.jpg',
           alt: '홈앤힐 로고. Home&Heal.',
@@ -197,8 +196,8 @@ export const WORKS: WorkItem[] = [
       },
       {
         name: '요셉씨의 빛자루',
-        note: '견적·파트너십 문의 폼',
-        url: 'https://joecbroom-web.pages.dev/',
+        note: '견적·파트너십 폼',
+        url: 'https://jcct.co.kr/',
         image: { src: '/images/works/site-bitzaru.jpg', alt: '요셉씨의 빛자루클린 공유 이미지.' },
       },
       {
@@ -210,20 +209,40 @@ export const WORKS: WorkItem[] = [
       {
         name: '탑애드컴퍼니',
         note: 'SEO·GEO·AEO, JSON-LD, 전화 상담',
-        url: 'https://www.toplawyermarketing.com',
+        url: 'https://toplawyermarketing.com',
         image: { src: '/images/works/site-topad.jpg', alt: '탑애드컴퍼니 공유 이미지.' },
       },
       {
         name: '현중고차',
         note: '중고차 구매 상담, 딜러 브랜드 웹',
-        url: 'https://hyunjoongcar.com/',
+        url: 'https://hyunjoongcar.com',
         image: { src: '/images/works/site-hyunjoong.jpg', alt: '현중고차 공유 이미지. 책 쓰는 딜러, 차 파는 작가.' },
       },
       {
         name: '시하디자인',
         note: '3M 단열필름 시공, 지점·견적',
-        url: 'https://sihadesign.com/',
+        url: 'https://sihadesign.com',
         image: { src: '/images/works/site-siha.jpg', alt: '시하디자인 공유 이미지. 3M 공식대리점.' },
+      },
+      {
+        name: '건국마루',
+        note: '',
+        url: 'https://konkukflooring.com',
+      },
+      {
+        name: 'JL153',
+        note: '',
+        url: 'https://jl153.kr',
+      },
+      {
+        name: '오남 리드앤톡',
+        note: '',
+        url: 'https://onamreadntalk.co.kr',
+      },
+      {
+        name: '가화 법률사무소',
+        note: '',
+        url: 'https://gahwalaw.com',
       },
     ],
     decisions: [
@@ -272,10 +291,10 @@ export const WORKS: WorkItem[] = [
       {
         title: '문의와 작업 나누기',
         problem:
-          '문의가 폼에만 쌓이면 담당자가 바로 받지 못합니다. 사이트 9개가 비슷한 시기에 돌아가 브랜치와 작업 맥락이 섞였습니다.',
+          '문의가 폼에만 쌓이면 담당자가 바로 받지 못합니다. 사이트가 비슷한 시기에 여러 개 돌아가 브랜치와 작업 맥락이 섞였습니다.',
         choice:
           '크로플·감탄누수·고야차트는 Solapi로 담당자에게 문자를 보냅니다. 사이트마다 git worktree로 작업 폴더를 나눴습니다.',
-        result: '공개 웹 9종입니다. 문의가 있는 사이트는 제출이 담당자 알림까지 이어집니다.',
+        result: '공개 웹 10종입니다. 문의가 있는 사이트는 제출이 담당자 알림까지 이어집니다.',
         shots: [
           {
             src: '/images/works/brandweb-3-v2.png',
@@ -309,14 +328,17 @@ export const WORKS: WorkItem[] = [
     ],
     links: [
       { label: '크로플', url: 'https://www.kroffle.com/kr' },
-      { label: '하나리더투어', url: 'https://hana-web.alleo.workers.dev/' },
-      { label: '홈앤힐', url: 'https://homeandheal-web.alleo.workers.dev/ko' },
+      { label: '하나리더투어', url: 'https://hanaleadertour.or.kr' },
       { label: '감탄누수', url: 'https://gamtannusu.com' },
-      { label: '요셉씨의 빛자루', url: 'https://joecbroom-web.pages.dev/' },
+      { label: '요셉씨의 빛자루', url: 'https://jcct.co.kr/' },
       { label: '고야차트', url: 'https://exproject.work' },
-      { label: '탑애드컴퍼니', url: 'https://www.toplawyermarketing.com' },
-      { label: '현중고차', url: 'https://hyunjoongcar.com/' },
-      { label: '시하디자인', url: 'https://sihadesign.com/' },
+      { label: '탑애드컴퍼니', url: 'https://toplawyermarketing.com' },
+      { label: '현중고차', url: 'https://hyunjoongcar.com' },
+      { label: '시하디자인', url: 'https://sihadesign.com' },
+      { label: '건국마루', url: 'https://konkukflooring.com' },
+      { label: 'JL153', url: 'https://jl153.kr' },
+      { label: '오남 리드앤톡', url: 'https://onamreadntalk.co.kr' },
+      { label: '가화 법률사무소', url: 'https://gahwalaw.com' },
     ],
   },
   {
