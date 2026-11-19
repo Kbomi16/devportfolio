@@ -500,7 +500,6 @@ export const WORKS: WorkItem[] = [
       { label: '배포', url: 'https://where-is-my-money-track-expenses.vercel.app/' },
       { label: 'GitHub', url: 'https://github.com/Kbomi16/where-is-my-money' },
     ],
-    testAccount: { email: 'whereismymoney@test.com', password: 'Abcd1234' },
   },
   {
     slug: 'isle',
