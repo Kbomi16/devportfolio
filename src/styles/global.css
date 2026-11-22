@@ -84,6 +84,7 @@
 
 html {
   scrollbar-width: none;
+  overflow-x: clip;
 }
 html::-webkit-scrollbar {
   display: none;
@@ -97,6 +98,8 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 ::selection {

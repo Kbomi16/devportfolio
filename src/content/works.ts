@@ -28,7 +28,7 @@ export type WorkDecision = {
 }
 
 export type WorkItem = {
-  slug: 'tcc' | 'sites' | 'alleo' | 'money' | 'useme'
+  slug: 'tcc' | 'sites' | 'alleo' | 'money'
   /** 갤러리 라벨 (홈 CH3) */
   label: string
   /** 갤러리 라벨 위 보조 줄 (선택) */
@@ -50,23 +50,251 @@ export type WorkItem = {
   entries?: WorkEntry[]
   decisions: WorkDecision[]
   links: { label: string; url: string }[]
-  /** 배포 링크 옆 체험용 로그인 (Notion 케이스 노트와 동일) */
-  testAccount?: { email: string; password: string }
 }
 
 export const WORKS: WorkItem[] = [
   {
+    slug: 'sites',
+    label: 'SITES',
+    labelEyebrow: 'SEO GEO AEO',
+    title: '기업·브랜드 웹 10종',
+    period: '2026.06 말 ~ 2026.11',
+    role: '프론트엔드(공개 웹 10종, SEO/AEO·GEO, 문의 연결, 하나리더투어 관리 화면)',
+    oneLiner:
+      '기획부터 화면·검색 설정·문의 연결·배포까지 진행한 클라이언트 사이트.\n검색에 잡히고, 방문 문의가 담당자에게 닿는 일을 기준으로 봄',
+    homeLine: '감탄누수 · 요셉씨의 빛자루 · 탑애드 · 현중고차 외 6곳',
+    stack: ['Next.js', 'TypeScript', 'Tailwind', 'GSAP', 'Motion', 'Solapi', 'Cloudflare D1·R2·Access'],
+    thumb: {
+      src: '/images/works/card-sites.png',
+      alt: '기업·브랜드 웹 10종 중 9곳의 공유 이미지. 감탄누수, 요셉씨의 빛자루, 하나리더투어, 현중고차, 가화 법률사무소, JL153, 시하디자인, 탑애드, 건국마루.',
+    },
+    compare: {
+      src: '/images/works/brandweb-2-v2.png',
+      alt: 'As-Is / To-Be. Metadata, sitemap, robots, JSON-LD로 검색과 AI가 읽게 한 흐름.',
+    },
+    entries: [
+      {
+        name: '감탄누수',
+        note: '지역 페이지, JSON-LD, 견적 SMS',
+        url: 'https://gamtannusu.com',
+        image: { src: '/images/works/site-gamtan.jpg', alt: '감탄누수 공유 이미지. 전국 누수탐지·배관수리.' },
+      },
+      {
+        name: '요셉씨의 빛자루',
+        note: '견적·파트너십 폼',
+        url: 'https://jcct.co.kr/',
+        image: { src: '/images/works/site-bitzaru.jpg', alt: '요셉씨의 빛자루클린 공유 이미지.' },
+      },
+      {
+        name: '탑애드',
+        note: 'SEO·GEO·AEO, JSON-LD, 전화 상담',
+        url: 'https://toplawyermarketing.com',
+        image: { src: '/images/works/site-topad.jpg', alt: '탑애드컴퍼니 공유 이미지.' },
+      },
+      {
+        name: '현중고차',
+        note: '중고차 구매 상담, 딜러 브랜드 웹',
+        url: 'https://hyunjoongcar.com',
+        image: { src: '/images/works/site-hyunjoong.jpg', alt: '현중고차 공유 이미지. 책 쓰는 딜러, 차 파는 작가.' },
+      },
+      {
+        name: '시하디자인',
+        note: '3M 단열필름 시공, 지점·견적',
+        url: 'https://sihadesign.com',
+        image: { src: '/images/works/site-siha.jpg', alt: '시하디자인 공유 이미지. 3M 공식대리점.' },
+      },
+      {
+        name: '건국마루',
+        note: '마루 시공 업체 사이트',
+        url: 'https://konkukflooring.com',
+        image: { src: '/images/works/site-konkuk.jpg', alt: '건국마루 공유 이미지. 시흥 마루·장판·데코타일 시공.' },
+      },
+      {
+        name: '하나리더투어',
+        note: '사회적기업 여행사 공개 웹·관리자. D1·R2 공유, 관리자는 Cloudflare Access',
+        url: 'https://hanaleadertour.or.kr',
+        image: {
+          src: '/images/works/site-hana.jpg',
+          alt: '하나리더투어 공유 이미지. 사회적기업, 국내여행·전세버스·양평힐링센터.',
+        },
+      },
+      {
+        name: 'JL153',
+        note: '건축·분양 시행사 사이트',
+        url: 'https://jl153.kr',
+        image: { src: '/images/works/site-jl153.jpg', alt: 'JL153 공유 이미지. 시행·시공·인테리어·산업 유통.' },
+      },
+      {
+        name: '오남 리드앤톡',
+        note: '영어 독서 학원 사이트',
+        url: 'https://onamreadntalk.co.kr',
+        image: { src: '/images/works/site-onam.jpg', alt: '오남 리드앤톡 공유 이미지. 남양주 오남 영어원서 전문학원.' },
+      },
+      {
+        name: '가화 법률사무소',
+        note: '부산 법률사무소 사이트',
+        url: 'https://gahwalaw.com',
+        image: { src: '/images/works/site-gahwa.jpg', alt: '가화 법률사무소 공유 이미지.' },
+      },
+    ],
+    decisions: [
+      {
+        title: '검색과 문의',
+        problem: '사이트마다 검색에 노출되고, 방문 문의가 담당자에게 닿아야 했음',
+        choice: '검색·문의 전환을 기준으로 페이지·메타데이터·구조화 데이터와 문의 폼을 구성함',
+        result:
+          '문의가 접수되면 담당자에게 이어지는 흐름을 화면에 연결함. 감탄누수·요셉씨의 빛자루·현중고차·시하디자인·건국마루·오남 리드앤톡은 상담·견적 문의가 SMS로 전달되도록 함',
+        shots: [
+          {
+            src: '/images/works/brandweb-2-v2.png',
+            alt: 'As-Is / To-Be. Metadata, sitemap, robots, JSON-LD로 검색과 AI가 읽게 한 흐름.',
+            caption: '페이지·메타데이터·구조화 데이터로 검색엔진·AI가 페이지 관계를 구분합니다.',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '작업 공간 나누기',
+        problem:
+          '사이트가 비슷한 시기에 여러 개 돌아가 브랜치와 작업 맥락이 섞였습니다.',
+        choice:
+          '여러 사이트를 동시에 진행할 때는 git worktree로 작업 공간을 나눠 맥락이 섞이지 않게 함',
+        result: '사이트마다 작업 폴더를 나눠, 한 사이트를 고칠 때 다른 사이트 맥락이 섞이지 않게 했습니다.',
+        shots: [
+          {
+            src: '/images/works/brandweb-3-v2.png',
+            alt: 'As-Is / To-Be. 사이트·기능 단위 git worktree와 Cursor 역할 분리.',
+            caption: '사이트마다 작업 폴더를 나눠, 한 사이트를 고칠 때 다른 사이트 맥락이 섞이지 않게 했습니다.',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '공개 웹과 관리자를 같이',
+        problem:
+          '하나리더투어는 공개 웹과 관리자가 상품·문의·이미지를 같이 써야 했습니다. 관리자에는 고객 연락처가 보여, 정해진 담당자만 들어가야 했습니다.',
+        choice:
+          '두 앱이 Cloudflare D1과 R2를 공유합니다. 관리자 로그인은 직접 만들지 않고, Cloudflare Access로 허용한 이메일만 인증 코드를 받아 들어오게 했습니다.',
+        result: '짧은 일정에도 연락처가 있는 화면은 먼저 닫아 두었습니다. 담당자가 바뀌면 허용 목록만 고칩니다.',
+        shots: [
+          {
+            src: '/images/works/brandweb-4-v2.png',
+            alt: 'As-Is / To-Be. 하나 공개 웹과 관리자가 D1·R2를 공유하고 Access로 관리자를 닫는 구조.',
+            caption: '공개 웹과 관리자가 데이터와 이미지를 공유하고, 관리자는 허용 이메일만 들어옵니다.',
+            wide: true,
+          },
+          {
+            src: '/images/works/hana-admin-dashboard.png',
+            alt: '하나리더투어 관리자 대시보드. 읽지 않은 문의, 상품, 힐링센터, 공지 수.',
+            caption: '관리자에서 문의 확인부터 상품·힐링센터·공지 등록까지 처리합니다.',
+          },
+        ],
+      },
+    ],
+    links: [
+      { label: '감탄누수', url: 'https://gamtannusu.com' },
+      { label: '요셉씨의 빛자루', url: 'https://jcct.co.kr/' },
+      { label: '탑애드', url: 'https://toplawyermarketing.com' },
+      { label: '현중고차', url: 'https://hyunjoongcar.com' },
+      { label: '시하디자인', url: 'https://sihadesign.com' },
+      { label: '건국마루', url: 'https://konkukflooring.com' },
+      { label: '하나리더투어', url: 'https://hanaleadertour.or.kr' },
+      { label: 'JL153', url: 'https://jl153.kr' },
+      { label: '오남 리드앤톡', url: 'https://onamreadntalk.co.kr' },
+      { label: '가화 법률사무소', url: 'https://gahwalaw.com' },
+    ],
+  },
+  {
+    slug: 'alleo',
+    label: 'ALLEO',
+    title: 'Alleo · AI 콘텐츠 제품',
+    period: '2026.04 ~ 현재',
+    role: '프론트엔드(소개 웹, 공개 블로그, 사용자 콘솔, 관리자 콘솔, SNS 연동). 화면에 필요한 API 일부 수정',
+    oneLiner:
+      '소개 웹·공개 블로그·사용자 콘솔에서 진단→발행 흐름과 SNS 연결 화면을 맡음.\n영업용 마케팅 사이트는 1인으로 만들어 구축 사례의 검색 성과를 링크로 보여 줌',
+    homeLine: '분석 → 추적 → SNS 발행',
+    stack: ['Next.js App Router', 'TypeScript', 'TanStack Query', 'Tailwind'],
+    thumb: {
+      src: '/images/works/card-alleo.png',
+      alt: 'alleo 소개 화면. AI 검색에 브랜드가 먼저 나오도록 진단하는 입력창.',
+    },
+    compare: {
+      src: '/images/works/alleo-1-v2.png',
+      alt: 'As-Is / To-Be. 흩어진 분석을 리포트, 개선 포인트, AI 추천 추적 순서로 이은 흐름.',
+    },
+    entries: [
+      { name: 'alleo.kr', note: '소개 웹', url: 'https://alleo.kr' },
+      { name: 'marketing.alleo.pro', note: '영업용 마케팅 사이트', url: 'https://marketing.alleo.pro' },
+    ],
+    decisions: [
+      {
+        title: '사이트 분석과 노출 추적',
+        problem:
+          '사이트가 검색과 AI에 어떻게 보이는지 한눈에 보기 어려웠습니다. 분석과 추적이 흩어지면 다음 행동으로 이어지지 않습니다.',
+        choice:
+          '점수, 개선 포인트, 리포트 목록과 차트로 분석 화면을 만들었습니다. AI 추천 추적, 경쟁사, 키워드 기회를 같은 흐름에 두고, 리포트가 없으면 추적 질문을 제한했습니다.',
+        result: '분석하고, 고칠 점을 보고, 그다음 추적하는 순서로 콘솔을 쓰게 됩니다.',
+        shots: [
+          {
+            src: '/images/works/alleo-1-v2.png',
+            alt: 'As-Is / To-Be. 분석 리포트에서 개선 포인트, AI 추천 추적으로 이어지는 흐름.',
+            caption: '리포트가 없으면 추적을 제한해, 진단 다음에 추적하게 했습니다.',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: 'SNS 계정 연결',
+        problem:
+          '글을 올리려면 Facebook, Instagram, LinkedIn 계정을 먼저 연결해야 합니다. 개발자 콘솔에 등록한 redirect와 실제 주소가 조금만 달라도 연동이 중간에 끊깁니다.',
+        choice:
+          '채널별 OAuth를 시작하고, 등록된 콜백에서 code와 state를 확인한 뒤 계정을 연결합니다. 끝나면 연동 화면으로 돌아와 성공과 실패를 보여 줍니다. 글 본문과 AI 초안은 협업으로 진행했고, 연동 화면과 연결 흐름을 맡았습니다.',
+        result: '소셜 로그인 후 콘솔에서 연결 완료를 확인합니다. 이후 업로드는 연결된 채널 기준으로 진행합니다.',
+        shots: [
+          {
+            src: '/images/works/alleo-2-v2.png',
+            alt: 'SNS 연동 구조도. OAuth 시작, 콜백의 code·state 확인, 연동 화면 복귀.',
+            caption: '채널별 OAuth 뒤 등록된 콜백으로 돌아와, 연동 화면에서 성공과 실패를 보여 줍니다.',
+            wide: true,
+          },
+        ],
+      },
+      {
+        title: '구축 사례의 검색 성과',
+        problem:
+          '영업할 때 검색에 잘 나온다는 말을 근거 없이 설명해야 했습니다. 성과는 Search Console과 네이버 서치어드바이저에 흩어져 있고, 네이버는 사이트 성과를 조회하는 공개 API가 없습니다.',
+        choice:
+          '영업용 마케팅 사이트를 만들고 사례마다 검색 성과를 보여 줍니다. Search Console 데이터는 D1에 저장하고, 네이버는 서치어드바이저 데이터를 시드로 넣습니다. 키워드 순위는 진행 중인 작업을 재사용하고, 화면은 3초 간격으로 폴링합니다.',
+        result: '영업 담당이 말 대신 사례별 순위와 성과 차트를 링크로 보여 줍니다.',
+        shots: [
+          {
+            src: '/images/works/alleo-3-v3.png',
+            alt: 'As-Is / To-Be. 키워드 순위 검사를 재사용하고 Google·네이버를 동시에 조회한 뒤 폴링하는 흐름.',
+            caption: '같은 순위 검사는 다시 만들지 않고, 화면은 끝날 때까지 폴링합니다.',
+            wide: true,
+          },
+        ],
+      },
+    ],
+    links: [
+      {
+        label: '케이스 노트 (Notion)',
+        url: 'https://volcano-fisherman-e31.notion.site/Alleo-AI-SaaS-39e3307fa7e680628ef3f87e6e520d7d',
+      },
+    ],
+  },
+  {
     slug: 'tcc',
     label: 'BACKOFFICE',
-    title: '중대재해 관리 백오피스',
-    period: '2025.05 — 2026.02',
-    role: '프론트엔드, 동적 메뉴, 권한 훅, 조직 선택 모달, 테이블 CRUD',
-    oneLiner: '사이드바를 숨겨도 주소로 치면 화면이 열렸습니다.\n메뉴와 버튼 권한을 서버 기준으로 바꿨습니다.',
+    title: '중대재해 관리 운영자용 관리 화면',
+    period: '2025.05 ~ 2026.02',
+    role: '프론트엔드(동적 메뉴, 권한 훅, 조직 선택 모달, 테이블 CRUD)',
+    oneLiner: '권한·메뉴·조직 선택을 공통 구조로 맞춤.\n권한 훅 약 90개 파일, 조직 모달 약 50개 화면에서 재사용 중',
     homeLine: '권한 훅 ~90개 파일 · 조직 모달 ~50개 화면',
-    stack: ['Next.js Pages Router', 'TypeScript', 'React Query', 'Jotai', 'Axios', 'Ant Design', 'Styled Components'],
+    stack: ['Next.js (Pages Router)', 'TypeScript', 'React Query', 'Ant Design'],
     thumb: {
       src: '/images/works/card-tcc.png',
-      alt: '중대재해 관리 백오피스. 사이드바와 차트, 목록 화면.',
+      alt: '중대재해 관리 운영자용 관리 화면. 사이드바와 차트, 목록 화면.',
     },
     compare: {
       src: '/images/works/backoffice-1-v2.png',
@@ -135,307 +363,10 @@ export const WORKS: WorkItem[] = [
     ],
   },
   {
-    slug: 'sites',
-    label: 'SITES',
-    labelEyebrow: 'SEO GEO AEO',
-    title: '기업·브랜드 웹 10종',
-    period: '2026.01 — 2026.10',
-    role: '프론트엔드, 공개 웹 10종, 다국어, SEO, 문의 연결',
-    oneLiner:
-      '기업·브랜드 웹 10종.\n다국어, 검색 노출, 문의 접수까지 사이트마다 다르게 붙였습니다.',
-    homeLine: '크로플 · 하나리더투어 · 홈앤힐 · 감탄누수 외',
-    stack: [
-      'Next.js 16',
-      'React 19',
-      'TypeScript',
-      'Tailwind CSS 4',
-      'shadcn/ui',
-      'next-intl',
-      'GSAP',
-      'Motion',
-      'Solapi',
-      'Cloudflare',
-    ],
-    thumb: {
-      src: '/images/works/card-sites.png',
-      alt: '기업 웹 카드. 크로플, 하나리더투어, 홈앤힐 첫 화면.',
-    },
-    compare: {
-      src: '/images/works/brandweb-1-v2.png',
-      alt: 'As-Is / To-Be. 문구만 번역하던 다국어를 URL·본문·메타데이터가 같은 locale 규칙을 보게 바꾼 흐름.',
-    },
-    entries: [
-      {
-        name: '크로플',
-        note: 'IT 아웃소싱 공식 웹. 4개 국어 URL·메타, 커피챗 Solapi',
-        url: 'https://www.kroffle.com/kr',
-        image: { src: '/images/works/site-kroffle.jpg', alt: '크로플 공유 이미지. 내부 팀처럼 일하는 IT 개발 파트너.' },
-      },
-      {
-        name: '하나리더투어',
-        note: '사회적기업 여행사 공개 웹·관리자. D1·R2 공유, 관리자는 Cloudflare Access',
-        url: 'https://hanaleadertour.or.kr',
-        image: {
-          src: '/images/works/site-hana.jpg',
-          alt: '하나리더투어 공유 이미지. 사회적기업, 국내여행·전세버스·양평힐링센터.',
-        },
-      },
-      {
-        name: '홈앤힐',
-        note: '가구 브랜드 웹. 소파·식탁·침대·수납장',
-        image: {
-          src: '/images/works/site-homeandheal.jpg',
-          alt: '홈앤힐 로고. Home&Heal.',
-        },
-      },
-      {
-        name: '감탄누수',
-        note: '지역 페이지, JSON-LD, 견적 SMS',
-        url: 'https://gamtannusu.com',
-        image: { src: '/images/works/site-gamtan.jpg', alt: '감탄누수 공유 이미지. 전국 누수탐지·배관수리.' },
-      },
-      {
-        name: '요셉씨의 빛자루',
-        note: '견적·파트너십 폼',
-        url: 'https://jcct.co.kr/',
-        image: { src: '/images/works/site-bitzaru.jpg', alt: '요셉씨의 빛자루클린 공유 이미지.' },
-      },
-      {
-        name: '고야차트',
-        note: '상담 문의 Solapi',
-        url: 'https://exproject.work',
-        image: { src: '/images/works/site-goya.jpg', alt: '고야차트 공유 이미지. AI 기반 시세 방향성 시그널.' },
-      },
-      {
-        name: '탑애드컴퍼니',
-        note: 'SEO·GEO·AEO, JSON-LD, 전화 상담',
-        url: 'https://toplawyermarketing.com',
-        image: { src: '/images/works/site-topad.jpg', alt: '탑애드컴퍼니 공유 이미지.' },
-      },
-      {
-        name: '현중고차',
-        note: '중고차 구매 상담, 딜러 브랜드 웹',
-        url: 'https://hyunjoongcar.com',
-        image: { src: '/images/works/site-hyunjoong.jpg', alt: '현중고차 공유 이미지. 책 쓰는 딜러, 차 파는 작가.' },
-      },
-      {
-        name: '시하디자인',
-        note: '3M 단열필름 시공, 지점·견적',
-        url: 'https://sihadesign.com',
-        image: { src: '/images/works/site-siha.jpg', alt: '시하디자인 공유 이미지. 3M 공식대리점.' },
-      },
-      {
-        name: '건국마루',
-        note: '',
-        url: 'https://konkukflooring.com',
-      },
-      {
-        name: 'JL153',
-        note: '',
-        url: 'https://jl153.kr',
-      },
-      {
-        name: '오남 리드앤톡',
-        note: '',
-        url: 'https://onamreadntalk.co.kr',
-      },
-      {
-        name: '가화 법률사무소',
-        note: '',
-        url: 'https://gahwalaw.com',
-      },
-    ],
-    decisions: [
-      {
-        title: '언어가 섞이지 않게',
-        problem:
-          '화면 문구만 바꾸면 주소, 메뉴, 메타데이터가 서로 다른 기준이 됩니다. 언어가 섞이거나 검색 정보와 본문이 어긋납니다.',
-        choice:
-          'next-intl로 한국어·영어·일본어·중국어를 관리하고 URL을 /kr · /us · /jp · /cn으로 나눴습니다. 링크는 현재 언어를 유지하고, 본문과 메타데이터는 같은 번역 파일을 봅니다.',
-        result: '페이지를 옮겨도 고른 언어가 유지됩니다. 문구를 고칠 때 컴포넌트를 직접 열지 않습니다.',
-        shots: [
-          {
-            src: '/images/works/brandweb-1-v2.png',
-            alt: 'As-Is / To-Be. next-intl locale로 URL, 문구, 메타데이터를 연결한 흐름.',
-            caption: '언어별 URL과 본문, 메타데이터가 같은 locale 규칙을 봅니다.',
-            wide: true,
-          },
-        ],
-      },
-      {
-        title: '검색과 AI가 읽게',
-        problem:
-          '다국어 페이지는 canonical과 언어별 대체 URL이 틀리면 같은 글이 중복으로 잡힙니다. 검색엔진과 AI 검색이 회사·서비스 정보를 읽으려면 문장 밖에 구조도 필요했습니다.',
-        choice:
-          '언어·페이지별 title, description, Open Graph, canonical을 만들고, sitemap에 언어별 대체 URL과 x-default를 넣었습니다. 회사·FAQ·서비스는 JSON-LD로 적습니다.',
-        result: '검색엔진이 언어별 URL의 관계와 대표 페이지를 구분할 기반이 있습니다.',
-        shots: [
-          {
-            src: '/images/works/brandweb-2-v2.png',
-            alt: 'As-Is / To-Be. Metadata, sitemap, robots, JSON-LD로 검색과 AI가 읽게 한 흐름.',
-            caption: '언어별 대표 URL과 구조화 데이터로 검색엔진·AI가 페이지 관계를 구분합니다.',
-            wide: true,
-          },
-          {
-            src: '/images/works/sites-sitemap.png',
-            alt: '크로플 sitemap. 언어별 URL과 hreflang alternate, x-default.',
-            caption: '언어별 URL에 alternate와 x-default를 넣어, 같은 글의 대표 페이지를 구분합니다.',
-          },
-          {
-            src: '/images/works/sites-meta.png',
-            alt: 'Google 리치 결과 테스트. 지역 업체, 회사, 리뷰 스니펫이 감지된 화면.',
-            caption: '회사·지역 업체·리뷰 스니펫이 리치 결과에 잡히도록 구조화 데이터를 맞췄습니다.',
-          },
-        ],
-      },
-      {
-        title: '문의와 작업 나누기',
-        problem:
-          '문의가 폼에만 쌓이면 담당자가 바로 받지 못합니다. 사이트가 비슷한 시기에 여러 개 돌아가 브랜치와 작업 맥락이 섞였습니다.',
-        choice:
-          '크로플·감탄누수·고야차트는 Solapi로 담당자에게 문자를 보냅니다. 사이트마다 git worktree로 작업 폴더를 나눴습니다.',
-        result: '공개 웹 10종입니다. 문의가 있는 사이트는 제출이 담당자 알림까지 이어집니다.',
-        shots: [
-          {
-            src: '/images/works/brandweb-3-v2.png',
-            alt: 'As-Is / To-Be. 사이트·기능 단위 git worktree와 Cursor 역할 분리.',
-            caption: '사이트마다 작업 폴더를 나눠, 한 사이트를 고칠 때 다른 사이트 맥락이 섞이지 않게 했습니다.',
-            wide: true,
-          },
-        ],
-      },
-      {
-        title: '공개 웹과 관리자를 같이',
-        problem:
-          '하나리더투어는 공개 웹과 관리자가 상품·문의·이미지를 같이 써야 했습니다. 관리자에는 고객 연락처가 보여, 정해진 담당자만 들어가야 했습니다.',
-        choice:
-          '두 앱이 Cloudflare D1과 R2를 공유합니다. 관리자 로그인은 직접 만들지 않고, Cloudflare Access로 허용한 이메일만 인증 코드를 받아 들어오게 했습니다.',
-        result: '짧은 일정에도 연락처가 있는 화면은 먼저 닫아 두었습니다. 담당자가 바뀌면 허용 목록만 고칩니다.',
-        shots: [
-          {
-            src: '/images/works/brandweb-4-v2.png',
-            alt: 'As-Is / To-Be. 하나 공개 웹과 관리자가 D1·R2를 공유하고 Access로 관리자를 닫는 구조.',
-            caption: '공개 웹과 관리자가 데이터와 이미지를 공유하고, 관리자는 허용 이메일만 들어옵니다.',
-            wide: true,
-          },
-          {
-            src: '/images/works/hana-admin-dashboard.png',
-            alt: '하나리더투어 관리자 대시보드. 읽지 않은 문의, 상품, 힐링센터, 공지 수.',
-            caption: '관리자에서 문의 확인부터 상품·힐링센터·공지 등록까지 처리합니다.',
-          },
-        ],
-      },
-    ],
-    links: [
-      { label: '크로플', url: 'https://www.kroffle.com/kr' },
-      { label: '하나리더투어', url: 'https://hanaleadertour.or.kr' },
-      { label: '감탄누수', url: 'https://gamtannusu.com' },
-      { label: '요셉씨의 빛자루', url: 'https://jcct.co.kr/' },
-      { label: '고야차트', url: 'https://exproject.work' },
-      { label: '탑애드컴퍼니', url: 'https://toplawyermarketing.com' },
-      { label: '현중고차', url: 'https://hyunjoongcar.com' },
-      { label: '시하디자인', url: 'https://sihadesign.com' },
-      { label: '건국마루', url: 'https://konkukflooring.com' },
-      { label: 'JL153', url: 'https://jl153.kr' },
-      { label: '오남 리드앤톡', url: 'https://onamreadntalk.co.kr' },
-      { label: '가화 법률사무소', url: 'https://gahwalaw.com' },
-    ],
-  },
-  {
-    slug: 'alleo',
-    label: 'ALLEO',
-    title: 'AI 검색 최적화 · 콘텐츠 자동화 SaaS',
-    period: '2026.04 — 현재',
-    role: '프론트엔드·일부 API, 소개 웹, 공개 블로그, 사용자 콘솔, 관리자',
-    oneLiner:
-      '검색·AI 노출 진단부터 블로그, SNS 발행까지 이어집니다.\n소개 웹·블로그·콘솔·관리자를 나눠 만들었습니다.',
-    homeLine: '분석 → 추적 → SNS 발행',
-    stack: [
-      'Next.js 16',
-      'React 19',
-      'TypeScript',
-      'TanStack Query',
-      'Zustand',
-      'Tailwind CSS 4',
-      'NestJS',
-      'Cloudflare',
-    ],
-    thumb: {
-      src: '/images/works/card-alleo.png',
-      alt: 'alleo 소개 화면. AI 검색에 브랜드가 먼저 나오도록 진단하는 입력창.',
-    },
-    compare: {
-      src: '/images/works/alleo-1-v2.png',
-      alt: 'As-Is / To-Be. 흩어진 분석을 리포트, 개선 포인트, AI 추천 추적 순서로 이은 흐름.',
-    },
-    entries: [
-      { name: 'intro', note: '소개 웹 · 다국어', url: 'https://alleo.pro' },
-      { name: 'blog', note: '사용자 커스텀 블로그', url: 'https://alleo.blog' },
-      { name: 'wiki', note: '도움말 문서', url: 'https://alleo.wiki' },
-      { name: 'console', note: '분석 · SNS OAuth', url: 'https://console.alleo.pro' },
-    ],
-    decisions: [
-      {
-        title: '사이트 분석과 노출 추적',
-        problem:
-          '사이트가 검색과 AI에 어떻게 보이는지 한눈에 보기 어려웠습니다. 분석과 추적이 흩어지면 다음 행동으로 이어지지 않습니다.',
-        choice:
-          '점수, 개선 포인트, 리포트 목록과 차트로 분석 화면을 만들었습니다. AI 추천 추적, 경쟁사, 키워드 기회를 같은 흐름에 두고, 리포트가 없으면 추적 질문을 제한했습니다.',
-        result: '분석하고, 고칠 점을 보고, 그다음 추적하는 순서로 콘솔을 쓰게 됩니다.',
-        shots: [
-          {
-            src: '/images/works/alleo-1-v2.png',
-            alt: 'As-Is / To-Be. 분석 리포트에서 개선 포인트, AI 추천 추적으로 이어지는 흐름.',
-            caption: '리포트가 없으면 추적을 제한해, 진단 다음에 추적하게 했습니다.',
-            wide: true,
-          },
-        ],
-      },
-      {
-        title: 'SNS 계정 연결',
-        problem:
-          '글을 올리려면 Facebook, Instagram, LinkedIn 계정을 먼저 연결해야 합니다. 개발자 콘솔에 등록한 redirect와 실제 주소가 조금만 달라도 연동이 중간에 끊깁니다.',
-        choice:
-          '채널별 OAuth를 시작하고, 등록된 콜백에서 code와 state를 확인한 뒤 계정을 연결합니다. 끝나면 연동 화면으로 돌아와 성공과 실패를 보여 줍니다. 글 본문과 AI 초안은 협업으로 진행했고, 연동 화면과 연결 흐름을 맡았습니다.',
-        result: '소셜 로그인 후 콘솔에서 연결 완료를 확인합니다. 이후 업로드는 연결된 채널 기준으로 진행합니다.',
-        shots: [
-          {
-            src: '/images/works/alleo-2-v2.png',
-            alt: 'SNS 연동 구조도. OAuth 시작, 콜백의 code·state 확인, 연동 화면 복귀.',
-            caption: '채널별 OAuth 뒤 등록된 콜백으로 돌아와, 연동 화면에서 성공과 실패를 보여 줍니다.',
-            wide: true,
-          },
-        ],
-      },
-      {
-        title: '구축 사례의 검색 성과',
-        problem:
-          '영업할 때 검색에 잘 나온다는 말을 근거 없이 설명해야 했습니다. 성과는 Search Console과 네이버 서치어드바이저에 흩어져 있고, 네이버는 사이트 성과를 조회하는 공개 API가 없습니다.',
-        choice:
-          '영업용 마케팅 사이트를 만들고 사례마다 검색 성과를 보여 줍니다. Search Console 데이터는 D1에 저장하고, 네이버는 서치어드바이저 데이터를 시드로 넣습니다. 키워드 순위는 진행 중인 작업을 재사용하고, 화면은 3초 간격으로 폴링합니다.',
-        result: '영업 담당이 말 대신 사례별 순위와 성과 차트를 링크로 보여 줍니다.',
-        shots: [
-          {
-            src: '/images/works/alleo-3-v3.png',
-            alt: 'As-Is / To-Be. 키워드 순위 검사를 재사용하고 Google·네이버를 동시에 조회한 뒤 폴링하는 흐름.',
-            caption: '같은 순위 검사는 다시 만들지 않고, 화면은 끝날 때까지 폴링합니다.',
-            wide: true,
-          },
-        ],
-      },
-    ],
-    links: [
-      {
-        label: '케이스 노트 (Notion)',
-        url: 'https://volcano-fisherman-e31.notion.site/Alleo-AI-SaaS-39e3307fa7e680628ef3f87e6e520d7d',
-      },
-    ],
-  },
-  {
     slug: 'money',
     label: 'MONEY',
-    title: '내 돈 어디갔지?',
-    period: '2026.02 — 현재',
+    title: '[내 돈 어디갔지?] 가계부',
+    period: '2026.02 ~ 현재',
     status: '진행 중',
     role: '기획·UI·기능·배포·운영',
     oneLiner: '기록은 짧게, 할부와 구독은 매달 다시 적지 않게.\n직접 쓰면서 기능을 더하는 가계부입니다.',
@@ -501,63 +432,6 @@ export const WORKS: WorkItem[] = [
       { label: 'GitHub', url: 'https://github.com/Kbomi16/where-is-my-money' },
     ],
   },
-  {
-    slug: 'useme',
-    label: 'USEME',
-    title: 'useMe',
-    period: '2026.09 — 현재',
-    status: '진행 중',
-    role: '기획·UI·기능·인프라 전 과정 단독 진행',
-    oneLiner:
-      '토이프로젝트를 어필 카드로 공유하고, 직접 써 보며 피드백합니다.\n등록에서 다음 등록까지 코어 루프 하나가 도는 것을 목표로 만들고 있습니다.',
-    homeLine: '등록 → 어필 → 체험 → 피드백',
-    stack: [
-      'Next.js App Router',
-      'TypeScript',
-      'Turborepo',
-      'Tailwind CSS 4',
-      'shadcn/ui',
-      'TanStack Query',
-      'Zustand',
-      'Supabase',
-    ],
-    thumb: {
-      src: '/images/works/card-useme.png',
-      alt: 'useMe 카드. 토이프로젝트 어필·체험 플랫폼.',
-    },
-    decisions: [
-      {
-        title: '코어 루프를 먼저',
-        problem:
-          '기능을 많이 넣으면 등록부터 다음 등록까지 한 바퀴가 도는지 확인하기 어려워집니다.',
-        choice:
-          '등록, 어필 3칸, 홍보팩, 공유·스포트라이트, 체험·반응, 크레딧을 거쳐 다음 등록으로 돌아오는 코어 루프 하나가 제대로 도는 것을 목표로 잡았습니다.',
-        result:
-          'Must 범위는 프로젝트 프로필, 어필력 게이지, 홍보팩, 24h 스포트라이트, 디스커버입니다. 랜딩과 앱 화면, 소셜 로그인을 브랜치 단위로 올리고 있습니다.',
-      },
-      {
-        title: '앱 경계를 직접 설계',
-        problem:
-          '실무(Alleo)에서 쓰던 멀티 앱 분리를 개인 프로젝트에 옮기려면, 앱 경계와 세션을 처음부터 정해야 했습니다.',
-        choice:
-          'Turborepo로 공개 웹(web)과 운영 콘솔(admin)을 나누고 공통 UI는 packages/ui로 분리했습니다. Supabase 쿠키 세션으로 Email·Google·Kakao 로그인을 붙이고, /api BFF를 구성했습니다.',
-        result: '앱 경계, BFF, 쿠키 세션을 처음부터 직접 정해 보는 중입니다.',
-      },
-      {
-        title: '리텐션은 마이페이지에만',
-        problem:
-          '크레딧·티어 같은 장치를 랜딩이나 홍보팩 버튼에 섞으면, 코어 루프와 다른 목적이 한 화면에 겹칩니다.',
-        choice:
-          '크레딧·티어 같은 리텐션 장치는 마이페이지에만 두고, 랜딩·홍보팩 CTA에는 섞지 않는 것을 기획 원칙으로 정했습니다.',
-        result: '기능을 늘리기보다 코어 루프가 먼저 도는지 확인하는 순서로 진행하고 있습니다.',
-      },
-    ],
-    links: [
-      { label: '배포', url: 'https://useme-web-beige.vercel.app/' },
-      { label: 'GitHub', url: 'https://github.com/Kbomi16/useme' },
-    ],
-  },
-
 ]
 
 export const workBySlug = (slug: string | undefined): WorkItem | undefined =>

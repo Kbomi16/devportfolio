@@ -1,14 +1,17 @@
-import { useRef, type ReactNode } from 'react'
+import { useRef } from 'react'
 import Display from '../components/common/Display'
 import Label from '../components/common/Label'
+import { CAREER, COMPANY, type CareerItem } from '../content/career'
 import { HISTORY, type HistoryRow } from '../content/history'
+import { outboundLinkProps } from '../lib/outboundLink'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
-import { gsap, SplitText, useGSAP } from '../lib/gsapSetup'
+import { gsap, useGSAP } from '../lib/gsapSetup'
+import { revealOnce } from '../lib/reveal'
 import { matchMediaPreset } from '../lib/media'
 import SceneSlot from '../scene/SceneSlot'
 
-/** CH4 — 스테이트먼트 리빌 + 이력 벤토 그리드. */
+/** CH4 — 경력(크로플 4개 항목) + 학력·수상·자격증 벤토 그리드. */
 export default function Method() {
   const sectionRef = useRef<HTMLElement>(null)
 
@@ -17,42 +20,7 @@ export default function Method() {
       const mm = matchMediaPreset(({ motion, desktop }) => {
         if (!motion) return
 
-        const words = gsap.utils
-          .toArray<HTMLElement>('[data-split-words]')
-          .flatMap((el) => SplitText.create(el, { type: 'words', mask: 'words', aria: 'none' }).words)
-
-        gsap.from(words, {
-          yPercent: 110,
-          stagger: 0.05,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '[data-statement]',
-            start: 'top 85%',
-            end: 'top 45%',
-            scrub: 0.6,
-          },
-        })
-
-        gsap
-          .timeline({
-            scrollTrigger: {
-              trigger: '[data-statement]',
-              start: 'top 60%',
-              end: 'top 25%',
-              scrub: 0.6,
-            },
-          })
-          .fromTo(
-            '[data-mark-fill]',
-            { scaleX: 0 },
-            { scaleX: 1, ease: 'power3.inOut', transformOrigin: 'left center' },
-          )
-          .fromTo(
-            '[data-mark-text]',
-            { clipPath: 'inset(0 100% 0 0)' },
-            { clipPath: 'inset(0 0% 0 0)', ease: 'power3.out' },
-            '-=0.2',
-          )
+        revealOnce(gsap.utils.toArray<HTMLElement>('[data-rv]'))
 
         const reach = desktop ? 140 : 64
         gsap.utils.toArray<HTMLElement>('[data-row]').forEach((row) => {
@@ -96,26 +64,30 @@ export default function Method() {
         fallbackSrc="/images/3d/workflow-memo.webp"
         className="absolute top-[12vh] right-[var(--pad)] size-[clamp(96px,10vw,160px)] max-md:size-[72px]"
       />
-      <div data-statement className="mx-auto w-full max-w-[1200px]">
-        <Label className="text-muted">일하는 방식</Label>
-        <p className="mt-3 max-w-[16em] font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
-          <span data-split-words>잘 모르는 걸 만나면 일단 적고,</span>
-          <br />
-          <MarkedPhrase>
-            <span
-              data-mark-text
-              className="text-dark-ink [clip-path:inset(0_100%_0_0)] motion-reduce:[clip-path:none]"
-            >
-              다시 꺼낼 수 있는 형태
-            </span>
-          </MarkedPhrase>
-          <span data-split-words>로 남깁니다.</span>
+      <div className="mx-auto w-full max-w-[1200px]">
+        <Label data-rv className="text-muted">
+          경력
+        </Label>
+        <div data-rv className="mt-3 flex flex-col gap-2">
+          <h2 className="max-w-[calc(100%-120px)] font-kr text-[clamp(24px,3vw,44px)] leading-[1.2] font-extrabold tracking-[-0.02em] max-md:max-w-none">
+            {COMPANY.name}
+          </h2>
+          <Label className="text-muted">{COMPANY.period}</Label>
+        </div>
+        <p data-rv className="mt-4 max-w-[62ch] text-[15px] leading-[1.75] text-ink/70">
+          {COMPANY.summary}
         </p>
-        <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
-          나중에 헤매지 않으려고 적어 둔 메모가 블로그 100편이 됐습니다.
-          <br />
-          그 습관이 지금은 일하는 방식입니다.
-        </p>
+        <ol className="mt-8 grid list-none gap-4 lg:grid-cols-2">
+          {CAREER.map((item) => (
+            <CareerCard key={item.title} item={item} />
+          ))}
+        </ol>
+      </div>
+
+      <div className="mx-auto w-full max-w-[1200px] pt-[4vh]">
+        <Label data-rv className="text-muted">
+          학력 · 수상·활동 · 자격증
+        </Label>
       </div>
 
       <ul
@@ -146,13 +118,12 @@ const GATHER: Gather[] = [
 ]
 
 const ITEM_SPAN: Record<HistoryRow['tag'], string> = {
-  NOW: 'sm:col-span-2 lg:col-span-7',
-  CAMP: 'sm:col-span-2 lg:col-span-5',
   DEGREE: 'sm:col-span-2 lg:col-span-6',
-  AWARD: 'sm:col-span-2 lg:col-span-6',
-  CERT: 'lg:col-span-4',
+  CAMP: 'sm:col-span-2 lg:col-span-4',
+  AWARD: 'sm:col-span-2 lg:col-span-4',
   LEAD: 'lg:col-span-4',
-  TUTOR: 'sm:col-span-2 lg:col-span-4',
+  TUTOR: 'lg:col-span-4',
+  CERT: 'sm:col-span-2 lg:col-span-4',
 }
 
 function IndexItem({ row, gather }: { row: HistoryRow; gather: Gather }) {
@@ -182,18 +153,65 @@ function IndexItem({ row, gather }: { row: HistoryRow; gather: Gather }) {
   )
 }
 
-function MarkedPhrase({ children }: { children: ReactNode }) {
+const CAREER_STEPS: { key: 'problem' | 'choice' | 'after'; label: string }[] = [
+  { key: 'problem', label: '문제' },
+  { key: 'choice', label: '선택' },
+  { key: 'after', label: '이후' },
+]
+
+function CareerCard({ item }: { item: CareerItem }) {
   return (
-    <span
-      data-mark
-      className="relative inline-block overflow-hidden align-baseline motion-reduce:overflow-visible"
-    >
-      <span
-        data-mark-fill
-        className="pointer-events-none absolute inset-0 origin-left scale-x-0 bg-ink motion-reduce:scale-x-100"
-        aria-hidden
-      />
-      <span className="relative">{children}</span>
-    </span>
+    <li data-rv className="flex flex-col gap-4 rounded-xl border border-hairline bg-light-ground p-5 md:p-6">
+      <div className="flex flex-col gap-1">
+        <Label className="text-muted">{item.period}</Label>
+        <Display className="font-kr text-[clamp(17px,1.6vw,22px)] leading-[1.3] font-bold tracking-[-0.01em]">
+          {item.title}
+        </Display>
+      </div>
+      <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-[13px] leading-[1.65]">
+        <dt className="text-muted">역할</dt>
+        <dd className="text-ink/70">{item.role}</dd>
+        <dt className="text-muted">스택</dt>
+        <dd className="text-ink/70">{item.stack}</dd>
+        {item.extra?.map((row) => (
+          <FragmentRow key={row.label} label={row.label} text={row.text} />
+        ))}
+        {item.live ? (
+          <>
+            <dt className="text-muted">라이브</dt>
+            <dd className="flex flex-wrap gap-x-3">
+              {item.live.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  {...outboundLinkProps(link.url)}
+                  className="underline decoration-hairline underline-offset-4 hover:decoration-current"
+                >
+                  {link.label} ↗
+                </a>
+              ))}
+            </dd>
+          </>
+        ) : null}
+      </dl>
+      <div className="flex flex-col gap-3 border-t border-hairline pt-4">
+        {CAREER_STEPS.map((step) => (
+          <div key={step.key} className="grid grid-cols-[2.5rem_1fr] gap-3">
+            <Label className="pt-[3px] text-muted">{step.label}</Label>
+            <p className="text-[13.5px] leading-[1.7] text-ink/70">{item[step.key]}</p>
+          </div>
+        ))}
+      </div>
+    </li>
+  )
+}
+
+function FragmentRow({ label, text }: { label: string; text: string }) {
+  return (
+    <>
+      <dt className="text-muted">{label}</dt>
+      <dd className="text-ink/70">{text}</dd>
+    </>
   )
 }

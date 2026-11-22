@@ -2,6 +2,7 @@ import { useRef, useState, type RefObject } from 'react'
 import { createPortal } from 'react-dom'
 import Display from '../components/common/Display'
 import Label from '../components/common/Label'
+import { HEADLINE } from '../content/about'
 import { canRender3D } from '../lib/can3D'
 import { cn } from '../lib/cn'
 import { ground } from '../lib/ground'
@@ -116,12 +117,12 @@ function HeroChrome({ chromeRef }: { chromeRef: RefObject<HTMLDivElement | null>
           as="h1"
           data-hero-name
           data-hero-parallax="name"
-          className="max-w-[92vw] text-[clamp(48px,10vw,156px)] leading-[0.88] [text-shadow:0_10px_70px_rgba(0,0,0,0.45)]"
+          className="max-w-[92vw] whitespace-nowrap text-[clamp(36px,10vw,156px)] leading-[0.88] [text-shadow:0_10px_70px_rgba(0,0,0,0.45)]"
         >
           KIM BOMI
         </Display>
-        <p data-hero-copy data-hero-parallax="ko" className="mt-5 text-[clamp(15px,1.5vw,20px)] font-medium tracking-[-0.01em] text-dark-ink/80">
-          만들고, 남기고, 다시 꺼내는 메이커
+        <p data-hero-copy data-hero-parallax="ko" className="mt-6 max-w-[34em] text-[clamp(15px,1.5vw,20px)] leading-[1.6] font-medium tracking-[-0.01em] text-dark-ink/85">
+          {HEADLINE}
         </p>
       </div>
 

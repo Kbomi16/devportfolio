@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kimbomi-devportfolio.netlify.app/sitemap.xml

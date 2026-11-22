@@ -41,7 +41,7 @@ type OpenShot = { shot: WorkShot; origin: HTMLImageElement }
 const DECISION_STEPS = [
   { key: 'problem', label: '문제' },
   { key: 'choice', label: '선택' },
-  { key: 'result', label: '결과' },
+  { key: 'result', label: '이후' },
 ] as const
 
 /** /work/:slug — 케이스가 바뀌면 SplitText·카운트업이 만진 DOM까지 새로 그리도록 slug로 다시 마운트한다 */
@@ -403,14 +403,6 @@ function WorkTitleMark({ work }: { work: WorkItem }) {
                 {link.label} ↗
               </Pill>
             ))}
-            {work.testAccount ? (
-              <span className="inline-flex max-w-full flex-wrap items-baseline gap-x-2 gap-y-1 rounded-full border border-hairline px-[18px] py-3">
-                <Label className="shrink-0">테스트 계정</Label>
-                <span className="text-[13px] leading-snug tabular-nums text-ink-2">
-                  {work.testAccount.email} / {work.testAccount.password}
-                </span>
-              </span>
-            ) : null}
           </div>
         ) : null}
       </div>

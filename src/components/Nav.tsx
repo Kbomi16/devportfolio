@@ -5,11 +5,12 @@ import { cn } from '../lib/cn'
 import { scrollToId, scrollToTop } from '../lib/useLenis'
 
 const LINKS: { label: string; id: string; line: string }[] = [
-  { label: '소개', id: 'about', line: 'w-[52px]' },
-  { label: '프로젝트', id: 'work', line: 'w-[44px]' },
-  { label: '일하는 방식', id: 'roster', line: 'w-[36px]' },
-  { label: 'AI WORKFLOW', id: 'pilot', line: 'w-[28px]' },
-  { label: 'blog', id: 'journal', line: 'w-[20px]' },
+  { label: '소개', id: 'intro', line: 'w-[52px]' },
+  { label: '프로젝트', id: 'work', line: 'w-[46px]' },
+  { label: '경력', id: 'roster', line: 'w-[40px]' },
+  { label: 'AI WORKFLOW', id: 'pilot', line: 'w-[32px]' },
+  { label: 'skills', id: 'skills', line: 'w-[24px]' },
+  { label: 'blog', id: 'journal', line: 'w-[18px]' },
   { label: 'contact', id: 'contact', line: 'w-[12px]' },
 ]
 
@@ -65,7 +66,7 @@ export default function Nav() {
 
       <nav
         aria-label="섹션"
-        className="fixed top-1/2 left-[var(--pad)] z-20 -translate-y-1/2 text-white mix-blend-difference"
+        className="fixed top-1/2 left-[var(--pad)] z-20 -translate-y-1/2 text-white mix-blend-difference max-[1359px]:hidden"
       >
         <ul>
           {LINKS.map((link) => (

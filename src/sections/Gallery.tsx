@@ -55,13 +55,16 @@ function WorkRow({
         <Label className="text-muted">{`0${index + 1}`}</Label>
         <span className="min-w-0">
           <span className="flex flex-wrap items-center gap-2">
-            <Display className="text-[clamp(18px,2vw,28px)]">{work.label}</Display>
-            {work.labelEyebrow ? <Label className="text-muted">{work.labelEyebrow}</Label> : null}
+            <Display className="font-kr text-[clamp(18px,2vw,28px)] leading-[1.25] font-extrabold tracking-[-0.02em]">
+              {work.title}
+            </Display>
             {work.status ? (
               <Label className="rounded-full bg-neon px-2 py-0.5 text-dark-ground">{work.status}</Label>
             ) : null}
           </span>
-          <Label className="mt-1 block text-muted">{work.homeLine}</Label>
+          <Label className="mt-1 block text-muted">
+            {[work.period, work.labelEyebrow, work.homeLine].filter(Boolean).join(' · ')}
+          </Label>
         </span>
         <span
           aria-hidden="true"

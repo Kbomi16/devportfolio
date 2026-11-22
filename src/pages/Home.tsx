@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import Nav from '../components/Nav'
 import Hero from '../sections/Hero'
+import About from '../sections/About'
 import Gallery from '../sections/Gallery'
 import Method from '../sections/Method'
 import Pilot from '../sections/Pilot'
+import Skills from '../sections/Skills'
 import Journal from '../sections/Journal'
 import Close from '../sections/Close'
 import { workBySlug } from '../content/works'
@@ -44,9 +46,11 @@ export default function Home() {
       <Nav />
       <main ref={pageRef}>
         <Hero />
+        <About />
         <Gallery onOpenWork={handleOpenWork} />
         <Method />
         <Pilot />
+        <Skills />
         <Journal />
         <Close />
       </main>

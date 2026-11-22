@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react'
-import Display from '../components/common/Display'
 import FlipLightbox from '../components/common/FlipLightbox'
 import Hairline from '../components/common/Hairline'
 import Label from '../components/common/Label'
@@ -99,16 +98,13 @@ export default function Pilot() {
       />
       <div className="mx-auto flex min-h-0 w-full max-w-[1200px] flex-1 flex-col gap-3">
         <div data-head className="w-full">
-          <Label className="text-muted">AI WORKFLOW · CURSOR</Label>
+          <Label className="text-muted">AI WORKFLOW</Label>
           <h2 className="mt-3 font-kr text-[clamp(26px,3.2vw,48px)] leading-[1.15] font-extrabold tracking-[-0.02em]">
-            잘 아는 쪽이
+            AI 옆에서도,
             <br />
-            파일럿이어야 합니다.
+            이렇게 만들어요.
           </h2>
-          <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">
-            Cursor로 코드를 많이 맡기지만, AI가 빨라졌다고 공부를 빼지 않습니다. 제가 그 일을 알고
-            있어야 나온 코드가 맞는지 볼 수 있습니다.
-          </p>
+          <p className="mt-3 max-w-[46ch] text-[15px] leading-[1.7] text-ink-2">올해 들어 새로 생긴 생각</p>
         </div>
 
         <div
@@ -126,7 +122,7 @@ export default function Pilot() {
           <Pill href={SKILLS_URL} target="_blank" {...outboundLinkProps(SKILLS_URL)}>
             반복 규칙은 스킬 파일로 → GitHub
           </Pill>
-          <Label className="text-muted max-md:hidden">FE-STYLE · SEO-AUDIT · GIT SUMMARY</Label>
+          <Label className="text-muted max-md:hidden">FE-STYLE · SEO-AUDIT · 깃 요약</Label>
         </div>
       </div>
       {openShot && openStep ? (
@@ -171,9 +167,9 @@ function ProtocolCard({
       <div className="min-w-0 lg:flex lg:flex-col lg:justify-center lg:py-7 lg:pr-4 lg:pl-6">
         <div className="flex flex-nowrap items-baseline gap-x-3">
           <Label className="shrink-0 text-muted">{step.no}</Label>
-          <Display className="shrink-0 text-[clamp(16px,1.6vw,22px)] lg:whitespace-nowrap">
-            {step.en}
-          </Display>
+          <p className="min-w-0 font-kr text-[clamp(16px,1.6vw,22px)] leading-[1.35] font-bold tracking-[-0.01em]">
+            {step.title}
+          </p>
         </div>
         <p className="mt-2 max-w-[42ch] font-kr whitespace-pre-line text-[clamp(13px,1.2vw,15px)] leading-[1.65] text-ink-2 lg:max-w-none">
           {step.kr}
@@ -182,7 +178,7 @@ function ProtocolCard({
       <button
         type="button"
         data-cursor="view"
-        aria-label={`${step.en} 이미지 크게 보기`}
+        aria-label={`${step.title} 이미지 크게 보기`}
         className="flex min-h-[140px] min-w-0 items-center justify-center border-hairline bg-black/40 p-3 max-lg:max-h-[28vh] lg:h-full lg:border-l lg:p-4"
         onClick={handleOpen}
       >

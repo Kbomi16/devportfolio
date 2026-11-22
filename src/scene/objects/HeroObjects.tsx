@@ -66,7 +66,6 @@ function StationMark({ station }: { station: TunnelStation }) {
   if (station.slug === 'sites') return station.variant === 0 ? <SitesWindow /> : <SitesStack />
   if (station.slug === 'alleo') return <AlleoSearch />
   if (station.slug === 'money') return station.variant === 0 ? <MoneyWallet /> : <MoneyBars />
-  if (station.slug === 'useme') return station.variant === 0 ? <UsemeCard /> : <UsemePack />
   return null
 }
 
@@ -174,32 +173,6 @@ function MoneyBars() {
           <GlossyMaterial tone={bar.tone} />
         </RoundedBox>
       ))}
-    </group>
-  )
-}
-
-function UsemeCard() {
-  return (
-    <group>
-      <RoundedBox args={[0.86, 1.12, 0.08]} radius={0.08} smoothness={3} position={[-0.08, 0.06, -0.06]} rotation={[0.08, -0.18, -0.06]}>
-        <GlossyMaterial tone="mid" />
-      </RoundedBox>
-      <RoundedBox args={[0.86, 1.12, 0.08]} radius={0.08} smoothness={3} position={[0.1, -0.04, 0.06]}>
-        <GlossyMaterial tone="neon" />
-      </RoundedBox>
-    </group>
-  )
-}
-
-function UsemePack() {
-  return (
-    <group>
-      <RoundedBox args={[1.02, 0.7, 0.08]} radius={0.07} smoothness={3} position={[0, 0.16, -0.08]} rotation={[0.1, 0.16, 0]}>
-        <GlossyMaterial tone="mid" />
-      </RoundedBox>
-      <RoundedBox args={[1.02, 0.7, 0.08]} radius={0.07} smoothness={3} position={[0.05, -0.14, 0.06]}>
-        <GlossyMaterial tone="neon" />
-      </RoundedBox>
     </group>
   )
 }

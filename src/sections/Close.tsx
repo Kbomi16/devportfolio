@@ -90,7 +90,7 @@ export default function Close() {
 
       <Display
         data-close-mark
-        className="pointer-events-none absolute right-0 bottom-0 left-0 translate-y-[18%] text-center text-[clamp(130px,24vw,380px)] leading-[0.78]"
+        className="pointer-events-none absolute right-0 bottom-0 left-0 translate-y-[18%] text-center whitespace-nowrap text-[clamp(80px,24vw,380px)] max-md:text-[21vw] leading-[0.78]"
         aria-hidden
       >
         BOMI.
